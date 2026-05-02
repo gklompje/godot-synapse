@@ -1,0 +1,281 @@
+[gd_scene format=3 uid="uid://cxsgbsvlvew2r"]
+
+[ext_resource type="PackedScene" uid="uid://bmb8j5bbqshbs" path="res://addons/synapse/demos/nested_state_machines/BatteryScene.tscn" id="1_5bc54"]
+[ext_resource type="Texture2D" uid="uid://r5qecc0qe5qi" path="res://addons/synapse/demos/nested_state_machines/sun.png" id="1_8vx1a"]
+[ext_resource type="PackedScene" uid="uid://btmmy1tur8ux8" path="res://addons/synapse/demos/nested_state_machines/LightBulbScene.tscn" id="1_72xk6"]
+[ext_resource type="Script" uid="uid://c3le83e7p0k7s" path="res://addons/synapse/demos/nested_state_machines/nested_state_machines.gd" id="1_h8lsl"]
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_n4542"]
+[ext_resource type="Texture2D" uid="uid://dsm51uuwoaml7" path="res://addons/synapse/demos/nested_state_machines/moon.png" id="2_v3m3h"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_5bc54"]
+[ext_resource type="PackedScene" uid="uid://dcs4atcbjv3x7" path="res://addons/synapse/demos/nested_state_machines/SolarPanelScene.tscn" id="3_v3m3h"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="4_gy4sx"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="5_8vx1a"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_v3m3h"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="9_2lvac"]
+[ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="9_bjwxm"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="12_hyicg"]
+[ext_resource type="Script" uid="uid://4mjgqrfhqtv8" path="res://addons/synapse/scripts/resource_types/combiner_state_data.gd" id="12_sk23p"]
+[ext_resource type="Script" uid="uid://ckx7gqjt5g55g" path="res://addons/synapse/scripts/resource_types/state_machine_state_data.gd" id="13_h8lsl"]
+[ext_resource type="Script" uid="uid://0i75vrgqpra2" path="res://addons/synapse/scripts/behaviors/float_parameter_adder.gd" id="14_hyicg"]
+[ext_resource type="Script" uid="uid://4ol6pmlve7sy" path="res://addons/synapse/demos/nested_state_machines/day_night_cycle.gd" id="15_a6502"]
+
+[sub_resource type="Resource" id="Resource_fkxrm"]
+script = ExtResource("3_5bc54")
+owner_state_name = &"Combiner"
+managed = true
+node_path = NodePath("DayNightCycle")
+parameters = Dictionary[StringName, StringName]({
+&"hour": &"hour",
+&"hours_per_second": &"hours_per_second"
+})
+name = &"DayNightCycle"
+graph_pos = Vector2(-480, -320)
+
+[sub_resource type="Resource" id="Resource_qyur1"]
+script = ExtResource("3_5bc54")
+owner_state_name = &"Combiner"
+managed = true
+node_path = NodePath("FloatParameterAdder")
+parameters = Dictionary[StringName, StringName]({
+&"a": &"solar_charge_current",
+&"b": &"current_draw",
+&"result": &"battery_current"
+})
+name = &"FloatParameterAdder"
+graph_pos = Vector2(600, -40)
+
+[sub_resource type="Resource" id="Resource_3amfi"]
+script = ExtResource("9_bjwxm")
+value = 1.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_xuxeq"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_3amfi")
+exposed = true
+name = &"battery_charge_rate"
+graph_pos = Vector2(-760, 820)
+
+[sub_resource type="Resource" id="Resource_e0k70"]
+script = ExtResource("9_bjwxm")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_2awnj"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_e0k70")
+name = &"battery_current"
+graph_pos = Vector2(880, 20)
+
+[sub_resource type="Resource" id="Resource_11ixi"]
+script = ExtResource("9_bjwxm")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_unucd"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_11ixi")
+exposed = true
+name = &"battery_off_threshold"
+graph_pos = Vector2(-760, 400)
+
+[sub_resource type="Resource" id="Resource_18t2c"]
+script = ExtResource("9_bjwxm")
+value = 20.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_jt0je"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_18t2c")
+exposed = true
+name = &"battery_on_threshold"
+graph_pos = Vector2(-760, 540)
+
+[sub_resource type="Resource" id="Resource_ovehc"]
+script = ExtResource("9_bjwxm")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_cy33m"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_ovehc")
+name = &"charge"
+graph_pos = Vector2(1360, 100)
+
+[sub_resource type="Resource" id="Resource_8s4qo"]
+script = ExtResource("9_bjwxm")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_a6502"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_8s4qo")
+name = &"current_draw"
+graph_pos = Vector2(340, 260)
+
+[sub_resource type="Resource" id="Resource_ywkjj"]
+script = ExtResource("9_bjwxm")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_l841n"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_ywkjj")
+name = &"hour"
+graph_pos = Vector2(-200, -280)
+
+[sub_resource type="Resource" id="Resource_ttclw"]
+script = ExtResource("9_bjwxm")
+value = 2.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_jpuy8"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_ttclw")
+exposed = true
+name = &"hours_per_second"
+graph_pos = Vector2(-760, 120)
+
+[sub_resource type="Resource" id="Resource_3l6bb"]
+script = ExtResource("9_bjwxm")
+value = 20.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_baua7"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_3l6bb")
+exposed = true
+name = &"light_bulb_current_rating"
+graph_pos = Vector2(-760, 680)
+
+[sub_resource type="Resource" id="Resource_87tre"]
+script = ExtResource("9_bjwxm")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_b64io"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_87tre")
+name = &"solar_charge_current"
+graph_pos = Vector2(340, -40)
+
+[sub_resource type="Resource" id="Resource_sohe7"]
+script = ExtResource("9_bjwxm")
+value = 60.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_3ar70"]
+script = ExtResource("4_gy4sx")
+parameter = SubResource("Resource_sohe7")
+exposed = true
+name = &"solar_panel_max_current"
+graph_pos = Vector2(-760, 260)
+
+[sub_resource type="Resource" id="Resource_h6i37"]
+script = ExtResource("13_h8lsl")
+state_machine_path = NodePath("../BatteryScene/BatteryStateMachine")
+linked_parameter_names = Dictionary[StringName, StringName]({
+&"charge": &"charge",
+&"charge_rate": &"battery_charge_rate",
+&"current": &"battery_current"
+})
+parent_name = &"Combiner"
+name = &"BatteryStateMachine"
+graph_pos = Vector2(1100, 20)
+
+[sub_resource type="Resource" id="Resource_hc3dc"]
+script = ExtResource("12_sk23p")
+child_names = Array[StringName]([&"SolarPanelStateMachine", &"BatteryStateMachine", &"LightBulbStateMachine"])
+behavior_names = Array[StringName]([&"DayNightCycle", &"FloatParameterAdder"])
+name = &"Combiner"
+graph_pos = Vector2(-420, -40)
+
+[sub_resource type="Resource" id="Resource_66s4f"]
+script = ExtResource("13_h8lsl")
+state_machine_path = NodePath("../LightBulbScene/LightBulbStateMachine")
+linked_parameter_names = Dictionary[StringName, StringName]({
+&"battery_charge": &"charge",
+&"battery_off_threshold": &"battery_off_threshold",
+&"battery_on_threshold": &"battery_on_threshold",
+&"current_draw": &"current_draw",
+&"current_rating": &"light_bulb_current_rating"
+})
+parent_name = &"Combiner"
+name = &"LightBulbStateMachine"
+graph_pos = Vector2(40, 180)
+
+[sub_resource type="Resource" id="Resource_4uisg"]
+script = ExtResource("13_h8lsl")
+state_machine_path = NodePath("../SolarPanelScene/SolarPanelStateMachine")
+linked_parameter_names = Dictionary[StringName, StringName]({
+&"current": &"solar_charge_current",
+&"hour": &"hour",
+&"max_current": &"solar_panel_max_current"
+})
+parent_name = &"Combiner"
+name = &"SolarPanelStateMachine"
+graph_pos = Vector2(40, -200)
+
+[sub_resource type="Resource" id="Resource_xfdux"]
+script = ExtResource("5_8vx1a")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"Combiner"
+root_pos = Vector2(-720, -40)
+editor_scroll_offset = Vector2(-834.08185, -150.69492)
+editor_zoom = 0.37455305
+states = Dictionary[StringName, ExtResource("6_v3m3h")]({
+&"BatteryStateMachine": SubResource("Resource_h6i37"),
+&"Combiner": SubResource("Resource_hc3dc"),
+&"LightBulbStateMachine": SubResource("Resource_66s4f"),
+&"SolarPanelStateMachine": SubResource("Resource_4uisg")
+})
+behaviors = Dictionary[StringName, ExtResource("3_5bc54")]({
+&"DayNightCycle": SubResource("Resource_fkxrm"),
+&"FloatParameterAdder": SubResource("Resource_qyur1")
+})
+parameters = Dictionary[StringName, ExtResource("4_gy4sx")]({
+&"battery_charge_rate": SubResource("Resource_xuxeq"),
+&"battery_current": SubResource("Resource_2awnj"),
+&"battery_off_threshold": SubResource("Resource_unucd"),
+&"battery_on_threshold": SubResource("Resource_jt0je"),
+&"charge": SubResource("Resource_cy33m"),
+&"current_draw": SubResource("Resource_a6502"),
+&"hour": SubResource("Resource_l841n"),
+&"hours_per_second": SubResource("Resource_jpuy8"),
+&"light_bulb_current_rating": SubResource("Resource_baua7"),
+&"solar_charge_current": SubResource("Resource_b64io"),
+&"solar_panel_max_current": SubResource("Resource_3ar70")
+})
+
+[node name="NestedStateMachines" type="Node2D" unique_id=1473618192]
+script = ExtResource("1_h8lsl")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=464068579]
+
+[node name="SunSprite2D" type="Sprite2D" parent="." unique_id=861707950]
+texture = ExtResource("1_8vx1a")
+
+[node name="MoonSprite2D" type="Sprite2D" parent="." unique_id=592414033]
+texture = ExtResource("2_v3m3h")
+
+[node name="SolarPanelScene" parent="." unique_id=1172254411 instance=ExtResource("3_v3m3h")]
+position = Vector2(0, -60)
+
+[node name="BatteryScene" parent="." unique_id=304045133 instance=ExtResource("1_5bc54")]
+
+[node name="LightBulbScene" parent="." unique_id=106150439 instance=ExtResource("1_72xk6")]
+position = Vector2(0, 60)
+
+[node name="StateMachine" type="Node" parent="." unique_id=1682528939]
+unique_name_in_owner = true
+script = ExtResource("2_n4542")
+data = SubResource("Resource_xfdux")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="FloatParameterAdder" type="Node" parent="StateMachine" unique_id=1047839648]
+process_mode = 4
+script = ExtResource("14_hyicg")
+
+[node name="DayNightCycle" type="Node" parent="StateMachine" unique_id=1452806310 node_paths=PackedStringArray("sun_sprite", "moon_sprite", "camera")]
+process_mode = 4
+script = ExtResource("15_a6502")
+sun_sprite = NodePath("../../SunSprite2D")
+moon_sprite = NodePath("../../MoonSprite2D")
+camera = NodePath("../../Camera2D")
+
+[connection signal="created" from="StateMachine" to="." method="_on_state_machine_created"]

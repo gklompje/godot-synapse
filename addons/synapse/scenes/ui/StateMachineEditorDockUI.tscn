@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://casi77dn32ds4"]
+
+[ext_resource type="Script" uid="uid://cc3nx6pew3dmp" path="res://addons/state_machine/scripts/ui/state_machine_editor_dock_ui.gd" id="1_uysd1"]
+[ext_resource type="PackedScene" uid="uid://cbb0wtnq42t8" path="res://addons/state_machine/scenes/ui/StateMachineEditorResourceManagerCachingProgressUI.tscn" id="2_pf1ei"]
+[ext_resource type="PackedScene" uid="uid://dhwgbg08uh3wr" path="res://addons/state_machine/scenes/ui/StateMachineEditor.tscn" id="2_ypxfj"]
+
+[node name="StateMachineEditorDockUI" type="PanelContainer" unique_id=2114122778]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uysd1")
+
+[node name="StateMachineEditorResourceManagerCachingProgress" parent="." unique_id=1255400676 instance=ExtResource("2_pf1ei")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="StateMachineEditor" parent="." unique_id=1215406530 instance=ExtResource("2_ypxfj")]
+unique_name_in_owner = true
+layout_mode = 2

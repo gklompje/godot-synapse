@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://dcs4atcbjv3x7"]
+
+[ext_resource type="Texture2D" uid="uid://cc7qoio481lmc" path="res://addons/synapse/demos/nested_state_machines/solar_panel.png" id="1_1cqvi"]
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_ux6mv"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_22fby"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="4_sohe7"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="5_1rl2p"]
+[ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="5_sohe7"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_spiv0"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_1rl2p"]
+[ext_resource type="Script" uid="uid://cv7tnsdm31txa" path="res://addons/synapse/demos/nested_state_machines/update_solar_panel_current_from_hour.gd" id="8_1rl2p"]
+
+[sub_resource type="Resource" id="Resource_spiv0"]
+script = ExtResource("3_22fby")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("UpdateSolarPanelCurrentFromHour")
+parameters = Dictionary[StringName, StringName]({
+&"current": &"current",
+&"hour": &"hour",
+&"max_current": &"max_current"
+})
+name = &"UpdateSolarPanelCurrentFromHour"
+graph_pos = Vector2(577.25, 111.880005)
+
+[sub_resource type="Resource" id="Resource_87tre"]
+script = ExtResource("5_sohe7")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_2jxmw"]
+script = ExtResource("4_sohe7")
+parameter = SubResource("Resource_87tre")
+exposed = true
+name = &"current"
+graph_pos = Vector2(1021.6407, 245.15788)
+
+[sub_resource type="Resource" id="Resource_ywkjj"]
+script = ExtResource("5_sohe7")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_c6h28"]
+script = ExtResource("4_sohe7")
+parameter = SubResource("Resource_ywkjj")
+exposed = true
+name = &"hour"
+graph_pos = Vector2(20, 140)
+
+[sub_resource type="Resource" id="Resource_sohe7"]
+script = ExtResource("5_sohe7")
+value = 60.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_1rl2p"]
+script = ExtResource("4_sohe7")
+parameter = SubResource("Resource_sohe7")
+exposed = true
+name = &"max_current"
+graph_pos = Vector2(20, 280)
+
+[sub_resource type="Resource" id="Resource_tywrd"]
+script = ExtResource("6_spiv0")
+behavior_names = Array[StringName]([&"UpdateSolarPanelCurrentFromHour"])
+name = &"State"
+graph_pos = Vector2(337, 23)
+
+[sub_resource type="Resource" id="Resource_ux6mv"]
+script = ExtResource("5_1rl2p")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"State"
+editor_scroll_offset = Vector2(-545.66614, -32.476112)
+editor_zoom = 0.68301314
+states = Dictionary[StringName, ExtResource("6_spiv0")]({
+&"State": SubResource("Resource_tywrd")
+})
+behaviors = Dictionary[StringName, ExtResource("3_22fby")]({
+&"UpdateSolarPanelCurrentFromHour": SubResource("Resource_spiv0")
+})
+parameters = Dictionary[StringName, ExtResource("4_sohe7")]({
+&"current": SubResource("Resource_2jxmw"),
+&"hour": SubResource("Resource_c6h28"),
+&"max_current": SubResource("Resource_1rl2p")
+})
+
+[node name="SolarPanelScene" type="Node2D" unique_id=1172254411]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=938411552]
+texture = ExtResource("1_1cqvi")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=531427866]
+custom_minimum_size = Vector2(100, 0)
+offset_left = -50.0
+offset_top = 16.0
+offset_right = 50.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 8
+
+[node name="SolarPanelStateMachine" type="Node" parent="." unique_id=430442173]
+script = ExtResource("2_ux6mv")
+data = SubResource("Resource_ux6mv")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="UpdateSolarPanelCurrentFromHour" type="Node" parent="SolarPanelStateMachine" unique_id=860947494 node_paths=PackedStringArray("progress_bar")]
+process_mode = 4
+script = ExtResource("8_1rl2p")
+progress_bar = NodePath("../../ProgressBar")

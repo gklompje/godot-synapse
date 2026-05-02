@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://chkum7ryr2c1w"]
+
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_t6cd8"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="3_2gea3"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_num2m"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="5_71dgq"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="5_yt6dj"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="6_x4io6"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="7_ihqap"]
+
+[sub_resource type="Resource" id="Resource_om8y6"]
+script = ExtResource("6_x4io6")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+editor_scroll_offset = Vector2(-724.99994, -126)
+
+[node name="StateMachineTest" type="Node" unique_id=690485277]
+
+[node name="StateMachine" type="Node" parent="." unique_id=608209158]
+script = ExtResource("2_t6cd8")
+data = SubResource("Resource_om8y6")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"

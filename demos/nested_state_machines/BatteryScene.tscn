@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://bmb8j5bbqshbs"]
+
+[ext_resource type="Texture2D" uid="uid://dohh7fh8kelf0" path="res://addons/synapse/demos/nested_state_machines/battery.png" id="1_42qc1"]
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_h3x3b"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_e0k70"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="4_toles"]
+[ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="5_e0k70"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="5_o4fxg"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_ovehc"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_toles"]
+[ext_resource type="Script" uid="uid://ta352ki0ws6" path="res://addons/synapse/demos/nested_state_machines/charge_or_drain_battery.gd" id="8_toles"]
+
+[sub_resource type="Resource" id="Resource_o4fxg"]
+script = ExtResource("3_e0k70")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("ChargeOrDrainBattery")
+parameters = Dictionary[StringName, StringName]({
+&"charge": &"charge",
+&"charge_rate": &"charge_rate",
+&"current": &"current"
+})
+name = &"ChargeOrDrainBattery"
+graph_pos = Vector2(480, 0)
+
+[sub_resource type="Resource" id="Resource_ovehc"]
+script = ExtResource("5_e0k70")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_tdeyd"]
+script = ExtResource("4_toles")
+parameter = SubResource("Resource_ovehc")
+exposed = true
+name = &"charge"
+graph_pos = Vector2(860, 60)
+
+[sub_resource type="Resource" id="Resource_3amfi"]
+script = ExtResource("5_e0k70")
+value = 1.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_f7xjy"]
+script = ExtResource("4_toles")
+parameter = SubResource("Resource_3amfi")
+exposed = true
+name = &"charge_rate"
+graph_pos = Vector2(0, 280)
+
+[sub_resource type="Resource" id="Resource_e0k70"]
+script = ExtResource("5_e0k70")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_toles"]
+script = ExtResource("4_toles")
+parameter = SubResource("Resource_e0k70")
+exposed = true
+name = &"current"
+graph_pos = Vector2(0, 140)
+
+[sub_resource type="Resource" id="Resource_wnmxf"]
+script = ExtResource("6_ovehc")
+behavior_names = Array[StringName]([&"ChargeOrDrainBattery"])
+name = &"State"
+graph_pos = Vector2(280, 0)
+
+[sub_resource type="Resource" id="Resource_xnr5k"]
+script = ExtResource("5_o4fxg")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"State"
+editor_scroll_offset = Vector2(-505.87585, -46.391403)
+editor_zoom = 0.7513146
+states = Dictionary[StringName, ExtResource("6_ovehc")]({
+&"State": SubResource("Resource_wnmxf")
+})
+behaviors = Dictionary[StringName, ExtResource("3_e0k70")]({
+&"ChargeOrDrainBattery": SubResource("Resource_o4fxg")
+})
+parameters = Dictionary[StringName, ExtResource("4_toles")]({
+&"charge": SubResource("Resource_tdeyd"),
+&"charge_rate": SubResource("Resource_f7xjy"),
+&"current": SubResource("Resource_toles")
+})
+
+[node name="BatteryScene" type="Node2D" unique_id=304045133]
+
+[node name="Battery" type="Sprite2D" parent="." unique_id=208623805]
+texture = ExtResource("1_42qc1")
+hframes = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1182532065]
+custom_minimum_size = Vector2(100, 0)
+offset_left = -50.0
+offset_top = 16.0
+offset_right = 50.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 8
+
+[node name="BatteryStateMachine" type="Node" parent="." unique_id=1217015289]
+script = ExtResource("2_h3x3b")
+data = SubResource("Resource_xnr5k")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="ChargeOrDrainBattery" type="Node" parent="BatteryStateMachine" unique_id=860207676 node_paths=PackedStringArray("sprite", "progress_bar")]
+process_mode = 4
+script = ExtResource("8_toles")
+sprite = NodePath("../../Battery")
+progress_bar = NodePath("../../ProgressBar")

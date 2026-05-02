@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bfeeedg0go824"]
+
+[ext_resource type="Script" uid="uid://bqsx3jy5dfknh" path="res://addons/synapse/scripts/ui/behavior_graph_node.gd" id="1_uu8ef"]
+
+[node name="BehaviorGraphNode" type="GraphNode" unique_id=787531959]
+offset_right = 143.0
+offset_bottom = 144.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_uu8ef")

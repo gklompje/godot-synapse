@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://g1g77xde2k0b"]
+
+[ext_resource type="Script" uid="uid://cob7ej2qjpmw6" path="res://addons/state_machine/scripts/ui/signal_bridge_argument.gd" id="1_2st4y"]
+
+[node name="SignalBridgeArgument" type="HBoxContainer" unique_id=981479907]
+offset_right = 41.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+script = ExtResource("1_2st4y")
+
+[node name="IconTextureRect" type="TextureRect" parent="." unique_id=1819182667]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+stretch_mode = 3
+
+[node name="SignalSourceArgumentOptionButton" type="OptionButton" parent="." unique_id=1271942992]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="NameLabel" type="Label" parent="." unique_id=100815025]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+horizontal_alignment = 2
+
+[connection signal="item_selected" from="SignalSourceArgumentOptionButton" to="." method="_on_signal_source_argument_option_button_item_selected"]

@@ -1,0 +1,268 @@
+[gd_scene format=3 uid="uid://btmmy1tur8ux8"]
+
+[ext_resource type="Texture2D" uid="uid://csfrawuwaclyw" path="res://addons/synapse/demos/nested_state_machines/light_bulb.png" id="1_12ggu"]
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="1_hr3en"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="2_fjea5"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="3_wg8eq"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="4_12ggu"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="5_ng58k"]
+[ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="6_ng58k"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_8s4qo"]
+[ext_resource type="Script" uid="uid://s72pld2e7rq1" path="res://addons/synapse/demos/nested_state_machines/toggle_light_bulb.gd" id="7_12ggu"]
+[ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="8_81dkp"]
+[ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="8_eawnn"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="8_meqst"]
+[ext_resource type="Script" uid="uid://dk1q7ivmiucmc" path="res://addons/synapse/scripts/resource_types/selector_state_data.gd" id="8_ng58k"]
+[ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="9_7x864"]
+[ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="9_libwo"]
+[ext_resource type="Script" uid="uid://45q6wxkgd845" path="res://addons/synapse/demos/nested_state_machines/check_battery_charge.gd" id="10_q8l4a"]
+
+[sub_resource type="Resource" id="Resource_p3mx0"]
+script = ExtResource("2_fjea5")
+owner_state_name = &"Selector"
+managed = true
+node_path = NodePath("CheckBatteryCharge")
+parameters = Dictionary[StringName, StringName]({
+&"battery_charge": &"battery_charge",
+&"battery_off_threshold": &"battery_off_threshold",
+&"battery_on_threshold": &"battery_on_threshold"
+})
+name = &"CheckBatteryCharge"
+graph_pos = Vector2(240, 180)
+
+[sub_resource type="Resource" id="Resource_ng58k"]
+script = ExtResource("2_fjea5")
+owner_state_name = &"Off"
+managed = true
+node_path = NodePath("ToggleLightBulb")
+parameters = Dictionary[StringName, StringName]({
+&"current": &"current_draw",
+&"current_rating": &"current_rating"
+})
+name = &"ToggleLightBulbOff"
+graph_pos = Vector2(420, -80)
+
+[sub_resource type="Resource" id="Resource_q4gsx"]
+script = ExtResource("2_fjea5")
+owner_state_name = &"On"
+managed = true
+node_path = NodePath("ToggleLightBulb2")
+parameters = Dictionary[StringName, StringName]({
+&"current": &"current_draw",
+&"current_rating": &"current_rating"
+})
+name = &"ToggleLightBulbOn"
+graph_pos = Vector2(420, -300)
+
+[sub_resource type="Resource" id="Resource_tppb8"]
+script = ExtResource("6_ng58k")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_58c5d"]
+script = ExtResource("3_wg8eq")
+parameter = SubResource("Resource_tppb8")
+exposed = true
+name = &"battery_charge"
+graph_pos = Vector2(-340, 140)
+
+[sub_resource type="Resource" id="Resource_11ixi"]
+script = ExtResource("6_ng58k")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_cd7qa"]
+script = ExtResource("3_wg8eq")
+parameter = SubResource("Resource_11ixi")
+exposed = true
+name = &"battery_off_threshold"
+graph_pos = Vector2(-340, 420)
+
+[sub_resource type="Resource" id="Resource_18t2c"]
+script = ExtResource("6_ng58k")
+value = 20.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_s5wsm"]
+script = ExtResource("3_wg8eq")
+parameter = SubResource("Resource_18t2c")
+exposed = true
+name = &"battery_on_threshold"
+graph_pos = Vector2(-340, 280)
+
+[sub_resource type="Resource" id="Resource_8s4qo"]
+script = ExtResource("6_ng58k")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_vu14m"]
+script = ExtResource("3_wg8eq")
+parameter = SubResource("Resource_8s4qo")
+exposed = true
+name = &"current_draw"
+graph_pos = Vector2(740, -140)
+
+[sub_resource type="Resource" id="Resource_3l6bb"]
+script = ExtResource("6_ng58k")
+value = 20.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_j74vc"]
+script = ExtResource("3_wg8eq")
+parameter = SubResource("Resource_3l6bb")
+exposed = true
+name = &"current_rating"
+graph_pos = Vector2(-340, 0)
+
+[sub_resource type="Resource" id="Resource_qmd8g"]
+script = ExtResource("8_81dkp")
+state_name = &"Selector"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_hr3en"]
+script = ExtResource("5_ng58k")
+parent_name = &"Selector"
+behavior_names = Array[StringName]([&"ToggleLightBulbOff"])
+name = &"Off"
+graph_pos = Vector2(220, -80)
+
+[sub_resource type="Resource" id="Resource_wdn7j"]
+script = ExtResource("5_ng58k")
+parent_name = &"Selector"
+behavior_names = Array[StringName]([&"ToggleLightBulbOn"])
+name = &"On"
+graph_pos = Vector2(220, -300)
+
+[sub_resource type="Resource" id="Resource_meqst"]
+script = ExtResource("8_ng58k")
+transitions = Array[Array]([[SubResource("Resource_hr3en"), SubResource("Resource_wdn7j")], [SubResource("Resource_wdn7j"), SubResource("Resource_hr3en")]])
+child_names = Array[StringName]([&"On", &"Off"])
+behavior_names = Array[StringName]([&"CheckBatteryCharge"])
+name = &"Selector"
+graph_pos = Vector2(-60, -200)
+
+[sub_resource type="Resource" id="Resource_vadnl"]
+script = ExtResource("9_7x864")
+target_entity = SubResource("Resource_meqst")
+callable_id = &"select"
+callable_data = SubResource("Resource_qmd8g")
+
+[sub_resource type="Resource" id="Resource_81dkp"]
+script = ExtResource("9_libwo")
+node_path = NodePath("CheckBatteryCharge")
+signal_name = &"switch_off"
+
+[sub_resource type="Resource" id="Resource_7x864"]
+script = ExtResource("8_eawnn")
+source_entity = SubResource("Resource_p3mx0")
+signal_id = &"switch_off"
+signal_data = SubResource("Resource_81dkp")
+
+[sub_resource type="Resource" id="Resource_afx4n"]
+script = ExtResource("8_meqst")
+entity = SubResource("Resource_hr3en")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_s2ldj"]
+script = ExtResource("7_8s4qo")
+callable_target_data = SubResource("Resource_vadnl")
+property_references = Dictionary[StringName, ExtResource("8_meqst")]({
+&"state_name": SubResource("Resource_afx4n")
+})
+name = &"switch_off__select"
+graph_pos = Vector2(560, 340)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_7x864")]
+})
+
+[sub_resource type="Resource" id="Resource_twbse"]
+script = ExtResource("8_81dkp")
+state_name = &"Selector"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_w7yw2"]
+script = ExtResource("9_7x864")
+target_entity = SubResource("Resource_meqst")
+callable_id = &"select"
+callable_data = SubResource("Resource_twbse")
+
+[sub_resource type="Resource" id="Resource_r1qvx"]
+script = ExtResource("9_libwo")
+node_path = NodePath("CheckBatteryCharge")
+signal_name = &"switch_on"
+
+[sub_resource type="Resource" id="Resource_pfcfd"]
+script = ExtResource("8_eawnn")
+source_entity = SubResource("Resource_p3mx0")
+signal_id = &"switch_on"
+signal_data = SubResource("Resource_r1qvx")
+
+[sub_resource type="Resource" id="Resource_a2xxk"]
+script = ExtResource("8_meqst")
+entity = SubResource("Resource_wdn7j")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_05112"]
+script = ExtResource("7_8s4qo")
+callable_target_data = SubResource("Resource_w7yw2")
+property_references = Dictionary[StringName, ExtResource("8_meqst")]({
+&"state_name": SubResource("Resource_a2xxk")
+})
+name = &"switch_on__select"
+graph_pos = Vector2(560, 180)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_pfcfd")]
+})
+
+[sub_resource type="Resource" id="Resource_q8l4a"]
+script = ExtResource("4_12ggu")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"Selector"
+root_pos = Vector2(-360, -120)
+editor_scroll_offset = Vector2(-429.4584, -116.5085)
+editor_zoom = 0.54604346
+states = Dictionary[StringName, ExtResource("5_ng58k")]({
+&"Off": SubResource("Resource_hr3en"),
+&"On": SubResource("Resource_wdn7j"),
+&"Selector": SubResource("Resource_meqst")
+})
+behaviors = Dictionary[StringName, ExtResource("2_fjea5")]({
+&"CheckBatteryCharge": SubResource("Resource_p3mx0"),
+&"ToggleLightBulbOff": SubResource("Resource_ng58k"),
+&"ToggleLightBulbOn": SubResource("Resource_q4gsx")
+})
+parameters = Dictionary[StringName, ExtResource("3_wg8eq")]({
+&"battery_charge": SubResource("Resource_58c5d"),
+&"battery_off_threshold": SubResource("Resource_cd7qa"),
+&"battery_on_threshold": SubResource("Resource_s5wsm"),
+&"current_draw": SubResource("Resource_vu14m"),
+&"current_rating": SubResource("Resource_j74vc")
+})
+signal_bridges = Dictionary[StringName, ExtResource("7_8s4qo")]({
+&"switch_off__select": SubResource("Resource_s2ldj"),
+&"switch_on__select": SubResource("Resource_05112")
+})
+
+[node name="LightBulbScene" type="Node2D" unique_id=106150439]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=923770700]
+texture = ExtResource("1_12ggu")
+hframes = 2
+
+[node name="LightBulbStateMachine" type="Node" parent="." unique_id=447241329]
+script = ExtResource("1_hr3en")
+data = SubResource("Resource_q8l4a")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="ToggleLightBulb" type="Node" parent="LightBulbStateMachine" unique_id=270215557 node_paths=PackedStringArray("sprite")]
+process_mode = 4
+script = ExtResource("7_12ggu")
+sprite = NodePath("../../Sprite2D")
+
+[node name="ToggleLightBulb2" type="Node" parent="LightBulbStateMachine" unique_id=573050337 node_paths=PackedStringArray("sprite")]
+process_mode = 4
+script = ExtResource("7_12ggu")
+sprite = NodePath("../../Sprite2D")
+on = true
+
+[node name="CheckBatteryCharge" type="Node" parent="LightBulbStateMachine" unique_id=1745774371]
+process_mode = 4
+script = ExtResource("10_q8l4a")

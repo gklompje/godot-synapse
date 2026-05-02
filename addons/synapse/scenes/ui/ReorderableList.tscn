@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://mdbfb22n2xv5"]
+
+[ext_resource type="Script" uid="uid://bxq3y468scggf" path="res://addons/state_machine/scripts/ui/reorderable_list.gd" id="1_rcgc0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_72bf5"]
+
+[node name="ReorderableList" type="PanelContainer" unique_id=829133125]
+offset_right = 122.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_72bf5")
+script = ExtResource("1_rcgc0")
+
+[node name="ItemContainer" type="VBoxContainer" parent="." unique_id=513315353]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0

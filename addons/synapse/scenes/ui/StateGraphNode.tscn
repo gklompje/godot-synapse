@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cn040cq6rtp2"]
+
+[ext_resource type="Script" uid="uid://d4j3rabfbegct" path="res://addons/state_machine/scripts/ui/state_graph_node.gd" id="1_cy38u"]
+
+[node name="StateGraphNode" type="GraphNode" unique_id=1811238742]
+offset_right = 120.0
+offset_bottom = 153.0
+script = ExtResource("1_cy38u")

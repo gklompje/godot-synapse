@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ufnlop1gmi4n"]
+
+[ext_resource type="Script" uid="uid://boolngqkm4dwb" path="res://demos/behaviors_in_scenes/rotating_icon_widget.gd" id="1_whkr6"]
+[ext_resource type="Texture2D" uid="uid://bg8s6lnc0nu5x" path="res://demos/assets/smiley.svg" id="2_o237v"]
+
+[node name="RotatingIconWidget" type="MarginContainer" unique_id=300225433]
+custom_minimum_size = Vector2(128, 0)
+offset_right = 44.0
+offset_bottom = 156.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("1_whkr6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1869112297]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=2066581076]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+
+[node name="RotationControl" type="Control" parent="VBoxContainer/Control" unique_id=1413106640]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 96.0
+offset_top = 96.0
+offset_right = 96.0
+offset_bottom = 96.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="IconTextureRect" type="TextureRect" parent="VBoxContainer/Control/RotationControl" unique_id=893803077]
+layout_mode = 0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("2_o237v")
+
+[node name="RotatingCheckButton" type="CheckButton" parent="VBoxContainer" unique_id=1886557533]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1525865926]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[connection signal="toggled" from="VBoxContainer/RotatingCheckButton" to="." method="_on_rotating_check_button_toggled"]

@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://7cffmpxjvld2"]
+
+[ext_resource type="Texture2D" uid="uid://bg8s6lnc0nu5x" path="res://demos/assets/smiley.svg" id="1_4o4fc"]
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="3_ymhyb"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="4_6g31c"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="4_ln8ar"]
+[ext_resource type="Script" uid="uid://bced1xlqy7we2" path="res://demos/node_paths/node_path_demo_behavior.gd" id="5_ymhyb"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_4o4fc"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="8_0ddfh"]
+[ext_resource type="Script" uid="uid://dwlr5psmr1a7l" path="res://addons/synapse/scripts/parameters/sprite2d_node_path_parameter.gd" id="9_qiv1c"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="9_rsrak"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="10_borb3"]
+
+[sub_resource type="Resource" id="Resource_qiv1c"]
+script = ExtResource("4_ln8ar")
+owner_state_name = &"root"
+managed = true
+node_path = NodePath("NodePathDemoBehavior1")
+parameters = Dictionary[StringName, StringName]({
+&"node_path_parameter_icon": &"node_path_parameter"
+})
+name = &"demo_behavior"
+graph_pos = Vector2(500.99002, 163.03)
+
+[sub_resource type="Resource" id="Resource_lbdyk"]
+script = ExtResource("9_qiv1c")
+value = NodePath("../NodePathParameterIcon")
+metadata/_custom_type_script = "uid://dwlr5psmr1a7l"
+
+[sub_resource type="Resource" id="Resource_ay3ra"]
+script = ExtResource("8_0ddfh")
+parameter = SubResource("Resource_lbdyk")
+name = &"node_path_parameter"
+graph_pos = Vector2(175.50002, 327.59003)
+
+[sub_resource type="Resource" id="Resource_w510r"]
+script = ExtResource("10_borb3")
+behavior_names = Array[StringName]([&"demo_behavior"])
+name = &"root"
+graph_pos = Vector2(258.99002, 73.49)
+
+[sub_resource type="Resource" id="Resource_4v4u1"]
+script = ExtResource("9_rsrak")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"root"
+editor_scroll_offset = Vector2(-526.0316, 123.041016)
+editor_zoom = 0.6830132
+states = Dictionary[StringName, ExtResource("10_borb3")]({
+&"root": SubResource("Resource_w510r")
+})
+behaviors = Dictionary[StringName, ExtResource("4_ln8ar")]({
+&"demo_behavior": SubResource("Resource_qiv1c")
+})
+parameters = Dictionary[StringName, ExtResource("8_0ddfh")]({
+&"node_path_parameter": SubResource("Resource_ay3ra")
+})
+metadata/_custom_type_script = "uid://c3pafal6u8bkj"
+
+[node name="NodePathDemo" type="Node2D" unique_id=436932333]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1390048105]
+
+[node name="DirectReferenceIcon" type="Sprite2D" parent="." unique_id=1858063450]
+position = Vector2(-328, -165)
+texture = ExtResource("1_4o4fc")
+
+[node name="OnReadyIcon" type="Sprite2D" parent="." unique_id=1448170909]
+position = Vector2(71, 1)
+texture = ExtResource("1_4o4fc")
+
+[node name="NodePathIcon" type="Sprite2D" parent="." unique_id=601126615]
+position = Vector2(-242, 179)
+texture = ExtResource("1_4o4fc")
+
+[node name="NodePathParameterIcon" type="Sprite2D" parent="." unique_id=2017993241]
+position = Vector2(322, -156)
+texture = ExtResource("1_4o4fc")
+
+[node name="StateMachine" type="Node" parent="." unique_id=72507513]
+script = ExtResource("3_ymhyb")
+data = SubResource("Resource_4v4u1")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="NodePathDemoBehavior1" type="Node" parent="StateMachine" unique_id=337602482 node_paths=PackedStringArray("direct_reference_icon")]
+process_mode = 4
+script = ExtResource("5_ymhyb")
+direct_reference_icon = NodePath("../../DirectReferenceIcon")
+node_path_icon = NodePath("../../NodePathIcon")

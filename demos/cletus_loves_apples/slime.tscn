@@ -1,0 +1,1142 @@
+[gd_scene format=3 uid="uid://cfrd6imdlf8vn"]
+
+[ext_resource type="Script" uid="uid://m8hs4t8f68q3" path="res://addons/synapse/demos/cletus_loves_apples/scripts/slime.gd" id="1_ixu7m"]
+[ext_resource type="Texture2D" uid="uid://bl7rky7wrtxfs" path="res://addons/synapse/demos/cletus_loves_apples/images/slime.png" id="1_ud14p"]
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_r5764"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_0xl54"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="4_f30wk"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="5_vs6h4"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="6_lxrs7"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_reatw"]
+[ext_resource type="Script" uid="uid://dv7cyjk552llw" path="res://addons/synapse/scripts/parameters/vector2_parameter.gd" id="8_g1ujr"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="8_toij3"]
+[ext_resource type="Script" uid="uid://coa6qrxm42al6" path="res://addons/synapse/scripts/resource_types/sequence_state_data.gd" id="9_f30wk"]
+[ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="9_paux8"]
+[ext_resource type="Script" uid="uid://2oylj48m2nr0" path="res://addons/synapse/scripts/parameters/node_path_array_parameter.gd" id="10_kpr8q"]
+[ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="10_toij3"]
+[ext_resource type="Script" uid="uid://dk1q7ivmiucmc" path="res://addons/synapse/scripts/resource_types/selector_state_data.gd" id="10_vs6h4"]
+[ext_resource type="Script" uid="uid://bfhmkumrj4h80" path="res://addons/synapse/scripts/parameters/node_path_parameter.gd" id="11_1rmuc"]
+[ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="11_b12qb"]
+[ext_resource type="Script" uid="uid://bl113q5yc6njm" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/free_on_death.gd" id="11_vs6h4"]
+[ext_resource type="Script" uid="uid://tyfclc7kdpl2" path="res://addons/synapse/scripts/parameters/string_name_parameter.gd" id="12_ypp2l"]
+[ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="14_08jg3"]
+[ext_resource type="Script" uid="uid://b8hq6s343q5pp" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/oneshot_timer.gd" id="14_tx1jp"]
+[ext_resource type="Script" uid="uid://cpk3ksbvxi5h3" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/flicker.gd" id="15_b12qb"]
+[ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="15_cyxff"]
+[ext_resource type="Script" uid="uid://crxoti50cubjm" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/random_roam2d.gd" id="17_ykbt0"]
+[ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="18_g1ujr"]
+[ext_resource type="Script" uid="uid://cvk0qqgpj0yog" path="res://addons/synapse/scripts/resource_types/behavior_signal_relay_connector_callable_data.gd" id="19_lj5q4"]
+[ext_resource type="Script" uid="uid://4shbinuv0hry" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/sync_animation_blend_position2d.gd" id="21_q4t13"]
+[ext_resource type="Script" uid="uid://bcetgxdjma8r5" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/area_body_detector.gd" id="24_f70pw"]
+[ext_resource type="Script" uid="uid://bcnysstvjn2t8" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/target_closest_object_in_group.gd" id="25_xm1w3"]
+[ext_resource type="Script" uid="uid://ci5fy8gtmp0i8" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/face_target_object2d.gd" id="26_1rmuc"]
+[ext_resource type="Script" uid="uid://d27e1gidu6bxv" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/check_player.gd" id="27_f70pw"]
+[ext_resource type="Script" uid="uid://c2ia0pff2brt1" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/animation_tree_traveler.gd" id="30_cyxff"]
+[ext_resource type="Script" uid="uid://82lx3g7ij2ic" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/check_direction.gd" id="33_1dsbc"]
+[ext_resource type="Script" uid="uid://cusvttww36d5p" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/attack_player.gd" id="34_lj5q4"]
+[ext_resource type="Script" uid="uid://ca7lj5nu1bdyw" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/stand_still.gd" id="35_1dsbc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ud14p"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q4t13"]
+radius = 100.0
+
+[sub_resource type="Animation" id="Animation_ud14p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5jnip"]
+resource_name = "attack_left"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.39999998, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 44, 43, 44, 42]
+}
+
+[sub_resource type="Animation" id="Animation_sm1oj"]
+resource_name = "attack_right"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.39999998, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 36, 35, 36, 34]
+}
+
+[sub_resource type="Animation" id="Animation_r5764"]
+resource_name = "die"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53, 54]
+}
+
+[sub_resource type="Animation" id="Animation_b70e5"]
+resource_name = "idle_left"
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_cfvnj"]
+resource_name = "idle_right"
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_pe735"]
+resource_name = "move_left"
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29, 30, 31]
+}
+
+[sub_resource type="Animation" id="Animation_p0lvr"]
+resource_name = "move_right"
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_0xl54"]
+resource_name = "spawn"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.100000024, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [53, 54, 53, 54, 53, 54, 52, 54, 53, 54, 52, 54, 52, 51, 52, 54, 52, 51, 52, 51, 50, 51, 52, 51, 50, 49, 50, 51, 49, 48]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b70e5"]
+_data = {
+&"RESET": SubResource("Animation_ud14p"),
+&"attack_left": SubResource("Animation_5jnip"),
+&"attack_right": SubResource("Animation_sm1oj"),
+&"die": SubResource("Animation_r5764"),
+&"idle_left": SubResource("Animation_b70e5"),
+&"idle_right": SubResource("Animation_cfvnj"),
+&"move_left": SubResource("Animation_pe735"),
+&"move_right": SubResource("Animation_p0lvr"),
+&"spawn": SubResource("Animation_0xl54")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_08jg3"]
+animation = &"attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cyxff"]
+animation = &"attack_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_smh5n"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_08jg3")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_cyxff")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ud14p"]
+animation = &"idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cfvnj"]
+animation = &"idle_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_b70e5"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ud14p")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_cfvnj")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b70e5"]
+animation = &"move_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p0lvr"]
+animation = &"move_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_p0lvr"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_b70e5")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_p0lvr")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pe735"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sm1oj"]
+animation = &"spawn"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5jnip"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r5764"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0xl54"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f30wk"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vs6h4"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lxrs7"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pde61"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ypp2l"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lj5q4"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ud14p"]
+states/Attack/node = SubResource("AnimationNodeBlendSpace1D_smh5n")
+states/Attack/position = Vector2(960, 100)
+states/End/position = Vector2(1133, 235)
+states/Idle/node = SubResource("AnimationNodeBlendSpace1D_b70e5")
+states/Idle/position = Vector2(535, 100)
+states/Move/node = SubResource("AnimationNodeBlendSpace1D_p0lvr")
+states/Move/position = Vector2(728, 100)
+states/Start/position = Vector2(203, 100)
+states/die/node = SubResource("AnimationNodeAnimation_pe735")
+states/die/position = Vector2(728, 235)
+states/spawn/node = SubResource("AnimationNodeAnimation_sm1oj")
+states/spawn/position = Vector2(375, 100)
+transitions = ["Start", "spawn", SubResource("AnimationNodeStateMachineTransition_5jnip"), "spawn", "Idle", SubResource("AnimationNodeStateMachineTransition_r5764"), "Idle", "Move", SubResource("AnimationNodeStateMachineTransition_0xl54"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_f30wk"), "Move", "die", SubResource("AnimationNodeStateMachineTransition_vs6h4"), "Idle", "die", SubResource("AnimationNodeStateMachineTransition_lxrs7"), "Attack", "Move", SubResource("AnimationNodeStateMachineTransition_pde61"), "Move", "Attack", SubResource("AnimationNodeStateMachineTransition_ypp2l"), "Attack", "die", SubResource("AnimationNodeStateMachineTransition_lj5q4")]
+graph_offset = Vector2(44, -128)
+
+[sub_resource type="Resource" id="Resource_2i8hc"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("@Node@85761")
+name = &"AliveTimeout"
+graph_pos = Vector2(940, -340)
+
+[sub_resource type="Resource" id="Resource_08jg3"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Dead"
+managed = true
+node_path = NodePath("DemoAnimationTreeStateMachineTravel")
+name = &"DemoAnimationTreeStateMachineTravel"
+graph_pos = Vector2(1000, 1200)
+
+[sub_resource type="Resource" id="Resource_i131v"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Pursue"
+managed = true
+node_path = NodePath("DemoAttackPlayer")
+name = &"DemoAttackPlayer"
+graph_pos = Vector2(1840, 420)
+
+[sub_resource type="Resource" id="Resource_38sdo"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoCheckDirection")
+parameters = Dictionary[StringName, StringName]({
+&"direction": &"direction"
+})
+name = &"DemoCheckDirection"
+graph_pos = Vector2(940, -1160)
+
+[sub_resource type="Resource" id="Resource_ryyv5"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoCheckPlayer")
+parameters = Dictionary[StringName, StringName]({
+&"player": &"player"
+})
+name = &"DemoCheckPlayer"
+graph_pos = Vector2(940, -940)
+
+[sub_resource type="Resource" id="Resource_po0um"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Pursue"
+managed = true
+node_path = NodePath("DemoFaceTargetObject")
+parameters = Dictionary[StringName, StringName]({
+&"target_direction": &"direction",
+&"target_object": &"player"
+})
+name = &"DemoFaceTargetObject"
+graph_pos = Vector2(1840, 240)
+
+[sub_resource type="Resource" id="Resource_f70pw"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("@Node@88940")
+signal_name = &"timeout"
+
+[sub_resource type="Resource" id="Resource_kpr8q"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("@Node@88940")
+name = &"StartFlicker"
+graph_pos = Vector2(940, -180)
+
+[sub_resource type="Resource" id="Resource_xm1w3"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_kpr8q")
+signal_id = &"timeout"
+signal_data = SubResource("Resource_f70pw")
+
+[sub_resource type="Resource" id="Resource_1rmuc"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoFlicker")
+name = &"DemoFlicker"
+graph_pos = Vector2(940, -20)
+connected_signals = Dictionary[StringName, Array]({
+&"start": [SubResource("Resource_xm1w3")]
+})
+
+[sub_resource type="Resource" id="Resource_lxrs7"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Dead"
+managed = true
+node_path = NodePath("DemoFreeOnDeath")
+name = &"DemoFreeOnDeath"
+graph_pos = Vector2(1000, 1060)
+
+[sub_resource type="Resource" id="Resource_cyxff"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Roam"
+managed = true
+node_path = NodePath("DemoRandomRoam2D")
+parameters = Dictionary[StringName, StringName]({
+&"direction": &"direction"
+})
+name = &"DemoRandomRoam2D"
+graph_pos = Vector2(1840, -40)
+
+[sub_resource type="Resource" id="Resource_smh5n"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoSmoothMotion2D")
+parameters = Dictionary[StringName, StringName]({
+&"acceleration": &"acceleration",
+&"deceleration": &"acceleration",
+&"max_speed": &"max_speed",
+&"movement_direction_normal": &"direction",
+&"terrain_movement_speed": &"terrain_movement_speed"
+})
+name = &"DemoSmoothMotion2D"
+graph_pos = Vector2(940, 140)
+
+[sub_resource type="Resource" id="Resource_q8c2o"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Attack"
+managed = true
+node_path = NodePath("DemoStandStill")
+parameters = Dictionary[StringName, StringName]({
+&"target_direction": &"direction"
+})
+name = &"DemoStandStill"
+graph_pos = Vector2(1840, 1080)
+
+[sub_resource type="Resource" id="Resource_xaa0f"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoTargetClosestObjectInGroup")
+parameters = Dictionary[StringName, StringName]({
+&"detected_objects": &"detected_objects",
+&"target_object": &"player"
+})
+name = &"DemoTargetPlayer"
+graph_pos = Vector2(940, -700)
+
+[sub_resource type="Resource" id="Resource_hh44l"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoAreaBodyDetector")
+parameters = Dictionary[StringName, StringName]({
+&"detected_objects": &"detected_objects"
+})
+name = &"DetectPlayer"
+graph_pos = Vector2(940, -500)
+
+[sub_resource type="Resource" id="Resource_ou8pe"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Attack"
+managed = true
+node_path = NodePath("DemoAnimationTreeStateMachineTravel2")
+name = &"PlayAttackAnimation"
+graph_pos = Vector2(1840, 640)
+
+[sub_resource type="Resource" id="Resource_g1ujr"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Spawn"
+managed = true
+node_path = NodePath("DemoOneShotTimer")
+name = &"SpawnTimeout"
+graph_pos = Vector2(460, -640)
+
+[sub_resource type="Resource" id="Resource_p7bfs"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Attack"
+managed = true
+node_path = NodePath("@Node@78499")
+parameters = Dictionary[StringName, StringName]({
+&"facing_direction_normal": &"direction"
+})
+name = &"SyncAttackDirection"
+graph_pos = Vector2(1840, 760)
+
+[sub_resource type="Resource" id="Resource_csbsy"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoSyncAnimationBlendPositionToFacingDirection2D")
+parameters = Dictionary[StringName, StringName]({
+&"facing_direction_normal": &"direction"
+})
+name = &"SyncIdleDirection"
+graph_pos = Vector2(940, 420)
+
+[sub_resource type="Resource" id="Resource_ayhdp"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoSyncAnimationBlendPositionToFacingDirection2D2")
+parameters = Dictionary[StringName, StringName]({
+&"facing_direction_normal": &"direction"
+})
+name = &"SyncMoveDirection"
+graph_pos = Vector2(940, 580)
+
+[sub_resource type="Resource" id="Resource_ugabk"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoAnimationTreeTravel")
+name = &"ToIdle"
+graph_pos = Vector2(940, -1320)
+
+[sub_resource type="Resource" id="Resource_px518"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoAnimationTreeTravel2")
+name = &"ToMove"
+graph_pos = Vector2(940, -1480)
+
+[sub_resource type="Resource" id="Resource_0iejo"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Attack"
+managed = true
+node_path = NodePath("@Node@84568")
+name = &"AttackComplete"
+graph_pos = Vector2(1840, 920)
+
+[sub_resource type="Resource" id="Resource_ixu7m"]
+script = ExtResource("9_paux8")
+value = 40.0
+
+[sub_resource type="Resource" id="Resource_7y2am"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_ixu7m")
+name = &"acceleration"
+graph_pos = Vector2(0, 320)
+
+[sub_resource type="Resource" id="Resource_23kpw"]
+script = ExtResource("10_kpr8q")
+
+[sub_resource type="Resource" id="Resource_shcxy"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_23kpw")
+name = &"detected_objects"
+graph_pos = Vector2(1360, -500)
+
+[sub_resource type="Resource" id="Resource_pde61"]
+script = ExtResource("8_g1ujr")
+
+[sub_resource type="Resource" id="Resource_ypp2l"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_pde61")
+name = &"direction"
+graph_pos = Vector2(2200, 120)
+
+[sub_resource type="Resource" id="Resource_hpo0i"]
+script = ExtResource("12_ypp2l")
+value = &"Idle"
+
+[sub_resource type="Resource" id="Resource_h6yhb"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_hpo0i")
+name = &"idle_animation_state"
+graph_pos = Vector2(500, -1320)
+
+[sub_resource type="Resource" id="Resource_swjk1"]
+script = ExtResource("9_paux8")
+value = 20.0
+
+[sub_resource type="Resource" id="Resource_04uid"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_swjk1")
+name = &"max_speed"
+graph_pos = Vector2(0, 480)
+
+[sub_resource type="Resource" id="Resource_uyp8n"]
+script = ExtResource("12_ypp2l")
+value = &"Move"
+
+[sub_resource type="Resource" id="Resource_ow6vi"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_uyp8n")
+name = &"move_animation_state"
+graph_pos = Vector2(500, -1480)
+
+[sub_resource type="Resource" id="Resource_p3n0w"]
+script = ExtResource("11_1rmuc")
+
+[sub_resource type="Resource" id="Resource_axx5h"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_p3n0w")
+name = &"player"
+graph_pos = Vector2(1360, -700)
+
+[sub_resource type="Resource" id="Resource_lj5q4"]
+script = ExtResource("9_paux8")
+value = 1.0
+
+[sub_resource type="Resource" id="Resource_1dsbc"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_lj5q4")
+name = &"terrain_movement_speed"
+graph_pos = Vector2(0, 640)
+
+[sub_resource type="Resource" id="Resource_c1vgl"]
+script = ExtResource("19_lj5q4")
+behavior_name = &"ToIdle"
+signal_relay_connector_name = &"travel"
+
+[sub_resource type="Resource" id="Resource_xfpf7"]
+script = ExtResource("15_cyxff")
+target_entity = SubResource("Resource_ugabk")
+callable_id = &"travel"
+callable_data = SubResource("Resource_c1vgl")
+
+[sub_resource type="Resource" id="Resource_npdil"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("DemoCheckDirection")
+signal_name = &"direction_not_set"
+
+[sub_resource type="Resource" id="Resource_5x3et"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_38sdo")
+signal_id = &"direction_not_set"
+signal_data = SubResource("Resource_npdil")
+
+[sub_resource type="Resource" id="Resource_tpsjx"]
+script = ExtResource("4_f30wk")
+entity = SubResource("Resource_h6yhb")
+property_name = &"value"
+
+[sub_resource type="Resource" id="Resource_wjbwm"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_xfpf7")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"target_state": SubResource("Resource_tpsjx")
+})
+name = &"direction_not_set__c::travel"
+graph_pos = Vector2(760, -1320)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_5x3et")]
+})
+
+[sub_resource type="Resource" id="Resource_w0vld"]
+script = ExtResource("19_lj5q4")
+behavior_name = &"ToMove"
+signal_relay_connector_name = &"travel"
+
+[sub_resource type="Resource" id="Resource_teeri"]
+script = ExtResource("15_cyxff")
+target_entity = SubResource("Resource_px518")
+callable_id = &"travel"
+callable_data = SubResource("Resource_w0vld")
+
+[sub_resource type="Resource" id="Resource_k7r8x"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("DemoCheckDirection")
+signal_name = &"direction_set"
+
+[sub_resource type="Resource" id="Resource_nhx2i"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_38sdo")
+signal_id = &"direction_set"
+signal_data = SubResource("Resource_k7r8x")
+
+[sub_resource type="Resource" id="Resource_2jrwx"]
+script = ExtResource("4_f30wk")
+entity = SubResource("Resource_ow6vi")
+property_name = &"value"
+
+[sub_resource type="Resource" id="Resource_8xr5w"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_teeri")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"target_state": SubResource("Resource_2jrwx")
+})
+name = &"direction_set__c::travel"
+graph_pos = Vector2(760, -1480)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_nhx2i")]
+})
+
+[sub_resource type="Resource" id="Resource_w8fsp"]
+script = ExtResource("14_08jg3")
+state_name = &"Alive"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_tx1jp"]
+script = ExtResource("8_toij3")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"DemoRandomRoam2D"])
+name = &"Roam"
+graph_pos = Vector2(1640, -40)
+
+[sub_resource type="Resource" id="Resource_ew8u4"]
+script = ExtResource("8_toij3")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"DemoAttackPlayer", &"DemoFaceTargetObject"])
+name = &"Pursue"
+graph_pos = Vector2(1640, 320)
+
+[sub_resource type="Resource" id="Resource_umkjr"]
+script = ExtResource("8_toij3")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"SyncAttackDirection", &"AttackComplete", &"DemoStandStill", &"PlayAttackAnimation"])
+name = &"Attack"
+graph_pos = Vector2(1640, 680)
+
+[sub_resource type="Resource" id="Resource_toij3"]
+script = ExtResource("10_vs6h4")
+transitions = Array[Array]([[SubResource("Resource_tx1jp"), SubResource("Resource_ew8u4")], [SubResource("Resource_ew8u4"), SubResource("Resource_tx1jp")], [SubResource("Resource_ew8u4"), SubResource("Resource_umkjr")], [SubResource("Resource_umkjr"), SubResource("Resource_ew8u4")], [SubResource("Resource_umkjr"), SubResource("Resource_tx1jp")], [SubResource("Resource_tx1jp"), SubResource("Resource_umkjr")]])
+parent_name = &"Sequence"
+child_names = Array[StringName]([&"Roam", &"Attack", &"Pursue"])
+behavior_names = Array[StringName]([&"StartFlicker", &"DemoFlicker", &"DemoSmoothMotion2D", &"SyncIdleDirection", &"SyncMoveDirection", &"DetectPlayer", &"DemoTargetPlayer", &"DemoCheckPlayer", &"ToIdle", &"DemoCheckDirection", &"ToMove", &"AliveTimeout"])
+name = &"Alive"
+graph_pos = Vector2(600, 100)
+
+[sub_resource type="Resource" id="Resource_kx3oe"]
+script = ExtResource("15_cyxff")
+target_entity = SubResource("Resource_toij3")
+callable_id = &"select"
+callable_data = SubResource("Resource_w8fsp")
+
+[sub_resource type="Resource" id="Resource_j3ep1"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("DemoAttackPlayer")
+signal_name = &"player_attacked"
+
+[sub_resource type="Resource" id="Resource_dfusg"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_i131v")
+signal_id = &"player_attacked"
+signal_data = SubResource("Resource_j3ep1")
+
+[sub_resource type="Resource" id="Resource_4aigd"]
+script = ExtResource("4_f30wk")
+entity = SubResource("Resource_umkjr")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_646jo"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_kx3oe")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"state_name": SubResource("Resource_4aigd")
+})
+name = &"player_attacked__c::select"
+graph_pos = Vector2(2120, 420)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_dfusg")]
+})
+
+[sub_resource type="Resource" id="Resource_t00nq"]
+script = ExtResource("14_08jg3")
+state_name = &"Alive"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_ne410"]
+script = ExtResource("15_cyxff")
+target_entity = SubResource("Resource_toij3")
+callable_id = &"select"
+callable_data = SubResource("Resource_t00nq")
+
+[sub_resource type="Resource" id="Resource_nfcw7"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("DemoCheckPlayer")
+signal_name = &"player_found"
+
+[sub_resource type="Resource" id="Resource_xygfc"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_ryyv5")
+signal_id = &"player_found"
+signal_data = SubResource("Resource_nfcw7")
+
+[sub_resource type="Resource" id="Resource_mthma"]
+script = ExtResource("4_f30wk")
+entity = SubResource("Resource_ew8u4")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_ffdno"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_ne410")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"state_name": SubResource("Resource_mthma")
+})
+name = &"player_found__c::select"
+graph_pos = Vector2(1240, -960)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_xygfc")]
+})
+
+[sub_resource type="Resource" id="Resource_guebd"]
+script = ExtResource("14_08jg3")
+state_name = &"Alive"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_h8n0g"]
+script = ExtResource("15_cyxff")
+target_entity = SubResource("Resource_toij3")
+callable_id = &"select"
+callable_data = SubResource("Resource_guebd")
+
+[sub_resource type="Resource" id="Resource_fcxow"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("DemoCheckPlayer")
+signal_name = &"player_lost"
+
+[sub_resource type="Resource" id="Resource_ld4tk"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_ryyv5")
+signal_id = &"player_lost"
+signal_data = SubResource("Resource_fcxow")
+
+[sub_resource type="Resource" id="Resource_choq4"]
+script = ExtResource("4_f30wk")
+entity = SubResource("Resource_tx1jp")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_fw0k5"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_h8n0g")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"state_name": SubResource("Resource_choq4")
+})
+name = &"player_lost__c::select"
+graph_pos = Vector2(1240, -840)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_ld4tk")]
+})
+
+[sub_resource type="Resource" id="Resource_5kc0r"]
+script = ExtResource("14_08jg3")
+state_name = &"Alive"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_wxx6p"]
+script = ExtResource("15_cyxff")
+target_entity = SubResource("Resource_toij3")
+callable_id = &"select"
+callable_data = SubResource("Resource_5kc0r")
+
+[sub_resource type="Resource" id="Resource_q0fwm"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("@Node@84568")
+signal_name = &"timeout"
+
+[sub_resource type="Resource" id="Resource_xenuq"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_0iejo")
+signal_id = &"timeout"
+signal_data = SubResource("Resource_q0fwm")
+
+[sub_resource type="Resource" id="Resource_x005s"]
+script = ExtResource("4_f30wk")
+entity = SubResource("Resource_ew8u4")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_r8ofl"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_wxx6p")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"state_name": SubResource("Resource_x005s")
+})
+name = &"timeout__c::select"
+graph_pos = Vector2(2140, 920)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_xenuq")]
+})
+
+[sub_resource type="Resource" id="Resource_ykbt0"]
+script = ExtResource("8_toij3")
+parent_name = &"Sequence"
+behavior_names = Array[StringName]([&"DemoAnimationTreeStateMachineTravel", &"DemoFreeOnDeath"])
+name = &"Dead"
+graph_pos = Vector2(820, 1060)
+
+[sub_resource type="Resource" id="Resource_paux8"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("DemoOneShotTimer")
+signal_name = &"timeout"
+
+[sub_resource type="Resource" id="Resource_q4t13"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_g1ujr")
+signal_id = &"timeout"
+signal_data = SubResource("Resource_paux8")
+
+[sub_resource type="Resource" id="Resource_xscuj"]
+script = ExtResource("11_b12qb")
+node_path = NodePath("@Node@85761")
+signal_name = &"timeout"
+
+[sub_resource type="Resource" id="Resource_ojine"]
+script = ExtResource("10_toij3")
+source_entity = SubResource("Resource_2i8hc")
+signal_id = &"timeout"
+signal_data = SubResource("Resource_xscuj")
+
+[sub_resource type="Resource" id="Resource_f30wk"]
+script = ExtResource("9_f30wk")
+child_names = Array[StringName]([&"Spawn", &"Alive", &"Dead"])
+name = &"Sequence"
+graph_pos = Vector2(280, 0)
+connected_signals = Dictionary[StringName, Array]({
+&"advance": [SubResource("Resource_q4t13"), SubResource("Resource_ojine")]
+})
+
+[sub_resource type="Resource" id="Resource_reatw"]
+script = ExtResource("8_toij3")
+parent_name = &"Sequence"
+behavior_names = Array[StringName]([&"SpawnTimeout"])
+name = &"Spawn"
+graph_pos = Vector2(280, -640)
+
+[sub_resource type="Resource" id="Resource_b12qb"]
+script = ExtResource("6_lxrs7")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"Sequence"
+editor_scroll_offset = Vector2(409.66907, 360.93024)
+editor_zoom = 0.7298981
+states = Dictionary[StringName, ExtResource("8_toij3")]({
+&"Alive": SubResource("Resource_toij3"),
+&"Attack": SubResource("Resource_umkjr"),
+&"Dead": SubResource("Resource_ykbt0"),
+&"Pursue": SubResource("Resource_ew8u4"),
+&"Roam": SubResource("Resource_tx1jp"),
+&"Sequence": SubResource("Resource_f30wk"),
+&"Spawn": SubResource("Resource_reatw")
+})
+behaviors = Dictionary[StringName, ExtResource("3_0xl54")]({
+&"AliveTimeout": SubResource("Resource_2i8hc"),
+&"AttackComplete": SubResource("Resource_0iejo"),
+&"DemoAnimationTreeStateMachineTravel": SubResource("Resource_08jg3"),
+&"DemoAttackPlayer": SubResource("Resource_i131v"),
+&"DemoCheckDirection": SubResource("Resource_38sdo"),
+&"DemoCheckPlayer": SubResource("Resource_ryyv5"),
+&"DemoFaceTargetObject": SubResource("Resource_po0um"),
+&"DemoFlicker": SubResource("Resource_1rmuc"),
+&"DemoFreeOnDeath": SubResource("Resource_lxrs7"),
+&"DemoRandomRoam2D": SubResource("Resource_cyxff"),
+&"DemoSmoothMotion2D": SubResource("Resource_smh5n"),
+&"DemoStandStill": SubResource("Resource_q8c2o"),
+&"DemoTargetPlayer": SubResource("Resource_xaa0f"),
+&"DetectPlayer": SubResource("Resource_hh44l"),
+&"PlayAttackAnimation": SubResource("Resource_ou8pe"),
+&"SpawnTimeout": SubResource("Resource_g1ujr"),
+&"StartFlicker": SubResource("Resource_kpr8q"),
+&"SyncAttackDirection": SubResource("Resource_p7bfs"),
+&"SyncIdleDirection": SubResource("Resource_csbsy"),
+&"SyncMoveDirection": SubResource("Resource_ayhdp"),
+&"ToIdle": SubResource("Resource_ugabk"),
+&"ToMove": SubResource("Resource_px518")
+})
+parameters = Dictionary[StringName, ExtResource("5_vs6h4")]({
+&"acceleration": SubResource("Resource_7y2am"),
+&"detected_objects": SubResource("Resource_shcxy"),
+&"direction": SubResource("Resource_ypp2l"),
+&"idle_animation_state": SubResource("Resource_h6yhb"),
+&"max_speed": SubResource("Resource_04uid"),
+&"move_animation_state": SubResource("Resource_ow6vi"),
+&"player": SubResource("Resource_axx5h"),
+&"terrain_movement_speed": SubResource("Resource_1dsbc")
+})
+signal_bridges = Dictionary[StringName, ExtResource("7_reatw")]({
+&"direction_not_set__c::travel": SubResource("Resource_wjbwm"),
+&"direction_set__c::travel": SubResource("Resource_8xr5w"),
+&"player_attacked__c::select": SubResource("Resource_646jo"),
+&"player_found__c::select": SubResource("Resource_ffdno"),
+&"player_lost__c::select": SubResource("Resource_fw0k5"),
+&"timeout__c::select": SubResource("Resource_r8ofl")
+})
+
+[sub_resource type="GDScript" id="GDScript_1dsbc"]
+script/source = "@tool
+class_name SynapseDemoAnimationTreeStateMachineTravelBehavior
+extends SynapseBehavior
+
+@export var animation_tree: AnimationTree
+@export var target_state: String
+
+var _playback: AnimationNodeStateMachinePlayback
+
+static func get_category() -> StringName:
+	return CATEGORY_DEMOS
+
+func _state_machine_created() -> void:
+	_playback = animation_tree.get(\"parameters/playback\")
+
+func _unsuspend() -> void:
+	_playback.travel(target_state)
+"
+
+[node name="Slime" type="CharacterBody2D" unique_id=1658128313 groups=["enemies"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ixu7m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1595559344]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_ud14p")
+debug_color = Color(0.92397726, 0.25352034, 0.28660706, 0.41960785)
+
+[node name="PlayerDetectorArea2D" type="Area2D" parent="." unique_id=23252188]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectorArea2D" unique_id=557854230]
+shape = SubResource("CircleShape2D_q4t13")
+
+[node name="PlayerAttackArea2D" type="Area2D" parent="." unique_id=1259081061]
+position = Vector2(0, -3)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackArea2D" unique_id=1148227909]
+shape = SubResource("CircleShape2D_ud14p")
+debug_color = Color(0.9254902, 0.25490198, 0.28627452, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2381352]
+position = Vector2(0, -6)
+texture = ExtResource("1_ud14p")
+hframes = 8
+vframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=862445509]
+libraries/ = SubResource("AnimationLibrary_b70e5")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=2061048845]
+tree_root = SubResource("AnimationNodeStateMachine_ud14p")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Attack/blend_position = 0.0
+parameters/Idle/blend_position = 0.0
+parameters/Move/blend_position = 0.0
+
+[node name="SlimeStateMachine" type="Node" parent="." unique_id=1347305950]
+unique_name_in_owner = true
+script = ExtResource("2_r5764")
+data = SubResource("Resource_b12qb")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="DemoFreeOnDeath" type="Node" parent="SlimeStateMachine" unique_id=437932971]
+process_mode = 4
+script = ExtResource("11_vs6h4")
+delay_seconds = 1.5
+
+[node name="DemoOneShotTimer" type="Node" parent="SlimeStateMachine" unique_id=220365219]
+process_mode = 4
+script = ExtResource("14_tx1jp")
+delay_seconds = 3.5
+
+[node name="@Node@85761" type="Node" parent="SlimeStateMachine" unique_id=1936926481]
+process_mode = 4
+script = ExtResource("14_tx1jp")
+delay_seconds = 25.0
+
+[node name="@Node@88940" type="Node" parent="SlimeStateMachine" unique_id=2031779769]
+process_mode = 4
+script = ExtResource("14_tx1jp")
+delay_seconds = 20.0
+
+[node name="DemoFlicker" type="Node" parent="SlimeStateMachine" unique_id=503623875]
+process_mode = 4
+script = ExtResource("15_b12qb")
+
+[node name="DemoAnimationTreeStateMachineTravel" type="Node" parent="SlimeStateMachine" unique_id=188172875 node_paths=PackedStringArray("animation_tree")]
+process_mode = 4
+script = SubResource("GDScript_1dsbc")
+animation_tree = NodePath("../../AnimationTree")
+target_state = "die"
+
+[node name="DemoRandomRoam2D" type="Node" parent="SlimeStateMachine" unique_id=1020747677 node_paths=PackedStringArray("character")]
+process_mode = 4
+script = ExtResource("17_ykbt0")
+character = NodePath("../..")
+
+[node name="DemoSmoothMotion2D" type="Node" parent="SlimeStateMachine" unique_id=1038587796 node_paths=PackedStringArray("character")]
+process_mode = 4
+script = ExtResource("18_g1ujr")
+character = NodePath("../..")
+
+[node name="DemoSyncAnimationBlendPositionToFacingDirection2D" type="Node" parent="SlimeStateMachine" unique_id=51324917 node_paths=PackedStringArray("animation_tree")]
+process_mode = 4
+script = ExtResource("21_q4t13")
+animation_tree = NodePath("../../AnimationTree")
+blend_space_1d_blend_position_parameter = "parameters/Idle/blend_position"
+
+[node name="DemoSyncAnimationBlendPositionToFacingDirection2D2" type="Node" parent="SlimeStateMachine" unique_id=1451493691 node_paths=PackedStringArray("animation_tree")]
+process_mode = 4
+script = ExtResource("21_q4t13")
+animation_tree = NodePath("../../AnimationTree")
+blend_space_1d_blend_position_parameter = "parameters/Move/blend_position"
+
+[node name="DemoAreaBodyDetector" type="Node" parent="SlimeStateMachine" unique_id=1652398618 node_paths=PackedStringArray("detector")]
+process_mode = 4
+script = ExtResource("24_f70pw")
+detector = NodePath("../../PlayerDetectorArea2D")
+
+[node name="DemoTargetClosestObjectInGroup" type="Node" parent="SlimeStateMachine" unique_id=478360511 node_paths=PackedStringArray("reference_node")]
+process_mode = 4
+script = ExtResource("25_xm1w3")
+reference_node = NodePath("../..")
+target_group = &"player"
+
+[node name="DemoFaceTargetObject" type="Node" parent="SlimeStateMachine" unique_id=1480475684 node_paths=PackedStringArray("character")]
+process_mode = 4
+script = ExtResource("26_1rmuc")
+character = NodePath("../..")
+
+[node name="DemoCheckPlayer" type="Node" parent="SlimeStateMachine" unique_id=771673349]
+process_mode = 4
+script = ExtResource("27_f70pw")
+
+[node name="DemoAnimationTreeTravel" type="Node" parent="SlimeStateMachine" unique_id=1060386138 node_paths=PackedStringArray("animation_tree")]
+process_mode = 4
+script = ExtResource("30_cyxff")
+animation_tree = NodePath("../../AnimationTree")
+
+[node name="DemoCheckDirection" type="Node" parent="SlimeStateMachine" unique_id=384244773]
+process_mode = 4
+script = ExtResource("33_1dsbc")
+
+[node name="DemoAnimationTreeTravel2" type="Node" parent="SlimeStateMachine" unique_id=57655708 node_paths=PackedStringArray("animation_tree")]
+process_mode = 4
+script = ExtResource("30_cyxff")
+animation_tree = NodePath("../../AnimationTree")
+
+[node name="DemoAttackPlayer" type="Node" parent="SlimeStateMachine" unique_id=1245555240 node_paths=PackedStringArray("detector")]
+process_mode = 4
+script = ExtResource("34_lj5q4")
+detector = NodePath("../../PlayerAttackArea2D")
+
+[node name="DemoAnimationTreeStateMachineTravel2" type="Node" parent="SlimeStateMachine" unique_id=1192101083 node_paths=PackedStringArray("animation_tree")]
+process_mode = 4
+script = SubResource("GDScript_1dsbc")
+animation_tree = NodePath("../../AnimationTree")
+target_state = "Attack"
+
+[node name="@Node@78499" type="Node" parent="SlimeStateMachine" unique_id=1555211254 node_paths=PackedStringArray("animation_tree")]
+process_mode = 4
+script = ExtResource("21_q4t13")
+animation_tree = NodePath("../../AnimationTree")
+blend_space_1d_blend_position_parameter = "parameters/Attack/blend_position"
+
+[node name="@Node@84568" type="Node" parent="SlimeStateMachine" unique_id=496916126]
+process_mode = 4
+script = ExtResource("14_tx1jp")
+
+[node name="DemoStandStill" type="Node" parent="SlimeStateMachine" unique_id=805640647]
+process_mode = 4
+script = ExtResource("35_1dsbc")

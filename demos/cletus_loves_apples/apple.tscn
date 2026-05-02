@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://plvb58wrbpqc"]
+
+[ext_resource type="Texture2D" uid="uid://clo0xqjitbyl4" path="res://addons/synapse/demos/cletus_loves_apples/images/apple.png" id="1_cxlsu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k86yf"]
+radius = 4.0
+
+[node name="Apple" type="StaticBody2D" unique_id=1712891038 groups=["apples"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1786634244]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_k86yf")
+debug_color = Color(0, 0.6, 0, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=320057519]
+position = Vector2(0, -2)
+texture = ExtResource("1_cxlsu")

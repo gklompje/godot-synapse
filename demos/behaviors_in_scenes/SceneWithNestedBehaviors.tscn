@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b2hghpdvmwobc"]
+
+[ext_resource type="Script" uid="uid://bvvch0tvn5oac" path="res://addons/synapse/demos/behaviors_in_scenes/widget_rotator_behavior.gd" id="1_254tu"]
+[ext_resource type="Script" uid="uid://b0bs8ub0x82vu" path="res://addons/synapse/demos/behaviors_in_scenes/widget_state_selector_behavior.gd" id="2_vabep"]
+[ext_resource type="PackedScene" uid="uid://ufnlop1gmi4n" path="res://addons/synapse/demos/behaviors_in_scenes/RotatingIconWidget.tscn" id="3_ar72c"]
+
+[node name="SceneWithNestedBehaviors" type="Control" unique_id=1617197292]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="RemoteSceneWidgetRotatorBehavior" type="Node" parent="." unique_id=1189961675 node_paths=PackedStringArray("widget")]
+process_mode = 4
+script = ExtResource("1_254tu")
+widget = NodePath("../RotatingIconWidget")
+metadata/_custom_type_script = "uid://bvvch0tvn5oac"
+
+[node name="RemoteSceneWidgetStateSelectorBehavior" type="Node" parent="." unique_id=1175957476 node_paths=PackedStringArray("widget")]
+process_mode = 4
+script = ExtResource("2_vabep")
+widget = NodePath("../RotatingIconWidget")
+description = "remote"
+metadata/_custom_type_script = "uid://b0bs8ub0x82vu"
+
+[node name="RotatingIconWidget" parent="." unique_id=300225433 instance=ExtResource("3_ar72c")]
+layout_mode = 0

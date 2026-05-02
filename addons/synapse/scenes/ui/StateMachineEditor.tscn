@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dhwgbg08uh3wr"]
+
+[ext_resource type="Script" uid="uid://haawlrososb7" path="res://addons/synapse/scripts/ui/state_machine_editor.gd" id="1_sj1v7"]
+[ext_resource type="Texture2D" uid="uid://bjl2olq0y7l8l" path="res://addons/synapse/icons/delete.svg" id="2_qpfyw"]
+
+[node name="StateMachineEditor" type="GraphEdit" unique_id=1215406530]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sj1v7")
+
+[node name="AddStatePopupMenu" type="PopupMenu" parent="." unique_id=390643016]
+unique_name_in_owner = true
+oversampling_override = 1.0
+
+[node name="AddBehaviorPopupMenu" type="PopupMenu" parent="." unique_id=1455484010]
+unique_name_in_owner = true
+
+[node name="AddParameterWithValueTypePopupMenu" type="PopupMenu" parent="." unique_id=1043348883]
+unique_name_in_owner = true
+
+[node name="AddEntityPopupMenu" type="PopupMenu" parent="." unique_id=40431155]
+unique_name_in_owner = true
+
+[node name="EraseConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=2010341941]
+unique_name_in_owner = true
+title = "Are you sure you want to erase the entire state machine?"
+dialog_text = "This will delete all the contents of the state machine. Are you sure?"
+
+[node name="DeleteConnectionButton" type="TextureButton" parent="." unique_id=1619516990]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 1
+texture_normal = ExtResource("2_qpfyw")
+stretch_mode = 3
+
+[connection signal="connection_from_empty" from="." to="." method="_on_connection_from_empty"]
+[connection signal="connection_request" from="." to="." method="_on_connection_request"]
+[connection signal="connection_to_empty" from="." to="." method="_on_connection_to_empty"]
+[connection signal="delete_nodes_request" from="." to="." method="_on_delete_nodes_request"]
+[connection signal="popup_request" from="." to="." method="_on_popup_request"]
+[connection signal="scroll_offset_changed" from="." to="." method="_on_scroll_offset_changed"]
+[connection signal="id_pressed" from="AddStatePopupMenu" to="." method="_on_add_state_popup_menu_item_selected"]
+[connection signal="id_pressed" from="AddBehaviorPopupMenu" to="." method="_on_add_behavior_popup_menu_id_pressed"]
+[connection signal="id_pressed" from="AddParameterWithValueTypePopupMenu" to="." method="_on_add_parameter_with_value_type_popup_menu_id_pressed"]
+[connection signal="confirmed" from="EraseConfirmationDialog" to="." method="_on_erase_confirmation_dialog_confirmed"]
+[connection signal="pressed" from="DeleteConnectionButton" to="." method="_on_connection_delete_button_pressed"]

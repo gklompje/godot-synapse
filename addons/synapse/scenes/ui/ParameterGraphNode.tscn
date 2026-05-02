@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d5qr254qfk7d"]
+
+[ext_resource type="Script" uid="uid://bri3svmqm3ope" path="res://addons/state_machine/scripts/ui/parameter_graph_node.gd" id="1_x4dg6"]
+
+[node name="ParameterGraphNode" type="GraphNode" unique_id=1391860269]
+offset_right = 9.0
+offset_bottom = 55.0
+script = ExtResource("1_x4dg6")

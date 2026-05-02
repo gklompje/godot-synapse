@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d1gi1mhk4pmth"]
+
+[ext_resource type="Script" uid="uid://bnhxh36l01p25" path="res://addons/state_machine/scripts/ui/reorderable_list_item.gd" id="1_gpq76"]
+[ext_resource type="Texture2D" uid="uid://nx30g16qd8kk" path="res://addons/state_machine/icons/list_item_up.svg" id="2_6qypx"]
+[ext_resource type="Texture2D" uid="uid://ctx5luy4o5riy" path="res://addons/state_machine/icons/list_item_down.svg" id="3_7kqr6"]
+
+[node name="ReorderableListItem" type="PanelContainer" unique_id=1212819968]
+offset_right = 43.0
+offset_bottom = 16.0
+size_flags_vertical = 4
+localize_numeral_system = false
+script = ExtResource("1_gpq76")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1712496426]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1229721671]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "item"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1679359683]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="ButtonUpPanelContainer" type="PanelContainer" parent="HBoxContainer/ButtonContainer" unique_id=591991300]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="ButtonUp" type="TextureButton" parent="HBoxContainer/ButtonContainer/ButtonUpPanelContainer" unique_id=179163063]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("2_6qypx")
+
+[node name="ButtonDownPanelContainer" type="PanelContainer" parent="HBoxContainer/ButtonContainer" unique_id=1304436050]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="ButtonDown" type="TextureButton" parent="HBoxContainer/ButtonContainer/ButtonDownPanelContainer" unique_id=1988366684]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("3_7kqr6")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="focus_entered" from="HBoxContainer/ButtonContainer/ButtonUpPanelContainer/ButtonUp" to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="HBoxContainer/ButtonContainer/ButtonUpPanelContainer/ButtonUp" to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonContainer/ButtonUpPanelContainer/ButtonUp" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonContainer/ButtonUpPanelContainer/ButtonUp" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonContainer/ButtonUpPanelContainer/ButtonUp" to="." method="_on_button_up_pressed"]
+[connection signal="focus_entered" from="HBoxContainer/ButtonContainer/ButtonDownPanelContainer/ButtonDown" to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="HBoxContainer/ButtonContainer/ButtonDownPanelContainer/ButtonDown" to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonContainer/ButtonDownPanelContainer/ButtonDown" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonContainer/ButtonDownPanelContainer/ButtonDown" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonContainer/ButtonDownPanelContainer/ButtonDown" to="." method="_on_button_down_pressed"]

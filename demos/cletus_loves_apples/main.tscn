@@ -1,0 +1,408 @@
+[gd_scene format=3 uid="uid://c46msnrlw70px"]
+
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="1_g6r23"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="2_5tclm"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="3_k6ebq"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="3_sykwr"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="4_o8olj"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="5_8iqro"]
+[ext_resource type="Script" uid="uid://c5ccvhqenjstd" path="res://addons/synapse/scripts/parameters/file_path_parameter.gd" id="5_ogdtl"]
+[ext_resource type="Script" uid="uid://0dnjgtqdcbcc" path="res://addons/synapse/scripts/parameters/input_action_parameter.gd" id="6_6agb5"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_sykwr"]
+[ext_resource type="Script" uid="uid://bevul54evxjup" path="res://addons/synapse/scripts/parameters/bool_parameter.gd" id="7_uip7n"]
+[ext_resource type="Script" uid="uid://ckx7gqjt5g55g" path="res://addons/synapse/scripts/resource_types/state_machine_state_data.gd" id="8_8iqro"]
+[ext_resource type="Script" uid="uid://cwoxjj3i1n5eo" path="res://addons/synapse/scripts/parameters/int_parameter.gd" id="8_27d52"]
+[ext_resource type="PackedScene" uid="uid://b17n15gcwiawr" path="res://demos/cletus_loves_apples/menu.tscn" id="8_o8olj"]
+[ext_resource type="PackedScene" uid="uid://dqcj6kiv1wl8r" path="res://demos/cletus_loves_apples/game.tscn" id="9_8iqro"]
+[ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="9_hseae"]
+[ext_resource type="Script" uid="uid://cvk0qqgpj0yog" path="res://addons/synapse/scripts/resource_types/behavior_signal_relay_connector_callable_data.gd" id="10_4iyaq"]
+[ext_resource type="Script" uid="uid://bi2lidvpf04lh" path="res://addons/synapse/scripts/resource_types/nested_state_machine_exposed_signal_data.gd" id="10_6agb5"]
+[ext_resource type="Script" uid="uid://d0igs8lqusrqq" path="res://addons/synapse/scripts/resource_types/nested_state_machine_exposed_callable_data.gd" id="11_27d52"]
+[ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="11_uip7n"]
+[ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="12_i0xtp"]
+[ext_resource type="Script" uid="uid://coa6qrxm42al6" path="res://addons/synapse/scripts/resource_types/sequence_state_data.gd" id="13_ogdtl"]
+[ext_resource type="Script" uid="uid://btvie60n2en4k" path="res://demos/cletus_loves_apples/scripts/behaviors/toggle_menu.gd" id="14_hseae"]
+[ext_resource type="Script" uid="uid://ci681r6g44nvj" path="res://demos/cletus_loves_apples/scripts/behaviors/update_score.gd" id="21_i0xtp"]
+
+[sub_resource type="Resource" id="Resource_6agb5"]
+script = ExtResource("2_5tclm")
+owner_state_name = &"Sequence"
+managed = true
+node_path = NodePath("DemoToggleMenu")
+parameters = Dictionary[StringName, StringName]({
+&"action": &"toggle_menu_action",
+&"game_started": &"game_started"
+})
+name = &"DemoToggleMenu"
+graph_pos = Vector2(460, -200)
+
+[sub_resource type="Resource" id="Resource_su0gx"]
+script = ExtResource("2_5tclm")
+owner_state_name = &"Sequence"
+managed = true
+node_path = NodePath("DemoUpdateScore")
+parameters = Dictionary[StringName, StringName]({
+&"score": &"score"
+})
+name = &"DemoUpdateScore"
+graph_pos = Vector2(460, -360)
+
+[sub_resource type="Resource" id="Resource_b0ue5"]
+script = ExtResource("7_uip7n")
+
+[sub_resource type="Resource" id="Resource_4sxdo"]
+script = ExtResource("3_k6ebq")
+parameter = SubResource("Resource_b0ue5")
+name = &"game_started"
+graph_pos = Vector2(1080, 240)
+
+[sub_resource type="Resource" id="Resource_kj2an"]
+script = ExtResource("5_ogdtl")
+value = "res://addons/synapse/demos/cletus_loves_apples/save_data/save.cfg"
+
+[sub_resource type="Resource" id="Resource_6iubn"]
+script = ExtResource("3_k6ebq")
+parameter = SubResource("Resource_kj2an")
+name = &"save_file_path"
+graph_pos = Vector2(0, 160)
+
+[sub_resource type="Resource" id="Resource_i0xtp"]
+script = ExtResource("8_27d52")
+
+[sub_resource type="Resource" id="Resource_wt87u"]
+script = ExtResource("3_k6ebq")
+parameter = SubResource("Resource_i0xtp")
+name = &"score"
+graph_pos = Vector2(1080, 400)
+
+[sub_resource type="Resource" id="Resource_uip7n"]
+script = ExtResource("6_6agb5")
+value = &"ui_cancel"
+
+[sub_resource type="Resource" id="Resource_ai48k"]
+script = ExtResource("3_k6ebq")
+parameter = SubResource("Resource_uip7n")
+name = &"toggle_menu_action"
+graph_pos = Vector2(0, -200)
+
+[sub_resource type="Resource" id="Resource_1yyv0"]
+script = ExtResource("10_4iyaq")
+behavior_name = &"DemoSaveLoad"
+signal_relay_connector_name = &"load_state_machine"
+
+[sub_resource type="Resource" id="Resource_5f0nb"]
+script = ExtResource("11_27d52")
+nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
+callable_data = SubResource("Resource_1yyv0")
+
+[sub_resource type="Resource" id="Resource_gwl4q"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoCletusMenuManager")
+signal_name = &"new_game_pressed"
+
+[sub_resource type="Resource" id="Resource_qgvwk"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
+signal_data = SubResource("Resource_gwl4q")
+
+[sub_resource type="Resource" id="Resource_ngxfm"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoOneShotTimer")
+signal_name = &"timeout"
+
+[sub_resource type="Resource" id="Resource_p8vmc"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
+signal_data = SubResource("Resource_ngxfm")
+
+[sub_resource type="Resource" id="Resource_yinuo"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
+signal_data = SubResource("Resource_p8vmc")
+
+[sub_resource type="Resource" id="Resource_dqdd0"]
+script = ExtResource("9_hseae")
+signal_id = &"player_died"
+signal_data = SubResource("Resource_yinuo")
+
+[sub_resource type="Resource" id="Resource_sykwr"]
+script = ExtResource("8_8iqro")
+state_machine_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
+linked_parameter_names = Dictionary[StringName, StringName]({
+&"game_started": &"game_started",
+&"save_file_path": &"save_file_path"
+})
+parent_name = &"Sequence"
+name = &"MenuStateMachine"
+graph_pos = Vector2(800, -140)
+connected_signals = Dictionary[StringName, Array]({
+&"game_over": [SubResource("Resource_dqdd0")]
+})
+
+[sub_resource type="Resource" id="Resource_k574m"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_sykwr")
+signal_id = &"new_game_pressed"
+signal_data = SubResource("Resource_qgvwk")
+
+[sub_resource type="Resource" id="Resource_xks12"]
+script = ExtResource("8_8iqro")
+state_machine_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
+linked_parameter_names = Dictionary[StringName, StringName]({
+&"game_started": &"game_started",
+&"score": &"score"
+})
+parent_name = &"Sequence"
+name = &"GameStateMachine"
+graph_pos = Vector2(800, 240)
+connected_signals = Dictionary[StringName, Array]({
+&"reset": [SubResource("Resource_k574m")]
+})
+
+[sub_resource type="Resource" id="Resource_trdjc"]
+script = ExtResource("12_i0xtp")
+target_entity = SubResource("Resource_xks12")
+callable_id = &"load_state_machine"
+callable_data = SubResource("Resource_5f0nb")
+
+[sub_resource type="Resource" id="Resource_y5u8s"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoCletusMenuManager")
+signal_name = &"load_pressed"
+
+[sub_resource type="Resource" id="Resource_uyi5r"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
+signal_data = SubResource("Resource_y5u8s")
+
+[sub_resource type="Resource" id="Resource_6bs0a"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_sykwr")
+signal_id = &"load_pressed"
+signal_data = SubResource("Resource_uyi5r")
+
+[sub_resource type="Resource" id="Resource_dlojp"]
+script = ExtResource("3_sykwr")
+entity = SubResource("Resource_6iubn")
+property_name = &"value"
+
+[sub_resource type="Resource" id="Resource_4g5jp"]
+script = ExtResource("5_8iqro")
+callable_target_data = SubResource("Resource_trdjc")
+property_references = Dictionary[StringName, ExtResource("3_sykwr")]({
+&"file_path": SubResource("Resource_dlojp")
+})
+name = &"load_pressed__c::load_state_machine"
+graph_pos = Vector2(580, 240)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_6bs0a")]
+})
+
+[sub_resource type="Resource" id="Resource_ovcn1"]
+script = ExtResource("10_4iyaq")
+behavior_name = &"DemoSaveLoad"
+signal_relay_connector_name = &"save_state_machine"
+
+[sub_resource type="Resource" id="Resource_cngy0"]
+script = ExtResource("11_27d52")
+nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
+callable_data = SubResource("Resource_ovcn1")
+
+[sub_resource type="Resource" id="Resource_ee6h4"]
+script = ExtResource("12_i0xtp")
+target_entity = SubResource("Resource_xks12")
+callable_id = &"save_state_machine"
+callable_data = SubResource("Resource_cngy0")
+
+[sub_resource type="Resource" id="Resource_o7s54"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoCletusMenuManager")
+signal_name = &"save_pressed"
+
+[sub_resource type="Resource" id="Resource_wbhsc"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
+signal_data = SubResource("Resource_o7s54")
+
+[sub_resource type="Resource" id="Resource_n6d1w"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_sykwr")
+signal_id = &"save_pressed"
+signal_data = SubResource("Resource_wbhsc")
+
+[sub_resource type="Resource" id="Resource_j3lhy"]
+script = ExtResource("3_sykwr")
+entity = SubResource("Resource_6iubn")
+property_name = &"value"
+
+[sub_resource type="Resource" id="Resource_ert8d"]
+script = ExtResource("5_8iqro")
+callable_target_data = SubResource("Resource_ee6h4")
+property_references = Dictionary[StringName, ExtResource("3_sykwr")]({
+&"file_path": SubResource("Resource_j3lhy")
+})
+name = &"save_pressed__c::save_state_machine"
+graph_pos = Vector2(580, 360)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_n6d1w")]
+})
+
+[sub_resource type="Resource" id="Resource_5cwxp"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoToggleMenu")
+signal_name = &"menu_toggled"
+
+[sub_resource type="Resource" id="Resource_3qii8"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_6agb5")
+signal_id = &"menu_toggled"
+signal_data = SubResource("Resource_5cwxp")
+
+[sub_resource type="Resource" id="Resource_haq2p"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoCletusMenuManager")
+signal_name = &"load_pressed"
+
+[sub_resource type="Resource" id="Resource_6a0v2"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
+signal_data = SubResource("Resource_haq2p")
+
+[sub_resource type="Resource" id="Resource_77h8b"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_sykwr")
+signal_id = &"load_pressed"
+signal_data = SubResource("Resource_6a0v2")
+
+[sub_resource type="Resource" id="Resource_0h0va"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoCletusMenuManager")
+signal_name = &"new_game_pressed"
+
+[sub_resource type="Resource" id="Resource_r4nk2"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
+signal_data = SubResource("Resource_0h0va")
+
+[sub_resource type="Resource" id="Resource_iwsrv"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_sykwr")
+signal_id = &"new_game_pressed"
+signal_data = SubResource("Resource_r4nk2")
+
+[sub_resource type="Resource" id="Resource_wag0o"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoOneShotTimer")
+signal_name = &"timeout"
+
+[sub_resource type="Resource" id="Resource_4rav1"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
+signal_data = SubResource("Resource_wag0o")
+
+[sub_resource type="Resource" id="Resource_w6rec"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
+signal_data = SubResource("Resource_4rav1")
+
+[sub_resource type="Resource" id="Resource_n1ve4"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_xks12")
+signal_id = &"player_died"
+signal_data = SubResource("Resource_w6rec")
+
+[sub_resource type="Resource" id="Resource_hseae"]
+script = ExtResource("13_ogdtl")
+child_names = Array[StringName]([&"MenuStateMachine", &"GameStateMachine"])
+behavior_names = Array[StringName]([&"DemoUpdateScore", &"DemoToggleMenu"])
+name = &"Sequence"
+graph_pos = Vector2(240, 0)
+connected_signals = Dictionary[StringName, Array]({
+&"advance": [SubResource("Resource_3qii8"), SubResource("Resource_77h8b"), SubResource("Resource_iwsrv")],
+&"reset": [SubResource("Resource_n1ve4")]
+})
+
+[sub_resource type="Resource" id="Resource_i3dxv"]
+script = ExtResource("4_o8olj")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"Sequence"
+editor_scroll_offset = Vector2(-225.12708, -75.90651)
+editor_zoom = 0.82644594
+states = Dictionary[StringName, ExtResource("6_sykwr")]({
+&"GameStateMachine": SubResource("Resource_xks12"),
+&"MenuStateMachine": SubResource("Resource_sykwr"),
+&"Sequence": SubResource("Resource_hseae")
+})
+behaviors = Dictionary[StringName, ExtResource("2_5tclm")]({
+&"DemoToggleMenu": SubResource("Resource_6agb5"),
+&"DemoUpdateScore": SubResource("Resource_su0gx")
+})
+parameters = Dictionary[StringName, ExtResource("3_k6ebq")]({
+&"game_started": SubResource("Resource_4sxdo"),
+&"save_file_path": SubResource("Resource_6iubn"),
+&"score": SubResource("Resource_wt87u"),
+&"toggle_menu_action": SubResource("Resource_ai48k")
+})
+signal_bridges = Dictionary[StringName, ExtResource("5_8iqro")]({
+&"load_pressed__c::load_state_machine": SubResource("Resource_4g5jp"),
+&"save_pressed__c::save_state_machine": SubResource("Resource_ert8d")
+})
+
+[node name="Main" type="Node" unique_id=85591355]
+
+[node name="MainStateMachine" type="Node" parent="." unique_id=647476057]
+script = ExtResource("1_g6r23")
+data = SubResource("Resource_i3dxv")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="DemoToggleMenu" type="Node" parent="MainStateMachine" unique_id=245244673]
+process_mode = 4
+script = ExtResource("14_hseae")
+
+[node name="DemoUpdateScore" type="Node" parent="MainStateMachine" unique_id=1857525440]
+process_mode = 4
+script = ExtResource("21_i0xtp")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1101305885]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer" unique_id=1745064320]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/SubViewportContainer" unique_id=606035468]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Game" parent="PanelContainer/SubViewportContainer/SubViewport" unique_id=478438997 instance=ExtResource("9_8iqro")]
+
+[node name="Menu" parent="PanelContainer" unique_id=455014218 instance=ExtResource("8_o8olj")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2012419406]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1612944319]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=963892760]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Score: 0"

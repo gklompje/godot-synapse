@@ -1,0 +1,20 @@
+# Documentation
+
+## Index
+* [Main Page](../README.md)
+* [Core Concepts](./concepts.md)
+* [Getting Started](./getting_started/README.md)
+	* [Part 1: Building a State Machine](./getting_started/getting_started-1.md)
+	* [Part 2: Adding More States](./getting_started/getting_started-2.md)
+	* [Part 3: Signals](./getting_started/getting_started-3.md)
+* [Manual](./manual/README.md)
+	* [Working With Parameters](./manual/parameters.md)
+	* [Working With Behaviors](./manual/behaviors.md)
+	* [Working With States](./manual/states.md)
+	* [Working With Signals](./manual/signals.md)
+* [Tutorials](./tutorials/README.md)
+	* [Creating Custom Parameters](./tutorials/custom_parameters.md)
+	* [Creating Custom Behaviors](./tutorials/custom_behaviors.md)
+	* [Building a Complete Game](./tutorials/game.md) (intermediate)
+	* [Creating Custom States](./tutorials/custom_states.md) (advanced)
+* [Demos](../demos/README.md)

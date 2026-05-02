@@ -1,0 +1,416 @@
+[gd_scene format=3 uid="uid://d2d36csuvri63"]
+
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_qu5jd"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_chl4r"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="5_423a6"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="6_ca887"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="6_pwjkb"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="7_2bpjo"]
+[ext_resource type="Script" uid="uid://4mjgqrfhqtv8" path="res://addons/synapse/scripts/resource_types/combiner_state_data.gd" id="7_bvgd8"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="7_pwjkb"]
+[ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="9_1eh06"]
+[ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="9_egdkw"]
+[ext_resource type="Script" uid="uid://bvvch0tvn5oac" path="res://addons/synapse/demos/behaviors_in_scenes/widget_rotator_behavior.gd" id="9_ne06k"]
+[ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="10_3g2rs"]
+[ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="10_bqdxq"]
+[ext_resource type="PackedScene" uid="uid://ufnlop1gmi4n" path="res://addons/synapse/demos/behaviors_in_scenes/RotatingIconWidget.tscn" id="10_ne06k"]
+[ext_resource type="PackedScene" uid="uid://b2hghpdvmwobc" path="res://addons/synapse/demos/behaviors_in_scenes/SceneWithNestedBehaviors.tscn" id="12_ca887"]
+[ext_resource type="Script" uid="uid://b0bs8ub0x82vu" path="res://addons/synapse/demos/behaviors_in_scenes/widget_state_selector_behavior.gd" id="12_o7apl"]
+
+[sub_resource type="Resource" id="Resource_ah21k"]
+script = ExtResource("3_chl4r")
+owner_state_name = &"local"
+node_path = NodePath("../LocalWidgetRotatorBehavior")
+name = &"local_rotator"
+graph_pos = Vector2(1080, 0)
+
+[sub_resource type="Resource" id="Resource_vj68e"]
+script = ExtResource("3_chl4r")
+owner_state_name = &"Combiner"
+node_path = NodePath("../LocalWidgetStateSelectorBehavior")
+name = &"local_selector"
+graph_pos = Vector2(320, 0)
+
+[sub_resource type="Resource" id="Resource_s0j4d"]
+script = ExtResource("3_chl4r")
+owner_state_name = &"managed"
+managed = true
+node_path = NodePath("DemoWidgetRotator")
+name = &"managed_rotator"
+graph_pos = Vector2(1080, -260)
+
+[sub_resource type="Resource" id="Resource_wsnse"]
+script = ExtResource("3_chl4r")
+owner_state_name = &"Combiner"
+managed = true
+node_path = NodePath("DemoWidgetStateSelector")
+name = &"managed_selector"
+graph_pos = Vector2(320, -260)
+
+[sub_resource type="Resource" id="Resource_r7kk6"]
+script = ExtResource("3_chl4r")
+owner_state_name = &"remote"
+node_path = NodePath("../GridContainer/RemoteSceneBehaviorWidget/RemoteSceneWidgetRotatorBehavior")
+name = &"remote_rotator"
+graph_pos = Vector2(1080, 260)
+
+[sub_resource type="Resource" id="Resource_oxs1a"]
+script = ExtResource("3_chl4r")
+owner_state_name = &"Combiner"
+node_path = NodePath("../GridContainer/RemoteSceneBehaviorWidget/RemoteSceneWidgetStateSelectorBehavior")
+name = &"remote_selector"
+graph_pos = Vector2(320, 260)
+
+[sub_resource type="Resource" id="Resource_obpvk"]
+script = ExtResource("9_1eh06")
+state_name = &"Combiner"
+method_name = &"deselect"
+
+[sub_resource type="Resource" id="Resource_egdkw"]
+script = ExtResource("7_bvgd8")
+child_names = Array[StringName]([&"managed", &"local", &"remote"])
+behavior_names = Array[StringName]([&"managed_selector", &"local_selector", &"remote_selector"])
+name = &"Combiner"
+graph_pos = Vector2(117.41584, 3.7137935)
+
+[sub_resource type="Resource" id="Resource_bk0ad"]
+script = ExtResource("10_bqdxq")
+target_entity = SubResource("Resource_egdkw")
+callable_id = &"deselect"
+callable_data = SubResource("Resource_obpvk")
+
+[sub_resource type="Resource" id="Resource_uq1uu"]
+script = ExtResource("10_3g2rs")
+node_path = NodePath("DemoWidgetStateSelector")
+signal_name = &"deselect"
+
+[sub_resource type="Resource" id="Resource_gnoj8"]
+script = ExtResource("9_egdkw")
+source_entity = SubResource("Resource_wsnse")
+signal_id = &"deselect"
+signal_data = SubResource("Resource_uq1uu")
+
+[sub_resource type="Resource" id="Resource_3g2rs"]
+script = ExtResource("7_2bpjo")
+parent_name = &"Combiner"
+behavior_names = Array[StringName]([&"managed_rotator"])
+name = &"managed"
+graph_pos = Vector2(880, -260)
+
+[sub_resource type="Resource" id="Resource_u56qr"]
+script = ExtResource("7_pwjkb")
+entity = SubResource("Resource_3g2rs")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_0mejj"]
+script = ExtResource("6_pwjkb")
+callable_target_data = SubResource("Resource_bk0ad")
+property_references = Dictionary[StringName, ExtResource("7_pwjkb")]({
+&"state_name": SubResource("Resource_u56qr")
+})
+name = &"deselect__deselect"
+graph_pos = Vector2(660, -140)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_gnoj8")]
+})
+
+[sub_resource type="Resource" id="Resource_pk5n2"]
+script = ExtResource("9_1eh06")
+state_name = &"Combiner"
+method_name = &"deselect"
+
+[sub_resource type="Resource" id="Resource_ptkha"]
+script = ExtResource("10_bqdxq")
+target_entity = SubResource("Resource_egdkw")
+callable_id = &"deselect"
+callable_data = SubResource("Resource_pk5n2")
+
+[sub_resource type="Resource" id="Resource_xdemn"]
+script = ExtResource("10_3g2rs")
+node_path = NodePath("../LocalWidgetStateSelectorBehavior")
+signal_name = &"deselect"
+
+[sub_resource type="Resource" id="Resource_17fth"]
+script = ExtResource("9_egdkw")
+source_entity = SubResource("Resource_vj68e")
+signal_id = &"deselect"
+signal_data = SubResource("Resource_xdemn")
+
+[sub_resource type="Resource" id="Resource_1eh06"]
+script = ExtResource("7_2bpjo")
+parent_name = &"Combiner"
+behavior_names = Array[StringName]([&"local_rotator"])
+name = &"local"
+graph_pos = Vector2(880, 0)
+
+[sub_resource type="Resource" id="Resource_lpneu"]
+script = ExtResource("7_pwjkb")
+entity = SubResource("Resource_1eh06")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_7n8p5"]
+script = ExtResource("6_pwjkb")
+callable_target_data = SubResource("Resource_ptkha")
+property_references = Dictionary[StringName, ExtResource("7_pwjkb")]({
+&"state_name": SubResource("Resource_lpneu")
+})
+name = &"deselect__deselect2"
+graph_pos = Vector2(660, 120)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_17fth")]
+})
+
+[sub_resource type="Resource" id="Resource_ur2tp"]
+script = ExtResource("9_1eh06")
+state_name = &"Combiner"
+method_name = &"deselect"
+
+[sub_resource type="Resource" id="Resource_q1vms"]
+script = ExtResource("10_bqdxq")
+target_entity = SubResource("Resource_egdkw")
+callable_id = &"deselect"
+callable_data = SubResource("Resource_ur2tp")
+
+[sub_resource type="Resource" id="Resource_pixjf"]
+script = ExtResource("10_3g2rs")
+node_path = NodePath("../GridContainer/RemoteSceneBehaviorWidget/RemoteSceneWidgetStateSelectorBehavior")
+signal_name = &"deselect"
+
+[sub_resource type="Resource" id="Resource_wt30o"]
+script = ExtResource("9_egdkw")
+source_entity = SubResource("Resource_oxs1a")
+signal_id = &"deselect"
+signal_data = SubResource("Resource_pixjf")
+
+[sub_resource type="Resource" id="Resource_bqdxq"]
+script = ExtResource("7_2bpjo")
+parent_name = &"Combiner"
+behavior_names = Array[StringName]([&"remote_rotator"])
+name = &"remote"
+graph_pos = Vector2(880, 260)
+
+[sub_resource type="Resource" id="Resource_h545c"]
+script = ExtResource("7_pwjkb")
+entity = SubResource("Resource_bqdxq")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_k7imv"]
+script = ExtResource("6_pwjkb")
+callable_target_data = SubResource("Resource_q1vms")
+property_references = Dictionary[StringName, ExtResource("7_pwjkb")]({
+&"state_name": SubResource("Resource_h545c")
+})
+name = &"deselect__deselect3"
+graph_pos = Vector2(660, 380)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_wt30o")]
+})
+
+[sub_resource type="Resource" id="Resource_qrhwy"]
+script = ExtResource("9_1eh06")
+state_name = &"Combiner"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_7fxms"]
+script = ExtResource("10_bqdxq")
+target_entity = SubResource("Resource_egdkw")
+callable_id = &"select"
+callable_data = SubResource("Resource_qrhwy")
+
+[sub_resource type="Resource" id="Resource_20gtp"]
+script = ExtResource("10_3g2rs")
+node_path = NodePath("DemoWidgetStateSelector")
+signal_name = &"select"
+
+[sub_resource type="Resource" id="Resource_0hxid"]
+script = ExtResource("9_egdkw")
+source_entity = SubResource("Resource_wsnse")
+signal_id = &"select"
+signal_data = SubResource("Resource_20gtp")
+
+[sub_resource type="Resource" id="Resource_srg4g"]
+script = ExtResource("7_pwjkb")
+entity = SubResource("Resource_3g2rs")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_6hdwt"]
+script = ExtResource("6_pwjkb")
+callable_target_data = SubResource("Resource_7fxms")
+property_references = Dictionary[StringName, ExtResource("7_pwjkb")]({
+&"state_name": SubResource("Resource_srg4g")
+})
+name = &"select__select"
+graph_pos = Vector2(660, -260)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_0hxid")]
+})
+
+[sub_resource type="Resource" id="Resource_fw1wm"]
+script = ExtResource("9_1eh06")
+state_name = &"Combiner"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_htuou"]
+script = ExtResource("10_bqdxq")
+target_entity = SubResource("Resource_egdkw")
+callable_id = &"select"
+callable_data = SubResource("Resource_fw1wm")
+
+[sub_resource type="Resource" id="Resource_dq57r"]
+script = ExtResource("10_3g2rs")
+node_path = NodePath("../LocalWidgetStateSelectorBehavior")
+signal_name = &"select"
+
+[sub_resource type="Resource" id="Resource_by5yj"]
+script = ExtResource("9_egdkw")
+source_entity = SubResource("Resource_vj68e")
+signal_id = &"select"
+signal_data = SubResource("Resource_dq57r")
+
+[sub_resource type="Resource" id="Resource_twvu0"]
+script = ExtResource("7_pwjkb")
+entity = SubResource("Resource_1eh06")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_0ey2k"]
+script = ExtResource("6_pwjkb")
+callable_target_data = SubResource("Resource_htuou")
+property_references = Dictionary[StringName, ExtResource("7_pwjkb")]({
+&"state_name": SubResource("Resource_twvu0")
+})
+name = &"select__select2"
+graph_pos = Vector2(660, 0)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_by5yj")]
+})
+
+[sub_resource type="Resource" id="Resource_ajedy"]
+script = ExtResource("9_1eh06")
+state_name = &"Combiner"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_sluax"]
+script = ExtResource("10_bqdxq")
+target_entity = SubResource("Resource_egdkw")
+callable_id = &"select"
+callable_data = SubResource("Resource_ajedy")
+
+[sub_resource type="Resource" id="Resource_a6md4"]
+script = ExtResource("10_3g2rs")
+node_path = NodePath("../GridContainer/RemoteSceneBehaviorWidget/RemoteSceneWidgetStateSelectorBehavior")
+signal_name = &"select"
+
+[sub_resource type="Resource" id="Resource_cap4v"]
+script = ExtResource("9_egdkw")
+source_entity = SubResource("Resource_oxs1a")
+signal_id = &"select"
+signal_data = SubResource("Resource_a6md4")
+
+[sub_resource type="Resource" id="Resource_p4ltu"]
+script = ExtResource("7_pwjkb")
+entity = SubResource("Resource_bqdxq")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_gigwf"]
+script = ExtResource("6_pwjkb")
+callable_target_data = SubResource("Resource_sluax")
+property_references = Dictionary[StringName, ExtResource("7_pwjkb")]({
+&"state_name": SubResource("Resource_p4ltu")
+})
+name = &"select__select3"
+graph_pos = Vector2(660, 260)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_cap4v")]
+})
+
+[sub_resource type="Resource" id="Resource_xt0lk"]
+script = ExtResource("6_ca887")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"Combiner"
+root_pos = Vector2(-160, 0)
+editor_scroll_offset = Vector2(-388.03552, -38.692665)
+editor_zoom = 0.51315784
+states = Dictionary[StringName, ExtResource("7_2bpjo")]({
+&"Combiner": SubResource("Resource_egdkw"),
+&"local": SubResource("Resource_1eh06"),
+&"managed": SubResource("Resource_3g2rs"),
+&"remote": SubResource("Resource_bqdxq")
+})
+behaviors = Dictionary[StringName, ExtResource("3_chl4r")]({
+&"local_rotator": SubResource("Resource_ah21k"),
+&"local_selector": SubResource("Resource_vj68e"),
+&"managed_rotator": SubResource("Resource_s0j4d"),
+&"managed_selector": SubResource("Resource_wsnse"),
+&"remote_rotator": SubResource("Resource_r7kk6"),
+&"remote_selector": SubResource("Resource_oxs1a")
+})
+signal_bridges = Dictionary[StringName, ExtResource("6_pwjkb")]({
+&"deselect__deselect": SubResource("Resource_0mejj"),
+&"deselect__deselect2": SubResource("Resource_7n8p5"),
+&"deselect__deselect3": SubResource("Resource_k7imv"),
+&"select__select": SubResource("Resource_6hdwt"),
+&"select__select2": SubResource("Resource_0ey2k"),
+&"select__select3": SubResource("Resource_gigwf")
+})
+
+[node name="BehaviorsInSceneDemo" type="Control" unique_id=178967618]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LocalWidgetStateSelectorBehavior" type="Node" parent="." unique_id=1850594684 node_paths=PackedStringArray("widget")]
+process_mode = 4
+script = ExtResource("12_o7apl")
+widget = NodePath("../GridContainer/LocalBehaviorWidget")
+description = "local"
+metadata/_custom_type_script = "uid://b0bs8ub0x82vu"
+
+[node name="LocalWidgetRotatorBehavior" type="Node" parent="." unique_id=1810753162 node_paths=PackedStringArray("widget")]
+process_mode = 4
+script = ExtResource("9_ne06k")
+widget = NodePath("../GridContainer/LocalBehaviorWidget")
+metadata/_custom_type_script = "uid://bvvch0tvn5oac"
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1992488473]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -292.0
+offset_top = -110.0
+offset_right = 292.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="ManagedBehaviorWidget" parent="GridContainer" unique_id=300225433 instance=ExtResource("10_ne06k")]
+layout_mode = 2
+
+[node name="LocalBehaviorWidget" parent="GridContainer" unique_id=943581178 instance=ExtResource("10_ne06k")]
+layout_mode = 2
+
+[node name="RemoteSceneBehaviorWidget" parent="GridContainer" unique_id=836389753 instance=ExtResource("12_ca887")]
+layout_mode = 2
+
+[node name="StateMachine" type="Node" parent="." unique_id=2059384440]
+script = ExtResource("2_qu5jd")
+data = SubResource("Resource_xt0lk")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="DemoWidgetStateSelector" type="Node" parent="StateMachine" unique_id=1377606409 node_paths=PackedStringArray("widget")]
+process_mode = 4
+script = ExtResource("12_o7apl")
+widget = NodePath("../../GridContainer/ManagedBehaviorWidget")
+description = "managed"
+
+[node name="DemoWidgetRotator" type="Node" parent="StateMachine" unique_id=1795589395 node_paths=PackedStringArray("widget")]
+process_mode = 4
+script = ExtResource("9_ne06k")
+widget = NodePath("../../GridContainer/ManagedBehaviorWidget")

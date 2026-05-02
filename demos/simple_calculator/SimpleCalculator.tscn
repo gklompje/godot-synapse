@@ -1,0 +1,461 @@
+[gd_scene format=3 uid="uid://bc0nuprwcu3ai"]
+
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="1_s40en"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="2_yqbeb"]
+[ext_resource type="Script" uid="uid://0i75vrgqpra2" path="res://addons/synapse/scripts/behaviors/float_parameter_adder.gd" id="4_k8y7s"]
+[ext_resource type="Script" uid="uid://cet6ax05ue7dj" path="res://addons/synapse/scripts/behaviors/float_parameter_divider.gd" id="5_8qh2c"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="5_fj6aj"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="6_2gi34"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="6_8qh2c"]
+[ext_resource type="Script" uid="uid://c7ct0ke7jxyfc" path="res://addons/synapse/scripts/behaviors/float_parameter_multiplier.gd" id="6_j6w1u"]
+[ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="6_yqbeb"]
+[ext_resource type="Script" uid="uid://dk1q7ivmiucmc" path="res://addons/synapse/scripts/resource_types/selector_state_data.gd" id="7_0okgq"]
+[ext_resource type="Script" uid="uid://ddnib8lchqusg" path="res://addons/synapse/demos/simple_calculator/select_operation_on_dropdown.gd" id="7_3lpug"]
+[ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="7_g8vmr"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="7_jj8l3"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="7_k8y7s"]
+[ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="7_nfo80"]
+[ext_resource type="Script" uid="uid://bnwhidky66y4e" path="res://addons/synapse/demos/simple_calculator/update_label.gd" id="8_es2fo"]
+[ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="8_fe0v3"]
+[ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="8_g21qm"]
+[ext_resource type="Script" uid="uid://dg4fb8qsrgjlb" path="res://addons/synapse/scripts/behaviors/float_parameter_subtractor.gd" id="9_gdhut"]
+[ext_resource type="Script" uid="uid://buoxrndx1oj5n" path="res://addons/synapse/demos/simple_calculator/sync_float_parameter_with_spin_box.gd" id="10_6ko2v"]
+
+[sub_resource type="Resource" id="Resource_3j2x4"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"Add"
+managed = true
+node_path = NodePath("Add")
+parameters = Dictionary[StringName, StringName]({
+&"a": &"A",
+&"b": &"B",
+&"result": &"Result"
+})
+name = &"Add"
+graph_pos = Vector2(860, 20)
+
+[sub_resource type="Resource" id="Resource_wj432"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"Divide"
+managed = true
+node_path = NodePath("Divide")
+parameters = Dictionary[StringName, StringName]({
+&"a": &"A",
+&"b": &"B",
+&"result": &"Result"
+})
+name = &"Divide"
+graph_pos = Vector2(860, 800)
+
+[sub_resource type="Resource" id="Resource_yrxdw"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"Multiply"
+managed = true
+node_path = NodePath("Multiply")
+parameters = Dictionary[StringName, StringName]({
+&"a": &"A",
+&"b": &"B",
+&"result": &"Result"
+})
+name = &"Multiply"
+graph_pos = Vector2(860, 540)
+
+[sub_resource type="Resource" id="Resource_3fqii"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"SimpleCalculator"
+managed = true
+node_path = NodePath("SelectOperation")
+name = &"SelectOperation"
+graph_pos = Vector2(-380, -440)
+
+[sub_resource type="Resource" id="Resource_bqcxi"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"Subtract"
+managed = true
+node_path = NodePath("Subtract")
+parameters = Dictionary[StringName, StringName]({
+&"a": &"A",
+&"b": &"B",
+&"result": &"Result"
+})
+name = &"Subtract"
+graph_pos = Vector2(860, 260)
+
+[sub_resource type="Resource" id="Resource_ejshr"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"SimpleCalculator"
+managed = true
+node_path = NodePath("UpdateA")
+parameters = Dictionary[StringName, StringName]({
+&"parameter": &"A"
+})
+name = &"UpdateA"
+graph_pos = Vector2(-360, 300)
+
+[sub_resource type="Resource" id="Resource_8q8t4"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"SimpleCalculator"
+managed = true
+node_path = NodePath("UpdateB")
+parameters = Dictionary[StringName, StringName]({
+&"parameter": &"B"
+})
+name = &"UpdateB"
+graph_pos = Vector2(-360, 480)
+
+[sub_resource type="Resource" id="Resource_6ko2v"]
+script = ExtResource("2_yqbeb")
+owner_state_name = &"SimpleCalculator"
+managed = true
+node_path = NodePath("UpdateLabel")
+parameters = Dictionary[StringName, StringName]({
+&"parameter": &"Result"
+})
+name = &"UpdateLabel"
+graph_pos = Vector2(-360, 660)
+
+[sub_resource type="Resource" id="Resource_xunvw"]
+script = ExtResource("6_yqbeb")
+value = 1.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_yhely"]
+script = ExtResource("5_fj6aj")
+parameter = SubResource("Resource_xunvw")
+name = &"A"
+graph_pos = Vector2(0, 300)
+
+[sub_resource type="Resource" id="Resource_uhdus"]
+script = ExtResource("6_yqbeb")
+value = 1.0
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_yky4q"]
+script = ExtResource("5_fj6aj")
+parameter = SubResource("Resource_uhdus")
+name = &"B"
+graph_pos = Vector2(0, 480)
+
+[sub_resource type="Resource" id="Resource_3egmv"]
+script = ExtResource("6_yqbeb")
+metadata/_custom_type_script = "uid://2qeph5d2gamy"
+
+[sub_resource type="Resource" id="Resource_umtcb"]
+script = ExtResource("5_fj6aj")
+parameter = SubResource("Resource_3egmv")
+name = &"Result"
+graph_pos = Vector2(1440, 480)
+
+[sub_resource type="Resource" id="Resource_447ar"]
+script = ExtResource("7_g8vmr")
+state_name = &"SimpleCalculator"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_tm3ko"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Add"])
+name = &"Add"
+graph_pos = Vector2(500.62497, 22.498913)
+
+[sub_resource type="Resource" id="Resource_k8y7s"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Divide"])
+name = &"Divide"
+graph_pos = Vector2(504.67126, 803.1807)
+
+[sub_resource type="Resource" id="Resource_8qh2c"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Multiply"])
+name = &"Multiply"
+graph_pos = Vector2(500, 540)
+
+[sub_resource type="Resource" id="Resource_3lpug"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Subtract"])
+name = &"Subtract"
+graph_pos = Vector2(500, 260)
+
+[sub_resource type="Resource" id="Resource_j6w1u"]
+script = ExtResource("7_0okgq")
+transitions = Array[Array]([[SubResource("Resource_tm3ko"), SubResource("Resource_k8y7s")], [SubResource("Resource_tm3ko"), SubResource("Resource_8qh2c")], [SubResource("Resource_tm3ko"), SubResource("Resource_3lpug")], [SubResource("Resource_k8y7s"), SubResource("Resource_8qh2c")], [SubResource("Resource_k8y7s"), SubResource("Resource_3lpug")], [SubResource("Resource_k8y7s"), SubResource("Resource_tm3ko")], [SubResource("Resource_8qh2c"), SubResource("Resource_k8y7s")], [SubResource("Resource_8qh2c"), SubResource("Resource_3lpug")], [SubResource("Resource_8qh2c"), SubResource("Resource_tm3ko")], [SubResource("Resource_3lpug"), SubResource("Resource_k8y7s")], [SubResource("Resource_3lpug"), SubResource("Resource_8qh2c")], [SubResource("Resource_3lpug"), SubResource("Resource_tm3ko")]])
+child_names = Array[StringName]([&"Add", &"Subtract", &"Multiply", &"Divide"])
+behavior_names = Array[StringName]([&"SelectOperation", &"UpdateB", &"UpdateA", &"UpdateLabel"])
+name = &"SimpleCalculator"
+graph_pos = Vector2(-860, 0)
+
+[sub_resource type="Resource" id="Resource_2ptce"]
+script = ExtResource("8_g21qm")
+target_entity = SubResource("Resource_j6w1u")
+callable_id = &"select"
+callable_data = SubResource("Resource_447ar")
+
+[sub_resource type="Resource" id="Resource_g8vmr"]
+script = ExtResource("8_fe0v3")
+node_path = NodePath("SelectOperation")
+signal_name = &"select_add"
+
+[sub_resource type="Resource" id="Resource_g21qm"]
+script = ExtResource("7_nfo80")
+source_entity = SubResource("Resource_3fqii")
+signal_id = &"select_add"
+signal_data = SubResource("Resource_g8vmr")
+
+[sub_resource type="Resource" id="Resource_lvfw3"]
+script = ExtResource("7_k8y7s")
+entity = SubResource("Resource_tm3ko")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_gdhut"]
+script = ExtResource("6_8qh2c")
+callable_target_data = SubResource("Resource_2ptce")
+property_references = Dictionary[StringName, ExtResource("7_k8y7s")]({
+&"state_name": SubResource("Resource_lvfw3")
+})
+name = &"select_add__select"
+graph_pos = Vector2(80, -440)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_g21qm")]
+})
+
+[sub_resource type="Resource" id="Resource_4wpqb"]
+script = ExtResource("7_g8vmr")
+state_name = &"SimpleCalculator"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_remfy"]
+script = ExtResource("8_g21qm")
+target_entity = SubResource("Resource_j6w1u")
+callable_id = &"select"
+callable_data = SubResource("Resource_4wpqb")
+
+[sub_resource type="Resource" id="Resource_h5n1y"]
+script = ExtResource("8_fe0v3")
+node_path = NodePath("SelectOperation")
+signal_name = &"select_divide"
+
+[sub_resource type="Resource" id="Resource_upcqu"]
+script = ExtResource("7_nfo80")
+source_entity = SubResource("Resource_3fqii")
+signal_id = &"select_divide"
+signal_data = SubResource("Resource_h5n1y")
+
+[sub_resource type="Resource" id="Resource_m41us"]
+script = ExtResource("7_k8y7s")
+entity = SubResource("Resource_k8y7s")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_x3agu"]
+script = ExtResource("6_8qh2c")
+callable_target_data = SubResource("Resource_remfy")
+property_references = Dictionary[StringName, ExtResource("7_k8y7s")]({
+&"state_name": SubResource("Resource_m41us")
+})
+name = &"select_divide__select"
+graph_pos = Vector2(80, -20)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_upcqu")]
+})
+
+[sub_resource type="Resource" id="Resource_uhg5m"]
+script = ExtResource("7_g8vmr")
+state_name = &"SimpleCalculator"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_ohynf"]
+script = ExtResource("8_g21qm")
+target_entity = SubResource("Resource_j6w1u")
+callable_id = &"select"
+callable_data = SubResource("Resource_uhg5m")
+
+[sub_resource type="Resource" id="Resource_b7dmg"]
+script = ExtResource("8_fe0v3")
+node_path = NodePath("SelectOperation")
+signal_name = &"select_multiply"
+
+[sub_resource type="Resource" id="Resource_nuajp"]
+script = ExtResource("7_nfo80")
+source_entity = SubResource("Resource_3fqii")
+signal_id = &"select_multiply"
+signal_data = SubResource("Resource_b7dmg")
+
+[sub_resource type="Resource" id="Resource_xjvit"]
+script = ExtResource("7_k8y7s")
+entity = SubResource("Resource_8qh2c")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_ufjyh"]
+script = ExtResource("6_8qh2c")
+callable_target_data = SubResource("Resource_ohynf")
+property_references = Dictionary[StringName, ExtResource("7_k8y7s")]({
+&"state_name": SubResource("Resource_xjvit")
+})
+name = &"select_multiply__select"
+graph_pos = Vector2(80, -160)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_nuajp")]
+})
+
+[sub_resource type="Resource" id="Resource_6c8ve"]
+script = ExtResource("7_g8vmr")
+state_name = &"SimpleCalculator"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_wcgbg"]
+script = ExtResource("8_g21qm")
+target_entity = SubResource("Resource_j6w1u")
+callable_id = &"select"
+callable_data = SubResource("Resource_6c8ve")
+
+[sub_resource type="Resource" id="Resource_ek40t"]
+script = ExtResource("8_fe0v3")
+node_path = NodePath("SelectOperation")
+signal_name = &"select_subtract"
+
+[sub_resource type="Resource" id="Resource_go0cb"]
+script = ExtResource("7_nfo80")
+source_entity = SubResource("Resource_3fqii")
+signal_id = &"select_subtract"
+signal_data = SubResource("Resource_ek40t")
+
+[sub_resource type="Resource" id="Resource_qg4r1"]
+script = ExtResource("7_k8y7s")
+entity = SubResource("Resource_3lpug")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_kj3n8"]
+script = ExtResource("6_8qh2c")
+callable_target_data = SubResource("Resource_wcgbg")
+property_references = Dictionary[StringName, ExtResource("7_k8y7s")]({
+&"state_name": SubResource("Resource_qg4r1")
+})
+name = &"select_subtract__select"
+graph_pos = Vector2(80, -300)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_go0cb")]
+})
+
+[sub_resource type="Resource" id="Resource_xxjd7"]
+script = ExtResource("6_2gi34")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"SimpleCalculator"
+root_pos = Vector2(-1080, 0)
+editor_scroll_offset = Vector2(-853.5309, -269)
+editor_zoom = 0.60322154
+states = Dictionary[StringName, ExtResource("7_jj8l3")]({
+&"Add": SubResource("Resource_tm3ko"),
+&"Divide": SubResource("Resource_k8y7s"),
+&"Multiply": SubResource("Resource_8qh2c"),
+&"SimpleCalculator": SubResource("Resource_j6w1u"),
+&"Subtract": SubResource("Resource_3lpug")
+})
+behaviors = Dictionary[StringName, ExtResource("2_yqbeb")]({
+&"Add": SubResource("Resource_3j2x4"),
+&"Divide": SubResource("Resource_wj432"),
+&"Multiply": SubResource("Resource_yrxdw"),
+&"SelectOperation": SubResource("Resource_3fqii"),
+&"Subtract": SubResource("Resource_bqcxi"),
+&"UpdateA": SubResource("Resource_ejshr"),
+&"UpdateB": SubResource("Resource_8q8t4"),
+&"UpdateLabel": SubResource("Resource_6ko2v")
+})
+parameters = Dictionary[StringName, ExtResource("5_fj6aj")]({
+&"A": SubResource("Resource_yhely"),
+&"B": SubResource("Resource_yky4q"),
+&"Result": SubResource("Resource_umtcb")
+})
+signal_bridges = Dictionary[StringName, ExtResource("6_8qh2c")]({
+&"select_add__select": SubResource("Resource_gdhut"),
+&"select_divide__select": SubResource("Resource_x3agu"),
+&"select_multiply__select": SubResource("Resource_ufjyh"),
+&"select_subtract__select": SubResource("Resource_kj3n8")
+})
+
+[node name="SimpleCalculator" type="Control" unique_id=58217325]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StateMachine" type="Node" parent="." unique_id=1627699899]
+script = ExtResource("1_s40en")
+data = SubResource("Resource_xxjd7")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="Add" type="Node" parent="StateMachine" unique_id=228995294]
+process_mode = 4
+script = ExtResource("4_k8y7s")
+
+[node name="Divide" type="Node" parent="StateMachine" unique_id=90931181]
+process_mode = 4
+script = ExtResource("5_8qh2c")
+
+[node name="Multiply" type="Node" parent="StateMachine" unique_id=663709462]
+process_mode = 4
+script = ExtResource("6_j6w1u")
+
+[node name="Subtract" type="Node" parent="StateMachine" unique_id=77635245]
+process_mode = 4
+script = ExtResource("9_gdhut")
+
+[node name="UpdateA" type="Node" parent="StateMachine" unique_id=1280260813]
+process_mode = 4
+script = ExtResource("10_6ko2v")
+spin_box = NodePath("../../HBoxContainer/ASpinBox")
+
+[node name="UpdateB" type="Node" parent="StateMachine" unique_id=24209975]
+process_mode = 4
+script = ExtResource("10_6ko2v")
+spin_box = NodePath("../../HBoxContainer/BSpinBox")
+
+[node name="SelectOperation" type="Node" parent="StateMachine" unique_id=948514993]
+process_mode = 4
+script = ExtResource("7_3lpug")
+option_button = NodePath("../../HBoxContainer/OperationOptionButton")
+
+[node name="UpdateLabel" type="Node" parent="StateMachine" unique_id=783699368]
+process_mode = 4
+script = ExtResource("8_es2fo")
+label = NodePath("../../HBoxContainer/ResultLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1156698118]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.5
+offset_top = -15.5
+offset_right = 102.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ASpinBox" type="SpinBox" parent="HBoxContainer" unique_id=1602365823]
+layout_mode = 2
+min_value = -100.0
+step = 0.01
+
+[node name="OperationOptionButton" type="OptionButton" parent="HBoxContainer" unique_id=1275076581]
+layout_mode = 2
+
+[node name="BSpinBox" type="SpinBox" parent="HBoxContainer" unique_id=130695936]
+layout_mode = 2
+min_value = -100.0
+step = 0.01
+
+[node name="EqualsLabel" type="Label" parent="HBoxContainer" unique_id=296277636]
+layout_mode = 2
+text = "="
+
+[node name="ResultLabel" type="Label" parent="HBoxContainer" unique_id=1416529656]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.0"

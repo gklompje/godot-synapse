@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cg8712w6lwowb"]
+
+[ext_resource type="Script" uid="uid://dyij1pc30vort" path="res://addons/state_machine/scripts/ui/signal_bridge_graph_node.gd" id="1_j3duj"]
+
+[node name="SignalBridgeGraphNode" type="GraphNode" unique_id=1811238742]
+offset_right = 120.0
+offset_bottom = 153.0
+script = ExtResource("1_j3duj")

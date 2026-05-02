@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://b17n15gcwiawr"]
+
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="1_gvp3o"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="2_uxuh5"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="3_nbscj"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="3_uxuh5"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="4_eyflg"]
+[ext_resource type="Script" uid="uid://c5ccvhqenjstd" path="res://addons/synapse/scripts/parameters/file_path_parameter.gd" id="5_eyflg"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="5_qwgct"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_iohko"]
+[ext_resource type="Script" uid="uid://bevul54evxjup" path="res://addons/synapse/scripts/parameters/bool_parameter.gd" id="6_qwgct"]
+[ext_resource type="Script" uid="uid://c3ubiy5gwcvwu" path="res://demos/cletus_loves_apples/scripts/behaviors/ui_manager.gd" id="9_qwgct"]
+
+[sub_resource type="Resource" id="Resource_iohko"]
+script = ExtResource("2_uxuh5")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("DemoCletusMenuManager")
+parameters = Dictionary[StringName, StringName]({
+&"game_started": &"game_started",
+&"save_file_path": &"save_file_path"
+})
+name = &"MenuManager"
+graph_pos = Vector2(500, 0)
+
+[sub_resource type="Resource" id="Resource_ihrjt"]
+script = ExtResource("3_uxuh5")
+entity = SubResource("Resource_iohko")
+property_name = &"game_over"
+
+[sub_resource type="Resource" id="Resource_4pjxp"]
+script = ExtResource("3_uxuh5")
+entity = SubResource("Resource_iohko")
+property_name = &"load_pressed"
+
+[sub_resource type="Resource" id="Resource_w6sv1"]
+script = ExtResource("3_uxuh5")
+entity = SubResource("Resource_iohko")
+property_name = &"new_game_pressed"
+
+[sub_resource type="Resource" id="Resource_o2cxy"]
+script = ExtResource("3_uxuh5")
+entity = SubResource("Resource_iohko")
+property_name = &"save_pressed"
+
+[sub_resource type="Resource" id="Resource_6nbto"]
+script = ExtResource("6_qwgct")
+
+[sub_resource type="Resource" id="Resource_hilop"]
+script = ExtResource("3_nbscj")
+parameter = SubResource("Resource_6nbto")
+exposed = true
+name = &"game_started"
+graph_pos = Vector2(260, 320)
+
+[sub_resource type="Resource" id="Resource_eyflg"]
+script = ExtResource("5_eyflg")
+
+[sub_resource type="Resource" id="Resource_qwgct"]
+script = ExtResource("3_nbscj")
+parameter = SubResource("Resource_eyflg")
+exposed = true
+name = &"save_file_path"
+graph_pos = Vector2(260, 160)
+
+[sub_resource type="Resource" id="Resource_nbscj"]
+script = ExtResource("6_iohko")
+behavior_names = Array[StringName]([&"MenuManager"])
+name = &"State"
+graph_pos = Vector2(260, 0)
+
+[sub_resource type="Resource" id="Resource_3hql4"]
+script = ExtResource("4_eyflg")
+godot_version = "4.6-stable (official)"
+plugin_version = "0.1.0-alpha"
+root_state = &"State"
+editor_scroll_offset = Vector2(-487.72827, -67.16861)
+editor_zoom = 1.1
+states = Dictionary[StringName, ExtResource("6_iohko")]({
+&"State": SubResource("Resource_nbscj")
+})
+behaviors = Dictionary[StringName, ExtResource("2_uxuh5")]({
+&"MenuManager": SubResource("Resource_iohko")
+})
+parameters = Dictionary[StringName, ExtResource("3_nbscj")]({
+&"game_started": SubResource("Resource_hilop"),
+&"save_file_path": SubResource("Resource_qwgct")
+})
+exposed_callables = Dictionary[StringName, ExtResource("3_uxuh5")]({
+&"game_over": SubResource("Resource_ihrjt")
+})
+exposed_signals = Dictionary[StringName, ExtResource("3_uxuh5")]({
+&"load_pressed": SubResource("Resource_4pjxp"),
+&"new_game_pressed": SubResource("Resource_w6sv1"),
+&"save_pressed": SubResource("Resource_o2cxy")
+})
+
+[node name="Menu" type="Control" unique_id=1279593428]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuStateMachine" type="Node" parent="." unique_id=88883377]
+script = ExtResource("1_gvp3o")
+data = SubResource("Resource_3hql4")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="DemoCletusMenuManager" type="Node" parent="MenuStateMachine" unique_id=86752791]
+process_mode = 4
+script = ExtResource("9_qwgct")
+
+[node name="MenuOverlay" type="ColorRect" parent="." unique_id=816229130]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7529412)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuOverlay" unique_id=463850184]
+layout_mode = 0
+offset_left = 499.0
+offset_top = 232.0
+offset_right = 652.0
+offset_bottom = 415.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="MenuOverlay/VBoxContainer" unique_id=515833471]
+layout_mode = 2
+text = "Cletus Loves Apples"
+
+[node name="GameOverLabel" type="Label" parent="MenuOverlay/VBoxContainer" unique_id=363308321]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0.2509804, 0.2509804, 1)
+layout_mode = 2
+text = "Game Over!"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuOverlay/VBoxContainer" unique_id=1932285437]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="NewGameButton" type="Button" parent="MenuOverlay/VBoxContainer/VBoxContainer" unique_id=858646247]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "New Game"
+
+[node name="SaveButton" type="Button" parent="MenuOverlay/VBoxContainer/VBoxContainer" unique_id=1357187013]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="MenuOverlay/VBoxContainer/VBoxContainer" unique_id=592504322]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load"
+
+[node name="QuitButton" type="Button" parent="MenuOverlay/VBoxContainer/VBoxContainer" unique_id=1869920122]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
