@@ -7,8 +7,11 @@
 
 ![Synapse Graph Editor in Action](./docs/images/synapse_hero.gif)
 
-[![License: MIT](https://shields.io)](LICENSE.txt)
-![Godot 4.6+](https://shields.io)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+
+![Godot 4.6+](https://img.shields.io/badge/Godot-4.6-informational?logo=godotengine&color=478cbf)
+
+![Status: Alpha](https://img.shields.io/badge/status-alpha-green)
 
 ---
 
