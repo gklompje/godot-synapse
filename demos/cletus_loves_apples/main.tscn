@@ -105,25 +105,26 @@ script = ExtResource("10_6agb5")
 nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
 signal_data = SubResource("Resource_gwl4q")
 
-[sub_resource type="Resource" id="Resource_ngxfm"]
+[sub_resource type="Resource" id="Resource_bqcqc"]
 script = ExtResource("11_uip7n")
 node_path = NodePath("DemoOneShotTimer")
 signal_name = &"timeout"
 
-[sub_resource type="Resource" id="Resource_p8vmc"]
+[sub_resource type="Resource" id="Resource_wtqaf"]
 script = ExtResource("10_6agb5")
 nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
-signal_data = SubResource("Resource_ngxfm")
+signal_data = SubResource("Resource_bqcqc")
 
-[sub_resource type="Resource" id="Resource_yinuo"]
+[sub_resource type="Resource" id="Resource_ahxxp"]
 script = ExtResource("10_6agb5")
 nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
-signal_data = SubResource("Resource_p8vmc")
+signal_data = SubResource("Resource_wtqaf")
 
-[sub_resource type="Resource" id="Resource_dqdd0"]
+[sub_resource type="Resource" id="Resource_xa0bs"]
 script = ExtResource("9_hseae")
+source_entity = null
 signal_id = &"player_died"
-signal_data = SubResource("Resource_yinuo")
+signal_data = SubResource("Resource_ahxxp")
 
 [sub_resource type="Resource" id="Resource_sykwr"]
 script = ExtResource("8_8iqro")
@@ -136,7 +137,7 @@ parent_name = &"Sequence"
 name = &"MenuStateMachine"
 graph_pos = Vector2(800, -140)
 connected_signals = Dictionary[StringName, Array]({
-&"game_over": [SubResource("Resource_dqdd0")]
+&"game_over": [SubResource("Resource_xa0bs")]
 })
 
 [sub_resource type="Resource" id="Resource_k574m"]
@@ -327,8 +328,8 @@ script = ExtResource("4_o8olj")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Sequence"
-editor_scroll_offset = Vector2(-225.12708, -75.90651)
-editor_zoom = 0.82644594
+editor_scroll_offset = Vector2(-516.90466, -120.10897)
+editor_zoom = 0.4665071
 states = Dictionary[StringName, ExtResource("6_sykwr")]({
 &"GameStateMachine": SubResource("Resource_xks12"),
 &"MenuStateMachine": SubResource("Resource_sykwr"),
