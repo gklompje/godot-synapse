@@ -24,7 +24,7 @@ Synapse is currently in **Alpha**. The API and data model are in active developm
 backwards-incompatible.
 * **Protect Your Work:** Always use version control (like Git). We cannot guarantee data migrations
 between alpha versions.
-* **Stay Updated:** Check the [CHANGELOG.md](./CHANGELOG.md) for upgrade instructions.
+* **Stay Updated:** Check the [CHANGELOG.md](docs/CHANGELOG.md) for upgrade instructions.
 
 ---
 
@@ -41,15 +41,15 @@ between alpha versions.
 1. **Installation:** Copy the `addons/synapse` folder into your project's `addons/` directory.
 2. **Enable:** Go to `Project -> Project Settings -> Plugins` and enable Synapse.
 3. **Learn:** 
-    - Familiarize yourself with the [Core Concepts](./docs/concepts.md).
-    - Follow the [Getting Started Guide](./docs/getting_started/README.md).
-    - Explore the heavily-commented [Demos](./demos/README.md).
+    - Familiarize yourself with the [Core Concepts](docs/concepts.md).
+    - Follow the [Getting Started Guide](docs/getting_started/README.md).
+    - Explore the heavily-commented [Demos](demos/README.md).
 
 ## 🗺️ Roadmap & Contributing
-- **View the Full Roadmap:** [ROADMAP.md](./ROADMAP.md)
+- **View the Full Roadmap:** [ROADMAP.md](docs/ROADMAP.md)
 - **Report Problems:** Please report bugs or suggest features on the
 [GitHub Issues page](https://github.com/gklompje/godot-synapse/issues).
-- **Contribute:** See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution guidelines.
+- **Contribute:** See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines.
 
 ---
 
@@ -75,9 +75,9 @@ references.
 ---
 
 ## License & Attributions
-Licensed under the [MIT License](LICENSE.txt).
+Licensed under the [MIT License](LICENSE).
 
 * **Godot Engine:** This project uses assets provided under the
-[Godot MIT License](licenses/GODOT_LICENSE.txt).
+[Godot MIT License](addons/synapse/licenses/GODOT_LICENSE.txt).
 * **SemVer 2.0.0:** Authored by [Tom Preston-Werner](https://tom.preston-werner.com/), licensed
 under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
