@@ -30,3 +30,6 @@ Thumbs.db
 # Ignore other plugins used for dev only
 addons/*/
 !addons/synapse/
+
+# Ignore Cletus save data
+demos/cletus_loves_apples/save_data
