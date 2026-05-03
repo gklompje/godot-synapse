@@ -1,4 +1,8 @@
 @tool
+
+## Used by slimes to keep track of Cletus.[br][br]
+## Emits signals when Cletus enters or exits the detection area, to transition the slime to idle or
+## pursuing states.
 class_name SynapseDemoCheckPlayerBehavior
 extends SynapseBehavior
 

@@ -1,4 +1,6 @@
 @tool
+
+## Travels to the [AnimationTreeStateMachine] state specified by calls to [method travel].
 class_name SynapseDemoAnimationTreeTravelBehavior
 extends SynapseBehavior
 

@@ -1,4 +1,8 @@
 @tool
+
+## Determines whether a given direction vector parameter is zero, or not and emits a corresponding
+## signal.[br][br]
+## Used to transition to an idle state when the character stops moving.
 class_name SynapseDemoCheckDirectionBehavior
 extends SynapseBehavior
 

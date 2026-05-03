@@ -1,4 +1,7 @@
 @tool
+
+## Frees the behavior's scene owner node after a set timeout.[br][br]
+## Used to clean up slimes after they've entered their dying state. Poor slimes.
 class_name SynapseDemoFreeOnDeathBehavior
 extends SynapseBehavior
 
@@ -18,9 +21,11 @@ func _state_machine_created() -> void:
 	add_child(_timer)
 
 func _get_custom_save_data() -> Dictionary:
+	# track the timer's remaining time so when the game is loaded we can resume it
 	return { &"remaining_time": _timer.time_left }
 
 func _load_custom_save_data(custom_save_data: Dictionary) -> void:
+	# resume the timer from where it was when the game was saved
 	var remaining_time: float = custom_save_data[&"remaining_time"]
 	if remaining_time > 0.0:
 		_timer.wait_time = remaining_time

@@ -1,5 +1,7 @@
 @tool
 @abstract
+
+## Base class for behaviors that reference a [CharacterBody2D]
 class_name SynapseDemoCharacterBehavior2D
 extends SynapseBehavior
 

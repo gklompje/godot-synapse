@@ -1,4 +1,9 @@
 @tool
+
+## Flicker effect used by slimes that are about to despawn.[br][br]
+## Does not start the flicker timer automatically- waits until [method start] is called.[br][br]
+## This behavior assumes its scene owner is a [CanvasItem], and it just toggles its `visibile`
+## property each time the repeating timer times out.
 class_name SynapseDemoFlickerBehavior
 extends SynapseBehavior
 
