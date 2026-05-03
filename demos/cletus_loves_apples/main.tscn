@@ -58,7 +58,7 @@ graph_pos = Vector2(1080, 240)
 
 [sub_resource type="Resource" id="Resource_kj2an"]
 script = ExtResource("5_ogdtl")
-value = "res://addons/synapse/demos/cletus_loves_apples/save_data/save.cfg"
+value = "res://demos/cletus_loves_apples/save_data/save.cfg"
 
 [sub_resource type="Resource" id="Resource_6iubn"]
 script = ExtResource("3_k6ebq")
