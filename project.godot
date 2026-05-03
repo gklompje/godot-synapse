@@ -13,7 +13,7 @@ config_version=5
 config/name="Synapse"
 config/description="An extensible, graph-based state machine framework for Godot. Features a visual editor, composition-based behaviors, nested machines, and built-in persistence."
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://addons/synapse/icons/state_machine.svg"
+config/icon="uid://bel1ei56h1s5r"
 
 [debug]
 
