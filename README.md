@@ -43,7 +43,8 @@ between alpha versions.
 3. **Learn:** 
     - Familiarize yourself with the [Core Concepts](docs/concepts.md).
     - Follow the [Getting Started Guide](docs/getting_started/README.md).
-    - Explore the heavily-commented [Demos](demos/README.md).
+    - Explore the [Demos](demos/README.md).
+    - Read the [Documentation](docs/README.md).
 
 ## 🗺️ Roadmap & Contributing
 - **View the Full Roadmap:** [ROADMAP.md](docs/ROADMAP.md)
