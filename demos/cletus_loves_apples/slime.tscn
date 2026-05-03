@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfrd6imdlf8vn"]
 
-[ext_resource type="Script" uid="uid://m8hs4t8f68q3" path="res://addons/synapse/demos/cletus_loves_apples/scripts/slime.gd" id="1_ixu7m"]
-[ext_resource type="Texture2D" uid="uid://bl7rky7wrtxfs" path="res://addons/synapse/demos/cletus_loves_apples/images/slime.png" id="1_ud14p"]
+[ext_resource type="Script" uid="uid://m8hs4t8f68q3" path="res://demos/cletus_loves_apples/scripts/slime.gd" id="1_ixu7m"]
+[ext_resource type="Texture2D" uid="uid://bl7rky7wrtxfs" path="res://demos/cletus_loves_apples/images/slime.png" id="1_ud14p"]
 [ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_r5764"]
 [ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_0xl54"]
 [ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="4_f30wk"]
@@ -17,24 +17,24 @@
 [ext_resource type="Script" uid="uid://dk1q7ivmiucmc" path="res://addons/synapse/scripts/resource_types/selector_state_data.gd" id="10_vs6h4"]
 [ext_resource type="Script" uid="uid://bfhmkumrj4h80" path="res://addons/synapse/scripts/parameters/node_path_parameter.gd" id="11_1rmuc"]
 [ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="11_b12qb"]
-[ext_resource type="Script" uid="uid://bl113q5yc6njm" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/free_on_death.gd" id="11_vs6h4"]
+[ext_resource type="Script" uid="uid://bl113q5yc6njm" path="res://demos/cletus_loves_apples/scripts/behaviors/free_on_death.gd" id="11_vs6h4"]
 [ext_resource type="Script" uid="uid://tyfclc7kdpl2" path="res://addons/synapse/scripts/parameters/string_name_parameter.gd" id="12_ypp2l"]
 [ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="14_08jg3"]
-[ext_resource type="Script" uid="uid://b8hq6s343q5pp" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/oneshot_timer.gd" id="14_tx1jp"]
-[ext_resource type="Script" uid="uid://cpk3ksbvxi5h3" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/flicker.gd" id="15_b12qb"]
+[ext_resource type="Script" uid="uid://b8hq6s343q5pp" path="res://demos/cletus_loves_apples/scripts/behaviors/oneshot_timer.gd" id="14_tx1jp"]
+[ext_resource type="Script" uid="uid://cpk3ksbvxi5h3" path="res://demos/cletus_loves_apples/scripts/behaviors/flicker.gd" id="15_b12qb"]
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="15_cyxff"]
-[ext_resource type="Script" uid="uid://crxoti50cubjm" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/random_roam2d.gd" id="17_ykbt0"]
-[ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="18_g1ujr"]
+[ext_resource type="Script" uid="uid://crxoti50cubjm" path="res://demos/cletus_loves_apples/scripts/behaviors/random_roam2d.gd" id="17_ykbt0"]
+[ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="18_g1ujr"]
 [ext_resource type="Script" uid="uid://cvk0qqgpj0yog" path="res://addons/synapse/scripts/resource_types/behavior_signal_relay_connector_callable_data.gd" id="19_lj5q4"]
-[ext_resource type="Script" uid="uid://4shbinuv0hry" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/sync_animation_blend_position2d.gd" id="21_q4t13"]
-[ext_resource type="Script" uid="uid://bcetgxdjma8r5" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/area_body_detector.gd" id="24_f70pw"]
-[ext_resource type="Script" uid="uid://bcnysstvjn2t8" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/target_closest_object_in_group.gd" id="25_xm1w3"]
-[ext_resource type="Script" uid="uid://ci5fy8gtmp0i8" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/face_target_object2d.gd" id="26_1rmuc"]
-[ext_resource type="Script" uid="uid://d27e1gidu6bxv" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/check_player.gd" id="27_f70pw"]
-[ext_resource type="Script" uid="uid://c2ia0pff2brt1" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/animation_tree_traveler.gd" id="30_cyxff"]
-[ext_resource type="Script" uid="uid://82lx3g7ij2ic" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/check_direction.gd" id="33_1dsbc"]
-[ext_resource type="Script" uid="uid://cusvttww36d5p" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/attack_player.gd" id="34_lj5q4"]
-[ext_resource type="Script" uid="uid://ca7lj5nu1bdyw" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/stand_still.gd" id="35_1dsbc"]
+[ext_resource type="Script" uid="uid://4shbinuv0hry" path="res://demos/cletus_loves_apples/scripts/behaviors/sync_animation_blend_position2d.gd" id="21_q4t13"]
+[ext_resource type="Script" uid="uid://bcetgxdjma8r5" path="res://demos/cletus_loves_apples/scripts/behaviors/area_body_detector.gd" id="24_f70pw"]
+[ext_resource type="Script" uid="uid://bcnysstvjn2t8" path="res://demos/cletus_loves_apples/scripts/behaviors/target_closest_object_in_group.gd" id="25_xm1w3"]
+[ext_resource type="Script" uid="uid://ci5fy8gtmp0i8" path="res://demos/cletus_loves_apples/scripts/behaviors/face_target_object2d.gd" id="26_1rmuc"]
+[ext_resource type="Script" uid="uid://d27e1gidu6bxv" path="res://demos/cletus_loves_apples/scripts/behaviors/check_player.gd" id="27_f70pw"]
+[ext_resource type="Script" uid="uid://c2ia0pff2brt1" path="res://demos/cletus_loves_apples/scripts/behaviors/animation_tree_traveler.gd" id="30_cyxff"]
+[ext_resource type="Script" uid="uid://82lx3g7ij2ic" path="res://demos/cletus_loves_apples/scripts/behaviors/check_direction.gd" id="33_1dsbc"]
+[ext_resource type="Script" uid="uid://cusvttww36d5p" path="res://demos/cletus_loves_apples/scripts/behaviors/attack_player.gd" id="34_lj5q4"]
+[ext_resource type="Script" uid="uid://ca7lj5nu1bdyw" path="res://demos/cletus_loves_apples/scripts/behaviors/stand_still.gd" id="35_1dsbc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ud14p"]
 radius = 8.0
@@ -298,6 +298,14 @@ node_path = NodePath("@Node@85761")
 name = &"AliveTimeout"
 graph_pos = Vector2(940, -340)
 
+[sub_resource type="Resource" id="Resource_0iejo"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Attack"
+managed = true
+node_path = NodePath("@Node@84568")
+name = &"AttackComplete"
+graph_pos = Vector2(1840, 920)
+
 [sub_resource type="Resource" id="Resource_08jg3"]
 script = ExtResource("3_0xl54")
 owner_state_name = &"Dead"
@@ -510,14 +518,6 @@ managed = true
 node_path = NodePath("DemoAnimationTreeTravel2")
 name = &"ToMove"
 graph_pos = Vector2(940, -1480)
-
-[sub_resource type="Resource" id="Resource_0iejo"]
-script = ExtResource("3_0xl54")
-owner_state_name = &"Attack"
-managed = true
-node_path = NodePath("@Node@84568")
-name = &"AttackComplete"
-graph_pos = Vector2(1840, 920)
 
 [sub_resource type="Resource" id="Resource_ixu7m"]
 script = ExtResource("9_paux8")

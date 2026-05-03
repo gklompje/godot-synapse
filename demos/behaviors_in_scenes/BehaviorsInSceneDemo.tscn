@@ -10,12 +10,12 @@
 [ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="7_pwjkb"]
 [ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="9_1eh06"]
 [ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="9_egdkw"]
-[ext_resource type="Script" uid="uid://bvvch0tvn5oac" path="res://addons/synapse/demos/behaviors_in_scenes/widget_rotator_behavior.gd" id="9_ne06k"]
+[ext_resource type="Script" uid="uid://bvvch0tvn5oac" path="res://demos/behaviors_in_scenes/widget_rotator_behavior.gd" id="9_ne06k"]
 [ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="10_3g2rs"]
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="10_bqdxq"]
-[ext_resource type="PackedScene" uid="uid://ufnlop1gmi4n" path="res://addons/synapse/demos/behaviors_in_scenes/RotatingIconWidget.tscn" id="10_ne06k"]
-[ext_resource type="PackedScene" uid="uid://b2hghpdvmwobc" path="res://addons/synapse/demos/behaviors_in_scenes/SceneWithNestedBehaviors.tscn" id="12_ca887"]
-[ext_resource type="Script" uid="uid://b0bs8ub0x82vu" path="res://addons/synapse/demos/behaviors_in_scenes/widget_state_selector_behavior.gd" id="12_o7apl"]
+[ext_resource type="PackedScene" uid="uid://ufnlop1gmi4n" path="res://demos/behaviors_in_scenes/RotatingIconWidget.tscn" id="10_ne06k"]
+[ext_resource type="PackedScene" uid="uid://b2hghpdvmwobc" path="res://demos/behaviors_in_scenes/SceneWithNestedBehaviors.tscn" id="12_ca887"]
+[ext_resource type="Script" uid="uid://b0bs8ub0x82vu" path="res://demos/behaviors_in_scenes/widget_state_selector_behavior.gd" id="12_o7apl"]
 
 [sub_resource type="Resource" id="Resource_ah21k"]
 script = ExtResource("3_chl4r")

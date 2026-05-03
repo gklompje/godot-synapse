@@ -122,7 +122,6 @@ signal_data = SubResource("Resource_wtqaf")
 
 [sub_resource type="Resource" id="Resource_xa0bs"]
 script = ExtResource("9_hseae")
-source_entity = null
 signal_id = &"player_died"
 signal_data = SubResource("Resource_ahxxp")
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://btmmy1tur8ux8"]
 
-[ext_resource type="Texture2D" uid="uid://csfrawuwaclyw" path="res://addons/synapse/demos/nested_state_machines/light_bulb.png" id="1_12ggu"]
+[ext_resource type="Texture2D" uid="uid://csfrawuwaclyw" path="res://demos/nested_state_machines/light_bulb.png" id="1_12ggu"]
 [ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="1_hr3en"]
 [ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="2_fjea5"]
 [ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="3_wg8eq"]
@@ -8,14 +8,14 @@
 [ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="5_ng58k"]
 [ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="6_ng58k"]
 [ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_8s4qo"]
-[ext_resource type="Script" uid="uid://s72pld2e7rq1" path="res://addons/synapse/demos/nested_state_machines/toggle_light_bulb.gd" id="7_12ggu"]
+[ext_resource type="Script" uid="uid://s72pld2e7rq1" path="res://demos/nested_state_machines/toggle_light_bulb.gd" id="7_12ggu"]
 [ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="8_81dkp"]
 [ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="8_eawnn"]
 [ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="8_meqst"]
 [ext_resource type="Script" uid="uid://dk1q7ivmiucmc" path="res://addons/synapse/scripts/resource_types/selector_state_data.gd" id="8_ng58k"]
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="9_7x864"]
 [ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="9_libwo"]
-[ext_resource type="Script" uid="uid://45q6wxkgd845" path="res://addons/synapse/demos/nested_state_machines/check_battery_charge.gd" id="10_q8l4a"]
+[ext_resource type="Script" uid="uid://45q6wxkgd845" path="res://demos/nested_state_machines/check_battery_charge.gd" id="10_q8l4a"]
 
 [sub_resource type="Resource" id="Resource_p3mx0"]
 script = ExtResource("2_fjea5")

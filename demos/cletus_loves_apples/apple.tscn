@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://plvb58wrbpqc"]
 
-[ext_resource type="Texture2D" uid="uid://clo0xqjitbyl4" path="res://addons/synapse/demos/cletus_loves_apples/images/apple.png" id="1_cxlsu"]
+[ext_resource type="Texture2D" uid="uid://clo0xqjitbyl4" path="res://demos/cletus_loves_apples/images/apple.png" id="1_cxlsu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k86yf"]
 radius = 4.0

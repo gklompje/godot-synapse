@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://bmb8j5bbqshbs"]
 
-[ext_resource type="Texture2D" uid="uid://dohh7fh8kelf0" path="res://addons/synapse/demos/nested_state_machines/battery.png" id="1_42qc1"]
+[ext_resource type="Texture2D" uid="uid://dohh7fh8kelf0" path="res://demos/nested_state_machines/battery.png" id="1_42qc1"]
 [ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_h3x3b"]
 [ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_e0k70"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="4_52234"]
 [ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="4_toles"]
 [ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="5_e0k70"]
 [ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="5_o4fxg"]
 [ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_ovehc"]
 [ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_toles"]
-[ext_resource type="Script" uid="uid://ta352ki0ws6" path="res://addons/synapse/demos/nested_state_machines/charge_or_drain_battery.gd" id="8_toles"]
+[ext_resource type="Script" uid="uid://ta352ki0ws6" path="res://demos/nested_state_machines/charge_or_drain_battery.gd" id="8_toles"]
 
 [sub_resource type="Resource" id="Resource_o4fxg"]
 script = ExtResource("3_e0k70")

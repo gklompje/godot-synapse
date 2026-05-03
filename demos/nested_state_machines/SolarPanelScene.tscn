@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://dcs4atcbjv3x7"]
 
-[ext_resource type="Texture2D" uid="uid://cc7qoio481lmc" path="res://addons/synapse/demos/nested_state_machines/solar_panel.png" id="1_1cqvi"]
+[ext_resource type="Texture2D" uid="uid://cc7qoio481lmc" path="res://demos/nested_state_machines/solar_panel.png" id="1_1cqvi"]
 [ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_ux6mv"]
 [ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_22fby"]
 [ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="4_sohe7"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="4_v18cr"]
 [ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="5_1rl2p"]
 [ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="5_sohe7"]
 [ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_spiv0"]
 [ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="7_1rl2p"]
-[ext_resource type="Script" uid="uid://cv7tnsdm31txa" path="res://addons/synapse/demos/nested_state_machines/update_solar_panel_current_from_hour.gd" id="8_1rl2p"]
+[ext_resource type="Script" uid="uid://cv7tnsdm31txa" path="res://demos/nested_state_machines/update_solar_panel_current_from_hour.gd" id="8_1rl2p"]
 
 [sub_resource type="Resource" id="Resource_spiv0"]
 script = ExtResource("3_22fby")

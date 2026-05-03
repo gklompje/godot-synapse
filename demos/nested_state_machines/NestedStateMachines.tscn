@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cxsgbsvlvew2r"]
 
-[ext_resource type="PackedScene" uid="uid://bmb8j5bbqshbs" path="res://addons/synapse/demos/nested_state_machines/BatteryScene.tscn" id="1_5bc54"]
-[ext_resource type="Texture2D" uid="uid://r5qecc0qe5qi" path="res://addons/synapse/demos/nested_state_machines/sun.png" id="1_8vx1a"]
-[ext_resource type="PackedScene" uid="uid://btmmy1tur8ux8" path="res://addons/synapse/demos/nested_state_machines/LightBulbScene.tscn" id="1_72xk6"]
-[ext_resource type="Script" uid="uid://c3le83e7p0k7s" path="res://addons/synapse/demos/nested_state_machines/nested_state_machines.gd" id="1_h8lsl"]
+[ext_resource type="PackedScene" uid="uid://bmb8j5bbqshbs" path="res://demos/nested_state_machines/BatteryScene.tscn" id="1_5bc54"]
+[ext_resource type="Texture2D" uid="uid://r5qecc0qe5qi" path="res://demos/nested_state_machines/sun.png" id="1_8vx1a"]
+[ext_resource type="PackedScene" uid="uid://btmmy1tur8ux8" path="res://demos/nested_state_machines/LightBulbScene.tscn" id="1_72xk6"]
+[ext_resource type="Script" uid="uid://c3le83e7p0k7s" path="res://demos/nested_state_machines/nested_state_machines.gd" id="1_h8lsl"]
 [ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_n4542"]
-[ext_resource type="Texture2D" uid="uid://dsm51uuwoaml7" path="res://addons/synapse/demos/nested_state_machines/moon.png" id="2_v3m3h"]
+[ext_resource type="Texture2D" uid="uid://dsm51uuwoaml7" path="res://demos/nested_state_machines/moon.png" id="2_v3m3h"]
 [ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_5bc54"]
-[ext_resource type="PackedScene" uid="uid://dcs4atcbjv3x7" path="res://addons/synapse/demos/nested_state_machines/SolarPanelScene.tscn" id="3_v3m3h"]
+[ext_resource type="PackedScene" uid="uid://dcs4atcbjv3x7" path="res://demos/nested_state_machines/SolarPanelScene.tscn" id="3_v3m3h"]
 [ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="4_gy4sx"]
 [ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="5_8vx1a"]
 [ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_v3m3h"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://4mjgqrfhqtv8" path="res://addons/synapse/scripts/resource_types/combiner_state_data.gd" id="12_sk23p"]
 [ext_resource type="Script" uid="uid://ckx7gqjt5g55g" path="res://addons/synapse/scripts/resource_types/state_machine_state_data.gd" id="13_h8lsl"]
 [ext_resource type="Script" uid="uid://0i75vrgqpra2" path="res://addons/synapse/scripts/behaviors/float_parameter_adder.gd" id="14_hyicg"]
-[ext_resource type="Script" uid="uid://4ol6pmlve7sy" path="res://addons/synapse/demos/nested_state_machines/day_night_cycle.gd" id="15_a6502"]
+[ext_resource type="Script" uid="uid://4ol6pmlve7sy" path="res://demos/nested_state_machines/day_night_cycle.gd" id="15_a6502"]
 
 [sub_resource type="Resource" id="Resource_fkxrm"]
 script = ExtResource("3_5bc54")

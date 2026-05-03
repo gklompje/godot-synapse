@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cwhidqw317l4f"]
 
-[ext_resource type="Script" uid="uid://bvvch0tvn5oac" path="res://addons/state_machine/demos/behaviors_in_scenes/widget_rotator_behavior.gd" id="1_psg8b"]
+[ext_resource type="Script" uid="uid://bvvch0tvn5oac" path="res://demos/behaviors_in_scenes/widget_rotator_behavior.gd" id="1_psg8b"]
 
 [node name="WidgetRotatorBehaviorScene" type="Node" unique_id=512860533]
 process_mode = 4

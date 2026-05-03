@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bgv0copxssb0s"]
 
-[ext_resource type="Texture2D" uid="uid://cocyxnqfv21x" path="res://addons/synapse/demos/cletus_loves_apples/images/cletus.png" id="1_825u3"]
+[ext_resource type="Texture2D" uid="uid://cocyxnqfv21x" path="res://demos/cletus_loves_apples/images/cletus.png" id="1_825u3"]
 [ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="2_fkvjs"]
 [ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="3_f5g10"]
 [ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="4_nu6ct"]
@@ -16,24 +16,24 @@
 [ext_resource type="Script" uid="uid://dk1q7ivmiucmc" path="res://addons/synapse/scripts/resource_types/selector_state_data.gd" id="9_y3jy5"]
 [ext_resource type="Script" uid="uid://tyfclc7kdpl2" path="res://addons/synapse/scripts/parameters/string_name_parameter.gd" id="10_vt3el"]
 [ext_resource type="Script" uid="uid://0dnjgtqdcbcc" path="res://addons/synapse/scripts/parameters/input_action_parameter.gd" id="11_n4tyk"]
-[ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="11_nu6ct"]
-[ext_resource type="Script" uid="uid://4shbinuv0hry" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/sync_animation_blend_position2d.gd" id="12_nu6ct"]
+[ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="11_nu6ct"]
+[ext_resource type="Script" uid="uid://4shbinuv0hry" path="res://demos/cletus_loves_apples/scripts/behaviors/sync_animation_blend_position2d.gd" id="12_nu6ct"]
 [ext_resource type="Script" uid="uid://bvvxatyj0no1" path="res://addons/synapse/scripts/resource_types/state_method_callable_data.gd" id="14_gvweq"]
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="15_f1rb7"]
-[ext_resource type="Script" uid="uid://bcetgxdjma8r5" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/area_body_detector.gd" id="15_vo65d"]
-[ext_resource type="Script" uid="uid://bcnysstvjn2t8" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/target_closest_object_in_group.gd" id="16_vo65d"]
+[ext_resource type="Script" uid="uid://bcetgxdjma8r5" path="res://demos/cletus_loves_apples/scripts/behaviors/area_body_detector.gd" id="15_vo65d"]
+[ext_resource type="Script" uid="uid://bcnysstvjn2t8" path="res://demos/cletus_loves_apples/scripts/behaviors/target_closest_object_in_group.gd" id="16_vo65d"]
 [ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="18_gp0yu"]
-[ext_resource type="Script" uid="uid://mhsdan3oxwp5" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/pursue_target_apple.gd" id="18_mr6iy"]
+[ext_resource type="Script" uid="uid://mhsdan3oxwp5" path="res://demos/cletus_loves_apples/scripts/behaviors/pursue_target_apple.gd" id="18_mr6iy"]
 [ext_resource type="Script" uid="uid://cvk0qqgpj0yog" path="res://addons/synapse/scripts/resource_types/behavior_signal_relay_connector_callable_data.gd" id="19_n4tyk"]
-[ext_resource type="Script" uid="uid://ci5fy8gtmp0i8" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/face_target_object2d.gd" id="25_gvweq"]
-[ext_resource type="Script" uid="uid://tql7kmbl388" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/consume_apple.gd" id="26_f1rb7"]
-[ext_resource type="Script" uid="uid://82lx3g7ij2ic" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/check_direction.gd" id="27_gp0yu"]
-[ext_resource type="Script" uid="uid://c2ia0pff2brt1" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/animation_tree_traveler.gd" id="29_rlwpy"]
-[ext_resource type="Script" uid="uid://c320j60gxoicp" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/update_vector_on_action_input.gd" id="30_rlwpy"]
-[ext_resource type="Script" uid="uid://bgvb0ov4x7udo" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/register_attack.gd" id="31_rlwpy"]
-[ext_resource type="Script" uid="uid://b8hq6s343q5pp" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/oneshot_timer.gd" id="32_oe5wn"]
-[ext_resource type="Script" uid="uid://2yqdd2h2wmau" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/check_slimes.gd" id="33_0ip3r"]
-[ext_resource type="Script" uid="uid://bf33uhibuik67" path="res://addons/synapse/demos/cletus_loves_apples/scripts/behaviors/avoid_slimes.gd" id="34_73esr"]
+[ext_resource type="Script" uid="uid://ci5fy8gtmp0i8" path="res://demos/cletus_loves_apples/scripts/behaviors/face_target_object2d.gd" id="25_gvweq"]
+[ext_resource type="Script" uid="uid://tql7kmbl388" path="res://demos/cletus_loves_apples/scripts/behaviors/consume_apple.gd" id="26_f1rb7"]
+[ext_resource type="Script" uid="uid://82lx3g7ij2ic" path="res://demos/cletus_loves_apples/scripts/behaviors/check_direction.gd" id="27_gp0yu"]
+[ext_resource type="Script" uid="uid://c2ia0pff2brt1" path="res://demos/cletus_loves_apples/scripts/behaviors/animation_tree_traveler.gd" id="29_rlwpy"]
+[ext_resource type="Script" uid="uid://c320j60gxoicp" path="res://demos/cletus_loves_apples/scripts/behaviors/update_vector_on_action_input.gd" id="30_rlwpy"]
+[ext_resource type="Script" uid="uid://bgvb0ov4x7udo" path="res://demos/cletus_loves_apples/scripts/behaviors/register_attack.gd" id="31_rlwpy"]
+[ext_resource type="Script" uid="uid://b8hq6s343q5pp" path="res://demos/cletus_loves_apples/scripts/behaviors/oneshot_timer.gd" id="32_oe5wn"]
+[ext_resource type="Script" uid="uid://2yqdd2h2wmau" path="res://demos/cletus_loves_apples/scripts/behaviors/check_slimes.gd" id="33_0ip3r"]
+[ext_resource type="Script" uid="uid://bf33uhibuik67" path="res://demos/cletus_loves_apples/scripts/behaviors/avoid_slimes.gd" id="34_73esr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1rb7"]
 radius = 5.3851647
@@ -278,6 +278,18 @@ parameters = Dictionary[StringName, StringName]({
 name = &"DemoAreaBodyDetector"
 graph_pos = Vector2(220, -820)
 
+[sub_resource type="Resource" id="Resource_p04ga"]
+script = ExtResource("3_f5g10")
+owner_state_name = &"AvoidEnemy"
+managed = true
+node_path = NodePath("DemoAvoidSlimes")
+parameters = Dictionary[StringName, StringName]({
+&"detected_slimes": &"detected_slimes",
+&"direction": &"direction"
+})
+name = &"DemoAvoidSlimes"
+graph_pos = Vector2(1240, -120)
+
 [sub_resource type="Resource" id="Resource_5hgts"]
 script = ExtResource("3_f5g10")
 owner_state_name = &"Alive"
@@ -288,6 +300,17 @@ parameters = Dictionary[StringName, StringName]({
 })
 name = &"DemoCheckDirection"
 graph_pos = Vector2(220, -1860)
+
+[sub_resource type="Resource" id="Resource_h6jf6"]
+script = ExtResource("3_f5g10")
+owner_state_name = &"PlayerControlled"
+managed = true
+node_path = NodePath("DemoCheckSlimes")
+parameters = Dictionary[StringName, StringName]({
+&"detected_slimes": &"detected_slimes"
+})
+name = &"DemoCheckSlimes"
+graph_pos = Vector2(1220, -720)
 
 [sub_resource type="Resource" id="Resource_2rd6k"]
 script = ExtResource("3_f5g10")
@@ -381,6 +404,17 @@ parameters = Dictionary[StringName, StringName]({
 name = &"FindClosestApple"
 graph_pos = Vector2(220, -1060)
 
+[sub_resource type="Resource" id="Resource_xnixj"]
+script = ExtResource("3_f5g10")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("DemoAreaBodyDetector2")
+parameters = Dictionary[StringName, StringName]({
+&"detected_objects": &"detected_slimes"
+})
+name = &"SlimeDetector"
+graph_pos = Vector2(220, -2380)
+
 [sub_resource type="Resource" id="Resource_f1rb7"]
 script = ExtResource("3_f5g10")
 owner_state_name = &"Alive"
@@ -418,40 +452,6 @@ managed = true
 node_path = NodePath("DemoAnimationTreeTravel")
 name = &"ToWalking"
 graph_pos = Vector2(220, -2220)
-
-[sub_resource type="Resource" id="Resource_xnixj"]
-script = ExtResource("3_f5g10")
-owner_state_name = &"Alive"
-managed = true
-node_path = NodePath("DemoAreaBodyDetector2")
-parameters = Dictionary[StringName, StringName]({
-&"detected_objects": &"detected_slimes"
-})
-name = &"SlimeDetector"
-graph_pos = Vector2(220, -2380)
-
-[sub_resource type="Resource" id="Resource_h6jf6"]
-script = ExtResource("3_f5g10")
-owner_state_name = &"PlayerControlled"
-managed = true
-node_path = NodePath("DemoCheckSlimes")
-parameters = Dictionary[StringName, StringName]({
-&"detected_slimes": &"detected_slimes"
-})
-name = &"DemoCheckSlimes"
-graph_pos = Vector2(1220, -720)
-
-[sub_resource type="Resource" id="Resource_p04ga"]
-script = ExtResource("3_f5g10")
-owner_state_name = &"AvoidEnemy"
-managed = true
-node_path = NodePath("DemoAvoidSlimes")
-parameters = Dictionary[StringName, StringName]({
-&"detected_slimes": &"detected_slimes",
-&"direction": &"direction"
-})
-name = &"DemoAvoidSlimes"
-graph_pos = Vector2(1240, -120)
 
 [sub_resource type="Resource" id="Resource_4fhba"]
 script = ExtResource("4_nu6ct")
@@ -495,6 +495,15 @@ script = ExtResource("5_2e7ln")
 parameter = SubResource("Resource_oe5wn")
 name = &"detected_objects"
 graph_pos = Vector2(620, -820)
+
+[sub_resource type="Resource" id="Resource_t21ga"]
+script = ExtResource("8_y3jy5")
+
+[sub_resource type="Resource" id="Resource_4yv1l"]
+script = ExtResource("5_2e7ln")
+parameter = SubResource("Resource_t21ga")
+name = &"detected_slimes"
+graph_pos = Vector2(580, -2380)
 
 [sub_resource type="Resource" id="Resource_vt3el"]
 script = ExtResource("7_2e7ln")
@@ -584,15 +593,6 @@ script = ExtResource("5_2e7ln")
 parameter = SubResource("Resource_1dtty")
 name = &"walking_animation_state"
 graph_pos = Vector2(-200, -2220)
-
-[sub_resource type="Resource" id="Resource_t21ga"]
-script = ExtResource("8_y3jy5")
-
-[sub_resource type="Resource" id="Resource_4yv1l"]
-script = ExtResource("5_2e7ln")
-parameter = SubResource("Resource_t21ga")
-name = &"detected_slimes"
-graph_pos = Vector2(580, -2380)
 
 [sub_resource type="Resource" id="Resource_kis21"]
 script = ExtResource("14_gvweq")
@@ -834,45 +834,6 @@ connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_l6ef1")]
 })
 
-[sub_resource type="Resource" id="Resource_utp1u"]
-script = ExtResource("14_gvweq")
-state_name = &"Alive"
-method_name = &"select"
-
-[sub_resource type="Resource" id="Resource_5kix5"]
-script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_7ehqe")
-callable_id = &"select"
-callable_data = SubResource("Resource_utp1u")
-
-[sub_resource type="Resource" id="Resource_h0xb0"]
-script = ExtResource("18_gp0yu")
-node_path = NodePath("DemoCheckSlimes")
-signal_name = &"panic"
-
-[sub_resource type="Resource" id="Resource_5ggck"]
-script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_h6jf6")
-signal_id = &"panic"
-signal_data = SubResource("Resource_h0xb0")
-
-[sub_resource type="Resource" id="Resource_ro074"]
-script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_ew2pw")
-property_name = &"name"
-
-[sub_resource type="Resource" id="Resource_5vcbk"]
-script = ExtResource("7_6bfbg")
-callable_target_data = SubResource("Resource_5kix5")
-property_references = Dictionary[StringName, ExtResource("4_nu6ct")]({
-&"state_name": SubResource("Resource_ro074")
-})
-name = &"panic__c::select"
-graph_pos = Vector2(1500, -720)
-connected_signals = Dictionary[StringName, Array]({
-&"__bridge_callable": [SubResource("Resource_5ggck")]
-})
-
 [sub_resource type="Resource" id="Resource_ns0wi"]
 script = ExtResource("14_gvweq")
 state_name = &"Alive"
@@ -910,6 +871,45 @@ name = &"no_more_slimes__c::select"
 graph_pos = Vector2(1520, -120)
 connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_uyj4r")]
+})
+
+[sub_resource type="Resource" id="Resource_utp1u"]
+script = ExtResource("14_gvweq")
+state_name = &"Alive"
+method_name = &"select"
+
+[sub_resource type="Resource" id="Resource_5kix5"]
+script = ExtResource("15_f1rb7")
+target_entity = SubResource("Resource_7ehqe")
+callable_id = &"select"
+callable_data = SubResource("Resource_utp1u")
+
+[sub_resource type="Resource" id="Resource_h0xb0"]
+script = ExtResource("18_gp0yu")
+node_path = NodePath("DemoCheckSlimes")
+signal_name = &"panic"
+
+[sub_resource type="Resource" id="Resource_5ggck"]
+script = ExtResource("4_uxyf7")
+source_entity = SubResource("Resource_h6jf6")
+signal_id = &"panic"
+signal_data = SubResource("Resource_h0xb0")
+
+[sub_resource type="Resource" id="Resource_ro074"]
+script = ExtResource("4_nu6ct")
+entity = SubResource("Resource_ew2pw")
+property_name = &"name"
+
+[sub_resource type="Resource" id="Resource_5vcbk"]
+script = ExtResource("7_6bfbg")
+callable_target_data = SubResource("Resource_5kix5")
+property_references = Dictionary[StringName, ExtResource("4_nu6ct")]({
+&"state_name": SubResource("Resource_ro074")
+})
+name = &"panic__c::select"
+graph_pos = Vector2(1500, -720)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_5ggck")]
 })
 
 [sub_resource type="Resource" id="Resource_gvweq"]
@@ -1047,7 +1047,6 @@ target_group = &"apples"
 [node name="DemoAreaBodyDetector" type="Node" parent="CletusStateMachine" unique_id=1592775578 node_paths=PackedStringArray("detector")]
 process_mode = 4
 script = ExtResource("15_vo65d")
-include_groups = null
 detector = NodePath("../../DetectorArea2D")
 
 [node name="DemoTargetClosestApple" type="Node" parent="CletusStateMachine" unique_id=1600668890]
