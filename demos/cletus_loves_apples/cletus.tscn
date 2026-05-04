@@ -526,7 +526,7 @@ graph_pos = Vector2(-200, -2040)
 
 [sub_resource type="Resource" id="Resource_jcyyc"]
 script = ExtResource("11_n4tyk")
-value = &"ui_up"
+value = &"ui_down"
 
 [sub_resource type="Resource" id="Resource_0q1u7"]
 script = ExtResource("5_2e7ln")
@@ -556,7 +556,7 @@ graph_pos = Vector2(-480, 380)
 
 [sub_resource type="Resource" id="Resource_26krv"]
 script = ExtResource("11_n4tyk")
-value = &"ui_down"
+value = &"ui_up"
 
 [sub_resource type="Resource" id="Resource_xkmws"]
 script = ExtResource("5_2e7ln")
@@ -918,8 +918,8 @@ godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Selector"
 root_pos = Vector2(-480, 0)
-editor_scroll_offset = Vector2(73.85248, -598.4685)
-editor_zoom = 0.60322124
+editor_scroll_offset = Vector2(-685.8144, -157.7746)
+editor_zoom = 0.45320922
 states = Dictionary[StringName, ExtResource("8_vo65d")]({
 &"Alive": SubResource("Resource_7ehqe"),
 &"AvoidEnemy": SubResource("Resource_ew2pw"),

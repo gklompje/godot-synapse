@@ -1,4 +1,6 @@
 @tool
+
+## Updates the score label whenever the game's score parameter changes.
 class_name SynapseDemoUpdateScoreBehavior
 extends SynapseBehavior
 

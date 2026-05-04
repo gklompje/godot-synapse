@@ -1,13 +1,14 @@
 @tool
+
+## Continually updates an [AnimationTreeStateMachine]'s blend position parameters to match a
+## direction parameter.[br][br]
 class_name SynapseDemoSyncAnimationBlendPositionToFacingDirection2D
 extends SynapseBehavior
 
 @export var animation_tree: AnimationTree
-@export var blend_space_1d_blend_position_parameter: String
-@export var blend_space_2d_blend_position_parameter: String
-@export var facing_direction_normal: SynapseVector2Parameter
-
-var _blend_position: Vector2
+@export var blend_space_1d_blend_position_parameter: String # name of the 1D blend animation state
+@export var blend_space_2d_blend_position_parameter: String # name of the 2D blend animation state
+@export var facing_direction_normal: SynapseVector2Parameter # input direction to apply to blend positions
 
 static func get_category() -> StringName:
 	return SynapseBehavior.CATEGORY_DEMOS
@@ -24,28 +25,17 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return []
 
 func _on_facing_direction_normal_value_set(new_value: Vector2) -> void:
-	_full_sync(new_value)
-
-func _full_sync(dir: Vector2) -> void:
-	if dir == Vector2.ZERO:
+	# don't update the blend position when the direction is zero (avoids flipping when a character stops)
+	if new_value == Vector2.ZERO:
 		return
-	_blend_position = dir
-	_update_blend_tree()
 
-func _on_animation_tree_updated(_ignore: Variant = null) -> void:
-	_update_blend_tree()
-
-func _update_blend_tree() -> void:
 	if blend_space_1d_blend_position_parameter:
-		animation_tree.set(blend_space_1d_blend_position_parameter, _blend_position.x)
+		animation_tree.set(blend_space_1d_blend_position_parameter, new_value.x)
 	if blend_space_2d_blend_position_parameter:
-		animation_tree.set(blend_space_2d_blend_position_parameter, _blend_position)
+		animation_tree.set(blend_space_2d_blend_position_parameter, new_value)
 
 func _get_signal_relays() -> Array[RuntimeSignalRelay]:
 	return [
+		# update the blend parameter(s) when the direction changes
 		SignalRelay.for_parameter(facing_direction_normal, _on_facing_direction_normal_value_set),
-		# see https://forum.godotengine.org/t/animationtree-animation-started-animation-finished-not-firing/56199/2
-		# (tree signals don't work for looping animations: https://github.com/godotengine/godot/commit/ecd895a8602ce67818af06226e804bd843108a6a#diff-eee4fe50a680a1b41951e634570be14c6572ccbbe953a1aca8a15bb3874dfc33R126)
-		SignalRelay.of(animation_tree.mixer_applied, _on_animation_tree_updated),
-		SignalRelay.of(animation_tree.animation_started, _on_animation_tree_updated),
 	]

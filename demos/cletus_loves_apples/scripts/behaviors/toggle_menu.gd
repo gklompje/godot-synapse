@@ -1,11 +1,14 @@
 @tool
+
+## Emits a signal to switch between the menu and game states when an input action occurs.[br][br]
+## Prevents exiting the menu if the game is not running.
 class_name SynapseDemoToggleMenuBehavior
 extends SynapseBehavior
 
-signal menu_toggled
+signal menu_toggled # emitted when the main state machine should switch between the menu and game states
 
-@export var action: SynapseInputActionParameter
-@export var game_started: SynapseBoolParameter
+@export var action: SynapseInputActionParameter # input action to toggle menu
+@export var game_started: SynapseBoolParameter # parameter from game state machine that determines if the game is active, and we can exit the menu
 
 static func get_category() -> StringName:
 	return CATEGORY_DEMOS

@@ -1,4 +1,7 @@
 @tool
+
+## Sets the direction parameter to zero when unsuspended. Used to stop character motions when they
+## reach certain states, like idle or dying.
 class_name SynapseDemoStandStillBehavior
 extends SynapseBehavior
 
