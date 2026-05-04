@@ -5,6 +5,10 @@
 # Synapse
 **An extensible state machine framework for Godot with a graph-based user interface.**
 
+<p align="center">
+  <img src="./docs/media/graph_ui.gif" alt="Synapse graph UI in action" />
+</p>
+
 ![Synapse Graph Editor in Action](./docs/images/synapse_hero.gif)
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
