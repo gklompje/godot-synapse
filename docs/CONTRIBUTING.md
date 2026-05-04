@@ -18,7 +18,7 @@ discuss it before you spend significant time on code.
 
 ### ⚠️ GDScript Standards
 To ensure Synapse remains robust, this project is developed with most **GDScript warnings set to
-errors**.
+errors**, including **static typing** (for performance and safety).
 * **The Environment:** Please check out the whole project and use the included `project.godot` file.
 This ensures your editor settings match the project's strict warning levels.
 * **Code Style:** We aim for clean, readable GDScript that favors composition over inheritance.
