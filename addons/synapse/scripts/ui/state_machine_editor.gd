@@ -1932,7 +1932,7 @@ func _on_exposed_signal_rename_requested(previous_public_name: StringName, reque
 func _on_popup_request(at_position: Vector2) -> void:
 	add_entity_popup_menu.position = get_screen_position() + at_position
 	add_entity_popup_menu.clear(true)
-	_graph_position = at_position
+	_graph_position = (at_position + scroll_offset) / zoom
 
 	add_entity_popup_menu.add_separator("Add:")
 
