@@ -101,6 +101,7 @@
 		"SynapseStateMachineState",
 		"SynapseStateMachineStateData",
 		"SynapseStateMethodCallableData",
+		"SynapseStateSignalData",
 		"SynapseVersionInfo"
 	],
 	"disabled_editors": [],

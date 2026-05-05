@@ -41,7 +41,9 @@ those below), which prevents these methods from being called while the behavior 
 is almost always what you want, because a behavior is associated with a state and an inactive state
 shouldn't *do* anything.
 
-Each type of *state* has its own set of callables, usually for manipulating its child states. By
+*States* have `entered` and `exited` signals, which are useful for one-off actions like setting a
+parameter to a particular value, but for anything else you should probably just create a behavior.
+Each type of state has its own set of callables, usually for manipulating its child states. By
 connecting these methods to signals from various entities, you can fully control the flow of the
 state machine. For example, if a behavior responsible for health triggers a `damage_taken` signal,
 you can toggle a state that will display visual effects like flashing the character's health bar.

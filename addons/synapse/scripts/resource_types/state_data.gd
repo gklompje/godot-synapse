@@ -151,3 +151,16 @@ func notify_state_machine_pre_created(state_machine: SynapseStateMachine) -> voi
 
 func create_callable_data(callable_name: StringName, _state_machine: SynapseStateMachine) -> SynapseCallableData:
 	return SynapseStateMethodCallableData.of(name, callable_name)
+
+@warning_ignore("unused_parameter")
+func get_signal_infos_for_callables(state_machine: SynapseStateMachine) -> Array[Dictionary]:
+	# { "name": "entered", "args": [], "default_args": [], "flags": 1, "id": 0, "return": { "name": "", "class_name": &"", "type": 0, "hint": 0, "hint_string": "", "usage": 6 } }
+	# { "name": "exited", "args": [], "default_args": [], "flags": 1, "id": 0, "return": { "name": "", "class_name": &"", "type": 0, "hint": 0, "hint_string": "", "usage": 6 } }
+	return [
+		{ "name": "entered", "args": [], "default_args": [] },
+		{ "name": "exited", "args": [], "default_args": [] },
+	]
+
+@warning_ignore("unused_parameter")
+func create_signal_data(signal_name: StringName, _state_machine: SynapseStateMachine) -> SynapseSignalData:
+	return SynapseStateSignalData.of(name, signal_name)

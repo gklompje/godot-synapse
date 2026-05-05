@@ -47,8 +47,6 @@ inspector.
   - Show/Hide toggles for states/behaviors/parameters to reduce graph clutter.
   - Drag connections between ports to create parameters on the fly.
 - **Expanded Signal Support**
-  - Consider exposing `entered`/`exited` signals from states (Does this lead to anti-patterns?
-Document those.)
   - Allow signal bridges to handle return values, exposing them as output ports for parameter
 wiring.
 - **Editor Public API**
