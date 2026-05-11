@@ -68,6 +68,7 @@
 		"SynapseEditorReorderableList",
 		"SynapseEditorReorderableListItem",
 		"SynapseEntityPropertyReferenceData",
+		"SynapseEntityReferenceData",
 		"SynapseGUIUtil",
 		"SynapseNestedStateMachineExposedCallableData",
 		"SynapseNestedStateMachineExposedSignalData",
