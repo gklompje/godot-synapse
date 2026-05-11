@@ -17,6 +17,7 @@ config/icon="uid://bel1ei56h1s5r"
 
 [debug]
 
+gdscript/warnings/directory_rules={}
 gdscript/warnings/unassigned_variable=2
 gdscript/warnings/unassigned_variable_op_assign=2
 gdscript/warnings/unused_variable=2
