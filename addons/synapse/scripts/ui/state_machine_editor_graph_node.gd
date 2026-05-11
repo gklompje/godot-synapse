@@ -352,3 +352,6 @@ func set_entity_name(entity_name: StringName) -> void:
 
 @abstract
 func get_entity_type() -> SynapseStateMachineData.EntityType
+
+func get_entity_reference() -> SynapseEntityReferenceData:
+	return SynapseEntityReferenceData.of(get_entity_type(), get_entity_name())

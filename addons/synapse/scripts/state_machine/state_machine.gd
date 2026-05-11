@@ -317,12 +317,13 @@ func _init_signal_bridges() -> void:
 	for signal_bridge_data: SynapseSignalBridgeData in data.signal_bridges.values():
 		signal_bridge_data.create_bridge(self)
 
-func get_runtime_object_for(resource: SynapseEntityData) -> Object:
-	if resource is SynapseStateData:
-		return all_states[resource.name]
-	elif resource is SynapseBehaviorData:
-		return all_behaviors[resource.name]
-	elif resource is SynapseParameterData:
-		return all_parameters[resource.name]
-	push_warning("Cannot find runtime object corresponding to unknown resource type: ", resource)
+func get_runtime_object_from(ref: SynapseEntityReferenceData) -> Object:
+	match ref.entity_type:
+		SynapseStateMachineData.EntityType.STATE:
+			return all_states[ref.entity_name]
+		SynapseStateMachineData.EntityType.BEHAVIOR:
+			return all_behaviors[ref.entity_name]
+		SynapseStateMachineData.EntityType.PARAMETER:
+			return all_parameters[ref.entity_name]
+	push_warning("Cannot find runtime object corresponding to unknown reference entity type: ", ref)
 	return null

@@ -44,7 +44,7 @@ script = ExtResource("9_rsrak")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"root"
-editor_scroll_offset = Vector2(-526.0316, 123.041016)
+editor_scroll_offset = Vector2(-526.0316, 28.00354)
 editor_zoom = 0.6830132
 states = Dictionary[StringName, ExtResource("10_borb3")]({
 &"root": SubResource("Resource_w510r")

@@ -241,7 +241,8 @@ func get_signal_infos_for_callables(state_machine: SynapseStateMachine) -> Array
 	ordered_signals.sort_custom(func(s1: StringName, s2: StringName) -> bool: return s1.naturalcasecmp_to(s2) < 0)
 	for public_name in ordered_signals:
 		var ref := contained_state_machine.data.exposed_signals[public_name]
-		for signal_def in ref.entity.get_signal_infos_for_callables(contained_state_machine):
+		var entity := contained_state_machine.data.get_entity_from(ref.entity_reference)
+		for signal_def in entity.get_signal_infos_for_callables(contained_state_machine):
 			if signal_def["name"] == ref.property_name:
 				var duplicate_info := signal_def.duplicate(true)
 				duplicate_info["name"] = public_name
@@ -253,7 +254,8 @@ func create_callable_data(callable_name: StringName, state_machine: SynapseState
 	for public_name in contained_state_machine.data.exposed_callables:
 		if public_name == callable_name:
 			var ref := contained_state_machine.data.exposed_callables[public_name]
-			return SynapseNestedStateMachineExposedCallableData.of(state_machine_path, ref.entity.create_callable_data(ref.property_name, contained_state_machine))
+			var entity := contained_state_machine.data.get_entity_from(ref.entity_reference)
+			return SynapseNestedStateMachineExposedCallableData.of(state_machine_path, entity.create_callable_data(ref.property_name, contained_state_machine))
 	push_warning("Failed to find exposed callable '", callable_name, "' in: ", contained_state_machine.data.exposed_callables.keys())
 	return null
 
@@ -265,7 +267,8 @@ func get_callable_infos_for_signals(state_machine: SynapseStateMachine) -> Array
 	ordered_callables.sort_custom(func(s1: StringName, s2: StringName) -> bool: return s1.naturalcasecmp_to(s2) < 0)
 	for public_name in ordered_callables:
 		var ref := contained_state_machine.data.exposed_callables[public_name]
-		for callable_def in ref.entity.get_callable_infos_for_signals(contained_state_machine):
+		var entity := contained_state_machine.data.get_entity_from(ref.entity_reference)
+		for callable_def in entity.get_callable_infos_for_signals(contained_state_machine):
 			if callable_def["name"] == ref.property_name:
 				var duplicate_info := callable_def.duplicate(true)
 				duplicate_info["name"] = public_name
@@ -277,6 +280,7 @@ func create_signal_data(signal_name: StringName, state_machine: SynapseStateMach
 	for public_name in contained_state_machine.data.exposed_signals:
 		if public_name == signal_name:
 			var ref := contained_state_machine.data.exposed_signals[public_name]
-			return SynapseNestedStateMachineExposedSignalData.of(state_machine_path, ref.entity.create_signal_data(ref.property_name, contained_state_machine))
+			var entity := contained_state_machine.data.get_entity_from(ref.entity_reference)
+			return SynapseNestedStateMachineExposedSignalData.of(state_machine_path, entity.create_signal_data(ref.property_name, contained_state_machine))
 	push_warning("Failed to find exposed signal '", signal_name, "' in: ", contained_state_machine.data.exposed_signals.keys())
 	return null

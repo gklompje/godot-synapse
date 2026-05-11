@@ -54,7 +54,7 @@ func get_configuration_warnings(state_machine: SynapseStateMachine) -> Array[Dic
 			break
 		if entity_data is SynapseSignalBridgeData:
 			var signal_bridge_data := entity_data as SynapseSignalBridgeData
-			if signal_bridge_data.property_references.values().any(func(ref: SynapseEntityPropertyReferenceData) -> bool: return ref.entity == self):
+			if signal_bridge_data.property_references.values().any(func(ref: SynapseEntityPropertyReferenceData) -> bool: return ref.entity_reference.references(self)):
 				referenced = true
 				break
 			if signal_bridge_data.callable_target_data.target_entity == self:

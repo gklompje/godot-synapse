@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="9_7x864"]
 [ext_resource type="Script" uid="uid://dw63k3jirclwc" path="res://addons/synapse/scripts/resource_types/node_method_signal_data.gd" id="9_libwo"]
 [ext_resource type="Script" uid="uid://45q6wxkgd845" path="res://demos/nested_state_machines/check_battery_charge.gd" id="10_q8l4a"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="15_8bloh"]
 
 [sub_resource type="Resource" id="Resource_p3mx0"]
 script = ExtResource("2_fjea5")
@@ -155,9 +156,13 @@ source_entity = SubResource("Resource_p3mx0")
 signal_id = &"switch_off"
 signal_data = SubResource("Resource_81dkp")
 
+[sub_resource type="Resource" id="Resource_ygd10"]
+script = ExtResource("15_8bloh")
+entity_name = &"Off"
+
 [sub_resource type="Resource" id="Resource_afx4n"]
 script = ExtResource("8_meqst")
-entity = SubResource("Resource_hr3en")
+entity_reference = SubResource("Resource_ygd10")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_s2ldj"]
@@ -194,9 +199,13 @@ source_entity = SubResource("Resource_p3mx0")
 signal_id = &"switch_on"
 signal_data = SubResource("Resource_r1qvx")
 
+[sub_resource type="Resource" id="Resource_uwtrq"]
+script = ExtResource("15_8bloh")
+entity_name = &"On"
+
 [sub_resource type="Resource" id="Resource_a2xxk"]
 script = ExtResource("8_meqst")
-entity = SubResource("Resource_wdn7j")
+entity_reference = SubResource("Resource_uwtrq")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_05112"]

@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cwoxjj3i1n5eo" path="res://addons/synapse/scripts/parameters/int_parameter.gd" id="7_5wsv1"]
 [ext_resource type="Script" uid="uid://vyl6eh51x7sn" path="res://addons/synapse/scripts/parameters/rect2_parameter.gd" id="7_f54f8"]
 [ext_resource type="Script" uid="uid://bwhxee0nr7xww" path="res://demos/cletus_loves_apples/scripts/behaviors/save_load_behavior.gd" id="8_jeu60"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="8_pp7ec"]
 [ext_resource type="Script" uid="uid://ckx7gqjt5g55g" path="res://addons/synapse/scripts/resource_types/state_machine_state_data.gd" id="10_mf84r"]
 [ext_resource type="Script" uid="uid://cfc6y4csmpdjh" path="res://demos/cletus_loves_apples/scripts/behaviors/game_manager.gd" id="11_bgkud"]
 [ext_resource type="Texture2D" uid="uid://qkony6taapf1" path="res://demos/cletus_loves_apples/images/sand_tileset.png" id="12_fkwdc"]
@@ -134,24 +135,43 @@ node_path = NodePath("DemoSaveLoad")
 name = &"DemoSaveLoad"
 graph_pos = Vector2(560, 200)
 
+[sub_resource type="Resource" id="Resource_wocjb"]
+script = ExtResource("8_pp7ec")
+entity_type = 1
+entity_name = &"DemoSaveLoad"
+
 [sub_resource type="Resource" id="Resource_m38yp"]
 script = ExtResource("3_fom3w")
-entity = SubResource("Resource_fom3w")
+entity_reference = SubResource("Resource_wocjb")
 property_name = &"load_state_machine"
+
+[sub_resource type="Resource" id="Resource_qbluh"]
+script = ExtResource("8_pp7ec")
+entity_type = 1
+entity_name = &"DemoGameManager"
 
 [sub_resource type="Resource" id="Resource_lw4u4"]
 script = ExtResource("3_fom3w")
-entity = SubResource("Resource_5dymk")
+entity_reference = SubResource("Resource_qbluh")
 property_name = &"reset"
+
+[sub_resource type="Resource" id="Resource_1cjjv"]
+script = ExtResource("8_pp7ec")
+entity_type = 1
+entity_name = &"DemoSaveLoad"
 
 [sub_resource type="Resource" id="Resource_f54f8"]
 script = ExtResource("3_fom3w")
-entity = SubResource("Resource_fom3w")
+entity_reference = SubResource("Resource_1cjjv")
 property_name = &"save_state_machine"
+
+[sub_resource type="Resource" id="Resource_nix16"]
+script = ExtResource("8_pp7ec")
+entity_name = &"CletusStateMachine"
 
 [sub_resource type="Resource" id="Resource_j2dy6"]
 script = ExtResource("3_fom3w")
-entity = SubResource("Resource_5wsv1")
+entity_reference = SubResource("Resource_nix16")
 property_name = &"died"
 
 [sub_resource type="Resource" id="Resource_jx848"]

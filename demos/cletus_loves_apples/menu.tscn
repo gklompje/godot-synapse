@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="3_nbscj"]
 [ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="3_uxuh5"]
 [ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="4_eyflg"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="4_r7b4l"]
 [ext_resource type="Script" uid="uid://c5ccvhqenjstd" path="res://addons/synapse/scripts/parameters/file_path_parameter.gd" id="5_eyflg"]
 [ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="5_qwgct"]
 [ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="6_iohko"]
@@ -23,24 +24,44 @@ parameters = Dictionary[StringName, StringName]({
 name = &"MenuManager"
 graph_pos = Vector2(500, 0)
 
+[sub_resource type="Resource" id="Resource_qjgs5"]
+script = ExtResource("4_r7b4l")
+entity_type = 1
+entity_name = &"MenuManager"
+
 [sub_resource type="Resource" id="Resource_ihrjt"]
 script = ExtResource("3_uxuh5")
-entity = SubResource("Resource_iohko")
+entity_reference = SubResource("Resource_qjgs5")
 property_name = &"game_over"
+
+[sub_resource type="Resource" id="Resource_vq68g"]
+script = ExtResource("4_r7b4l")
+entity_type = 1
+entity_name = &"MenuManager"
 
 [sub_resource type="Resource" id="Resource_4pjxp"]
 script = ExtResource("3_uxuh5")
-entity = SubResource("Resource_iohko")
+entity_reference = SubResource("Resource_vq68g")
 property_name = &"load_pressed"
+
+[sub_resource type="Resource" id="Resource_u1ud6"]
+script = ExtResource("4_r7b4l")
+entity_type = 1
+entity_name = &"MenuManager"
 
 [sub_resource type="Resource" id="Resource_w6sv1"]
 script = ExtResource("3_uxuh5")
-entity = SubResource("Resource_iohko")
+entity_reference = SubResource("Resource_u1ud6")
 property_name = &"new_game_pressed"
+
+[sub_resource type="Resource" id="Resource_trlqf"]
+script = ExtResource("4_r7b4l")
+entity_type = 1
+entity_name = &"MenuManager"
 
 [sub_resource type="Resource" id="Resource_o2cxy"]
 script = ExtResource("3_uxuh5")
-entity = SubResource("Resource_iohko")
+entity_reference = SubResource("Resource_trlqf")
 property_name = &"save_pressed"
 
 [sub_resource type="Resource" id="Resource_6nbto"]

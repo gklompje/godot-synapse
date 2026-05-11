@@ -3,6 +3,7 @@ class_name SynapseSignalSourceData
 extends Resource
 
 @export_storage var source_entity: SynapseEntityData
+@export_storage var source_entity_reference: SynapseEntityReferenceData
 @export_storage var signal_id: StringName
 @export_storage var signal_data: SynapseSignalData
 
@@ -10,6 +11,7 @@ extends Resource
 static func of(source_entity: SynapseEntityData, signal_id: StringName, signal_data: SynapseSignalData) -> SynapseSignalSourceData:
 	var data := SynapseSignalSourceData.new()
 	data.source_entity = source_entity
+	data.source_entity_reference = SynapseEntityReferenceData.from(source_entity)
 	data.signal_id = signal_id
 	data.signal_data = signal_data
 	return data

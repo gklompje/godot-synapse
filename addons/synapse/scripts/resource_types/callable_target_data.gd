@@ -2,6 +2,7 @@ class_name SynapseCallableTargetData
 extends Resource
 
 @export_storage var target_entity: SynapseEntityData
+@export_storage var target_entity_reference: SynapseEntityReferenceData
 @export_storage var callable_id: StringName
 @export_storage var callable_data: SynapseCallableData
 
@@ -9,6 +10,7 @@ extends Resource
 static func of(target_entity: SynapseEntityData, callable_id: StringName, callable_data: SynapseCallableData) -> SynapseCallableTargetData:
 	var data := SynapseCallableTargetData.new()
 	data.target_entity = target_entity
+	data.target_entity_reference = SynapseEntityReferenceData.from(target_entity)
 	data.callable_id = callable_id
 	data.callable_data = callable_data
 	return data

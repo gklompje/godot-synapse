@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="8_g21qm"]
 [ext_resource type="Script" uid="uid://dg4fb8qsrgjlb" path="res://addons/synapse/scripts/behaviors/float_parameter_subtractor.gd" id="9_gdhut"]
 [ext_resource type="Script" uid="uid://buoxrndx1oj5n" path="res://demos/simple_calculator/sync_float_parameter_with_spin_box.gd" id="10_6ko2v"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="14_av1rg"]
 
 [sub_resource type="Resource" id="Resource_3j2x4"]
 script = ExtResource("2_yqbeb")
@@ -204,9 +205,13 @@ source_entity = SubResource("Resource_3fqii")
 signal_id = &"select_add"
 signal_data = SubResource("Resource_g8vmr")
 
+[sub_resource type="Resource" id="Resource_up136"]
+script = ExtResource("14_av1rg")
+entity_name = &"Add"
+
 [sub_resource type="Resource" id="Resource_lvfw3"]
 script = ExtResource("7_k8y7s")
-entity = SubResource("Resource_tm3ko")
+entity_reference = SubResource("Resource_up136")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_gdhut"]
@@ -243,9 +248,13 @@ source_entity = SubResource("Resource_3fqii")
 signal_id = &"select_divide"
 signal_data = SubResource("Resource_h5n1y")
 
+[sub_resource type="Resource" id="Resource_6vu0h"]
+script = ExtResource("14_av1rg")
+entity_name = &"Divide"
+
 [sub_resource type="Resource" id="Resource_m41us"]
 script = ExtResource("7_k8y7s")
-entity = SubResource("Resource_k8y7s")
+entity_reference = SubResource("Resource_6vu0h")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_x3agu"]
@@ -282,9 +291,13 @@ source_entity = SubResource("Resource_3fqii")
 signal_id = &"select_multiply"
 signal_data = SubResource("Resource_b7dmg")
 
+[sub_resource type="Resource" id="Resource_atbr0"]
+script = ExtResource("14_av1rg")
+entity_name = &"Multiply"
+
 [sub_resource type="Resource" id="Resource_xjvit"]
 script = ExtResource("7_k8y7s")
-entity = SubResource("Resource_8qh2c")
+entity_reference = SubResource("Resource_atbr0")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_ufjyh"]
@@ -321,9 +334,13 @@ source_entity = SubResource("Resource_3fqii")
 signal_id = &"select_subtract"
 signal_data = SubResource("Resource_ek40t")
 
+[sub_resource type="Resource" id="Resource_qk11y"]
+script = ExtResource("14_av1rg")
+entity_name = &"Subtract"
+
 [sub_resource type="Resource" id="Resource_qg4r1"]
 script = ExtResource("7_k8y7s")
-entity = SubResource("Resource_3lpug")
+entity_reference = SubResource("Resource_qk11y")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_kj3n8"]

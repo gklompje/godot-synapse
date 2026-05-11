@@ -127,11 +127,11 @@ func _is_node_hover_valid(from_node: StringName, from_port: int, to_node: String
 	if from_connection_type == ConnectionType.EXPOSE_CALLABLE and from_graph_node is SynapseRootSentinelGraphNode and from_slot_name == SynapseRootSentinelGraphNode.SLOT_EXPOSE_SIGNAL_OR_CALLABLE:
 		var callable_name: StringName = to_graph_node.get_signal_receive_slot_callable_info(to_slot_name)["name"]
 		var entity := state_machine.data.get_entity(to_graph_node.get_entity_type(), to_graph_node.get_entity_name())
-		return not state_machine.data.exposed_callables.values().any(func(ref: SynapseEntityPropertyReferenceData) -> bool: return ref.entity == entity and ref.property_name == callable_name)
+		return not state_machine.data.exposed_callables.values().any(func(ref: SynapseEntityPropertyReferenceData) -> bool: return ref.entity_reference.references(entity) and ref.property_name == callable_name)
 	elif to_connection_type == ConnectionType.EXPOSE_SIGNAL and to_graph_node is SynapseRootSentinelGraphNode and to_slot_name == SynapseRootSentinelGraphNode.SLOT_EXPOSE_SIGNAL_OR_CALLABLE:
 		var signal_name: StringName = from_graph_node.get_emitted_signal_info(from_slot_name)["name"]
 		var entity := state_machine.data.get_entity(from_graph_node.get_entity_type(), from_graph_node.get_entity_name())
-		return not state_machine.data.exposed_signals.values().any(func(ref: SynapseEntityPropertyReferenceData) -> bool: return ref.entity == entity and ref.property_name == signal_name)
+		return not state_machine.data.exposed_signals.values().any(func(ref: SynapseEntityPropertyReferenceData) -> bool: return ref.entity_reference.references(entity) and ref.property_name == signal_name)
 	elif to_connection_type == ConnectionType.PROPERTY_REFERENCE_IN and to_graph_node is SynapseSignalBridgeGraphNode:
 		var argument_info := (to_graph_node as SynapseSignalBridgeGraphNode).get_argument_info(to_slot_name)
 		if not SynapseClassUtil.is_argument_compatible(from_graph_node.get_runtime_property_info(from_slot_name), argument_info):
@@ -140,7 +140,8 @@ func _is_node_hover_valid(from_node: StringName, from_port: int, to_node: String
 		var argument_name := argument_info["name"] as String
 		var signal_bridge_data := state_machine.data.signal_bridges[to_graph_node.get_entity_name()]
 		return not signal_bridge_data.property_references.has(argument_name)\
-				or not is_same(signal_bridge_data.property_references[argument_name].entity, state_machine.data.get_entity(from_graph_node.get_entity_type(), from_graph_node.get_entity_name()))
+				or signal_bridge_data.property_references[argument_name].entity_reference.entity_type != from_graph_node.get_entity_type()\
+				or signal_bridge_data.property_references[argument_name].entity_reference.entity_name != from_graph_node.get_entity_name()
 	elif from_connection_type == ConnectionType.SIGNAL_OUT and to_connection_type == ConnectionType.SIGNAL_IN:
 		if to_graph_node.can_receive_signals():
 			@warning_ignore("unsafe_cast")
@@ -676,14 +677,16 @@ func erase(undo_action: String, state_names: Array[StringName], behavior_names: 
 	# exposed callables & signals
 	for public_callable_name in state_machine.data.exposed_callables:
 		var ref := state_machine.data.exposed_callables[public_callable_name]
-		if is_being_deleted.call(ref.entity):
+		var entity := state_machine.data.get_entity_from(ref.entity_reference)
+		if is_being_deleted.call(entity):
 			undo_redo.add_do_method(state_machine.data, "unexpose_callable", public_callable_name)
-			undo_redo.add_undo_method(state_machine.data, "expose_callable", SynapseStateMachineData.get_entity_type(ref.entity), ref.entity.name, ref.property_name, public_callable_name, state_machine)
+			undo_redo.add_undo_method(state_machine.data, "expose_callable", ref.entity_reference.entity_type, ref.entity_reference.entity_name, ref.property_name, public_callable_name, state_machine)
 	for public_signal_name in state_machine.data.exposed_signals:
 		var ref := state_machine.data.exposed_signals[public_signal_name]
-		if is_being_deleted.call(ref.entity):
+		var entity := state_machine.data.get_entity_from(ref.entity_reference)
+		if is_being_deleted.call(entity):
 			undo_redo.add_do_method(state_machine.data, "unexpose_signal", public_signal_name)
-			undo_redo.add_undo_method(state_machine.data, "expose_signal", SynapseStateMachineData.get_entity_type(ref.entity), ref.entity.name, ref.property_name, public_signal_name, state_machine)
+			undo_redo.add_undo_method(state_machine.data, "expose_signal", ref.entity_reference.entity_type, ref.entity_reference.entity_name, ref.property_name, public_signal_name, state_machine)
 
 	for state_name in state_machine.data.states:
 		var state_data := state_machine.data.states[state_name]
@@ -755,10 +758,10 @@ func erase(undo_action: String, state_names: Array[StringName], behavior_names: 
 			else:
 				# clear all argument references to entities being deleted
 				for callable_arg_name in signal_bridge_data.property_references:
-					var entity_property_reference_data := signal_bridge_data.property_references[callable_arg_name]
-					if is_being_deleted.call(entity_property_reference_data.entity):
+					var ref := signal_bridge_data.property_references[callable_arg_name]
+					if is_being_deleted.call(state_machine.data.get_entity_from(ref.entity_reference)):
 						undo_redo.add_do_method(state_machine.data, "unassign_signal_bridge_property_reference", signal_bridge_name, callable_arg_name)
-						undo_redo.add_undo_method(state_machine.data, "assign_signal_bridge_property_reference", signal_bridge_name, entity_property_reference_data, callable_arg_name)
+						undo_redo.add_undo_method(state_machine.data, "assign_signal_bridge_property_reference", signal_bridge_name, ref, callable_arg_name)
 
 	# parameter references
 	for entity_data in state_machine.data.get_all_entities():
@@ -891,6 +894,9 @@ func get_graph_node_for(entity_data: SynapseEntityData) -> SynapseStateMachineEd
 
 	push_error("Unknown entity data type: ", entity_data)
 	return null
+
+func get_graph_node_for_reference(reference: SynapseEntityReferenceData) -> SynapseStateMachineEditorGraphNode:
+	return get_graph_node_for(state_machine.data.get_entity_from(reference))
 
 func create_signal_connection(signal_source_data: SynapseSignalSourceData, to_entity: SynapseEntityData, to_callable_id: StringName) -> void:
 	var from_graph_node := get_graph_node_for(signal_source_data.source_entity)
@@ -1032,7 +1038,7 @@ func create_parameter_linked_to_signal_bridge(parameter: SynapseParameter, signa
 		push_warning("No property named 'value' on parameter type '", parameter.get_class(), "'")
 		return
 	var parameter_data := SynapseParameterData.create(new_parameter_name, parameter, pos)
-	var entity_property_reference_data := SynapseEntityPropertyReferenceData.create(parameter_data, &"value")
+	var entity_property_reference_data := SynapseEntityPropertyReferenceData.create(SynapseEntityReferenceData.from(parameter_data), &"value")
 	@warning_ignore("unsafe_cast")
 	var argument_name := signal_bridge_graph_node.get_argument_info(slot_name)["name"] as String
 
@@ -1314,7 +1320,7 @@ func _on_connection_request(from_node: StringName, from_port: int, to_node: Stri
 	elif to_connection_type == ConnectionType.PROPERTY_REFERENCE_IN and to_graph_node is SynapseSignalBridgeGraphNode:
 		var signal_bridge_data := state_machine.data.signal_bridges[to_graph_node.get_entity_name()]
 		@warning_ignore("unsafe_cast")
-		var entity_property_reference_data := SynapseEntityPropertyReferenceData.create(state_machine.data.get_entity(from_graph_node.get_entity_type(), from_graph_node.get_entity_name()), from_graph_node.get_runtime_property_info(from_slot_name)["name"] as StringName)
+		var entity_property_reference_data := SynapseEntityPropertyReferenceData.create(from_graph_node.get_entity_reference(), from_graph_node.get_runtime_property_info(from_slot_name)["name"] as StringName)
 		@warning_ignore("unsafe_cast")
 		var argument_name := (to_graph_node as SynapseSignalBridgeGraphNode).get_argument_info(to_slot_name)["name"] as String
 		undo_redo.create_action("Assign " + from_graph_node.get_entity_name() + "." + entity_property_reference_data.property_name + " -> " + to_graph_node.get_entity_name() + "." + to_slot_name, UndoRedo.MERGE_DISABLE, state_machine)
@@ -1556,10 +1562,10 @@ func _on_state_machine_data_set() -> void:
 	# exposed callables and signals can only be shown once all graph nodes exist
 	for public_callable_name in state_machine.data.exposed_callables:
 		var ref := state_machine.data.exposed_callables[public_callable_name]
-		_on_state_machine_data_entity_callable_exposed(ref.entity, ref.property_name, public_callable_name)
+		_on_state_machine_data_entity_callable_exposed(state_machine.data.get_entity_from(ref.entity_reference), ref.property_name, public_callable_name)
 	for public_signal_name in state_machine.data.exposed_signals:
 		var ref := state_machine.data.exposed_signals[public_signal_name]
-		_on_state_machine_data_entity_signal_exposed(ref.entity, ref.property_name, public_signal_name)
+		_on_state_machine_data_entity_signal_exposed(state_machine.data.get_entity_from(ref.entity_reference), ref.property_name, public_signal_name)
 
 	# listen for changes
 	state_machine.data.root_state_set.connect(_on_state_machine_data_root_state_set)
@@ -1803,7 +1809,7 @@ func _on_state_machine_data_signal_bridge_property_reference_assigned(signal_bri
 	var signal_bridge_graph_node := signal_bridge_graph_nodes[signal_bridge_data.name]
 	var to_slot_name := signal_bridge_graph_node.get_slot_name_for_callable_argument_name(argument_name)
 	signal_bridge_graph_node.notify_property_reference_assigned(to_slot_name)
-	var entity_graph_node := get_graph_node_for(entity_property_reference_data.entity)
+	var entity_graph_node := get_graph_node_for_reference(entity_property_reference_data.entity_reference)
 	@warning_ignore("unsafe_cast")
 	var connection_proxy := ConnectionProxy.of(entity_graph_node, entity_graph_node.get_slot_name_for_runtime_property_name(entity_property_reference_data.property_name), signal_bridge_graph_node, to_slot_name)
 	connection_proxy.remove_requested.connect(remove_signal_bridge_property_reference.bind(signal_bridge_data.name, argument_name))
@@ -1814,7 +1820,7 @@ func _on_state_machine_data_signal_bridge_property_reference_unassigned(signal_b
 	var signal_bridge_graph_node := signal_bridge_graph_nodes[signal_bridge_data.name]
 	var to_slot_name := signal_bridge_graph_node.get_slot_name_for_callable_argument_name(argument_name)
 	signal_bridge_graph_node.notify_property_reference_unassigned(to_slot_name)
-	var entity_graph_node := get_graph_node_for(entity_property_reference_data.entity)
+	var entity_graph_node := get_graph_node_for_reference(entity_property_reference_data.entity_reference)
 	@warning_ignore("unsafe_cast")
 	remove_connection_between(entity_graph_node, entity_graph_node.get_slot_name_for_runtime_property_name(entity_property_reference_data.property_name), signal_bridge_graph_node, to_slot_name)
 	state_machine.update_configuration_warnings()
@@ -1894,7 +1900,7 @@ func _on_exposed_callable_unexposed(public_name: StringName) -> void:
 		return
 	undo_redo.create_action("Stop exposing '" + public_name + "'", UndoRedo.MERGE_DISABLE, state_machine)
 	undo_redo.add_do_method(state_machine.data, "unexpose_callable", public_name)
-	undo_redo.add_undo_method(state_machine.data, "expose_callable", SynapseStateMachineData.get_entity_type(ref.entity), ref.entity.name, ref.property_name, public_name, state_machine)
+	undo_redo.add_undo_method(state_machine.data, "expose_callable", ref.entity_reference.entity_type, ref.entity_reference.entity_name, ref.property_name, public_name, state_machine)
 	undo_redo.commit_action()
 
 func _on_exposed_callable_rename_requested(previous_public_name: StringName, requested_new_public_name: StringName) -> void:
@@ -1915,7 +1921,7 @@ func _on_exposed_signal_unexposed(public_name: StringName) -> void:
 		return
 	undo_redo.create_action("Stop exposing '" + public_name + "'", UndoRedo.MERGE_DISABLE, state_machine)
 	undo_redo.add_do_method(state_machine.data, "unexpose_signal", public_name)
-	undo_redo.add_undo_method(state_machine.data, "expose_signal", SynapseStateMachineData.get_entity_type(ref.entity), ref.entity.name, ref.property_name, public_name, state_machine)
+	undo_redo.add_undo_method(state_machine.data, "expose_signal", ref.entity_reference.entity_type, ref.entity_reference.entity_name, ref.property_name, public_name, state_machine)
 	undo_redo.commit_action()
 
 func _on_exposed_signal_rename_requested(previous_public_name: StringName, requested_new_public_name: StringName) -> void:

@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="4_nu6ct"]
 [ext_resource type="Script" uid="uid://ipaxiwjt1u1e" path="res://addons/synapse/scripts/resource_types/signal_source_data.gd" id="4_uxyf7"]
 [ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="5_2e7ln"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="5_ivjey"]
 [ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="6_3j7p7"]
 [ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="6_f5g10"]
 [ext_resource type="Script" uid="uid://dv7cyjk552llw" path="res://addons/synapse/scripts/parameters/vector2_parameter.gd" id="7_2e7ln"]
@@ -453,19 +454,34 @@ node_path = NodePath("DemoAnimationTreeTravel")
 name = &"ToWalking"
 graph_pos = Vector2(220, -2220)
 
+[sub_resource type="Resource" id="Resource_oi7xc"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DieWhenAttacked"
+
 [sub_resource type="Resource" id="Resource_4fhba"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_frqbu")
+entity_reference = SubResource("Resource_oi7xc")
 property_name = &"register_attack"
+
+[sub_resource type="Resource" id="Resource_8w7eg"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoConsumeApple"
 
 [sub_resource type="Resource" id="Resource_373k8"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_2rd6k")
+entity_reference = SubResource("Resource_8w7eg")
 property_name = &"apple_consumed"
+
+[sub_resource type="Resource" id="Resource_vmo60"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoOneShotTimer"
 
 [sub_resource type="Resource" id="Resource_x57la"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_trpmq")
+entity_reference = SubResource("Resource_vmo60")
 property_name = &"timeout"
 
 [sub_resource type="Resource" id="Resource_6ytxl"]
@@ -646,9 +662,13 @@ source_entity = SubResource("Resource_2rd6k")
 signal_id = &"apple_consumed"
 signal_data = SubResource("Resource_e5kwh")
 
+[sub_resource type="Resource" id="Resource_n2bav"]
+script = ExtResource("5_ivjey")
+entity_name = &"PlayerControlled"
+
 [sub_resource type="Resource" id="Resource_rghe6"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_dg4x6")
+entity_reference = SubResource("Resource_n2bav")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_11s5r"]
@@ -685,9 +705,13 @@ source_entity = SubResource("Resource_h44jr")
 signal_id = &"apple_targeted"
 signal_data = SubResource("Resource_jponx")
 
+[sub_resource type="Resource" id="Resource_ii28m"]
+script = ExtResource("5_ivjey")
+entity_name = &"PursueApple"
+
 [sub_resource type="Resource" id="Resource_iec6b"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_gnu8x")
+entity_reference = SubResource("Resource_ii28m")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_445lj"]
@@ -739,9 +763,13 @@ source_entity = SubResource("Resource_frqbu")
 signal_id = &"attack_registered"
 signal_data = SubResource("Resource_bpsvq")
 
+[sub_resource type="Resource" id="Resource_ths32"]
+script = ExtResource("5_ivjey")
+entity_name = &"Dead"
+
 [sub_resource type="Resource" id="Resource_pbsyt"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_crltp")
+entity_reference = SubResource("Resource_ths32")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_j8677"]
@@ -778,9 +806,14 @@ source_entity = SubResource("Resource_5hgts")
 signal_id = &"direction_not_set"
 signal_data = SubResource("Resource_ifc75")
 
+[sub_resource type="Resource" id="Resource_ssqug"]
+script = ExtResource("5_ivjey")
+entity_type = 2
+entity_name = &"idle_animation_state"
+
 [sub_resource type="Resource" id="Resource_clqs6"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_cricv")
+entity_reference = SubResource("Resource_ssqug")
 property_name = &"value"
 
 [sub_resource type="Resource" id="Resource_14tpv"]
@@ -817,9 +850,14 @@ source_entity = SubResource("Resource_5hgts")
 signal_id = &"direction_set"
 signal_data = SubResource("Resource_4olb2")
 
+[sub_resource type="Resource" id="Resource_rydpk"]
+script = ExtResource("5_ivjey")
+entity_type = 2
+entity_name = &"walking_animation_state"
+
 [sub_resource type="Resource" id="Resource_ibcpu"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_u2xkm")
+entity_reference = SubResource("Resource_rydpk")
 property_name = &"value"
 
 [sub_resource type="Resource" id="Resource_2gywj"]
@@ -856,9 +894,13 @@ source_entity = SubResource("Resource_p04ga")
 signal_id = &"no_more_slimes"
 signal_data = SubResource("Resource_78uft")
 
+[sub_resource type="Resource" id="Resource_ypa4w"]
+script = ExtResource("5_ivjey")
+entity_name = &"PlayerControlled"
+
 [sub_resource type="Resource" id="Resource_edtpr"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_dg4x6")
+entity_reference = SubResource("Resource_ypa4w")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_wx5ee"]
@@ -895,9 +937,13 @@ source_entity = SubResource("Resource_h6jf6")
 signal_id = &"panic"
 signal_data = SubResource("Resource_h0xb0")
 
+[sub_resource type="Resource" id="Resource_v7jkl"]
+script = ExtResource("5_ivjey")
+entity_name = &"AvoidEnemy"
+
 [sub_resource type="Resource" id="Resource_ro074"]
 script = ExtResource("4_nu6ct")
-entity = SubResource("Resource_ew2pw")
+entity_reference = SubResource("Resource_v7jkl")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_5vcbk"]

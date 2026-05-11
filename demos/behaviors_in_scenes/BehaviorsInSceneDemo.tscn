@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ufnlop1gmi4n" path="res://demos/behaviors_in_scenes/RotatingIconWidget.tscn" id="10_ne06k"]
 [ext_resource type="PackedScene" uid="uid://b2hghpdvmwobc" path="res://demos/behaviors_in_scenes/SceneWithNestedBehaviors.tscn" id="12_ca887"]
 [ext_resource type="Script" uid="uid://b0bs8ub0x82vu" path="res://demos/behaviors_in_scenes/widget_state_selector_behavior.gd" id="12_o7apl"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="16_ukq51"]
 
 [sub_resource type="Resource" id="Resource_ah21k"]
 script = ExtResource("3_chl4r")
@@ -90,16 +91,13 @@ source_entity = SubResource("Resource_wsnse")
 signal_id = &"deselect"
 signal_data = SubResource("Resource_uq1uu")
 
-[sub_resource type="Resource" id="Resource_3g2rs"]
-script = ExtResource("7_2bpjo")
-parent_name = &"Combiner"
-behavior_names = Array[StringName]([&"managed_rotator"])
-name = &"managed"
-graph_pos = Vector2(880, -260)
+[sub_resource type="Resource" id="Resource_q3mlj"]
+script = ExtResource("16_ukq51")
+entity_name = &"managed"
 
 [sub_resource type="Resource" id="Resource_u56qr"]
 script = ExtResource("7_pwjkb")
-entity = SubResource("Resource_3g2rs")
+entity_reference = SubResource("Resource_q3mlj")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_0mejj"]
@@ -136,16 +134,13 @@ source_entity = SubResource("Resource_vj68e")
 signal_id = &"deselect"
 signal_data = SubResource("Resource_xdemn")
 
-[sub_resource type="Resource" id="Resource_1eh06"]
-script = ExtResource("7_2bpjo")
-parent_name = &"Combiner"
-behavior_names = Array[StringName]([&"local_rotator"])
-name = &"local"
-graph_pos = Vector2(880, 0)
+[sub_resource type="Resource" id="Resource_4g7ho"]
+script = ExtResource("16_ukq51")
+entity_name = &"local"
 
 [sub_resource type="Resource" id="Resource_lpneu"]
 script = ExtResource("7_pwjkb")
-entity = SubResource("Resource_1eh06")
+entity_reference = SubResource("Resource_4g7ho")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_7n8p5"]
@@ -182,16 +177,13 @@ source_entity = SubResource("Resource_oxs1a")
 signal_id = &"deselect"
 signal_data = SubResource("Resource_pixjf")
 
-[sub_resource type="Resource" id="Resource_bqdxq"]
-script = ExtResource("7_2bpjo")
-parent_name = &"Combiner"
-behavior_names = Array[StringName]([&"remote_rotator"])
-name = &"remote"
-graph_pos = Vector2(880, 260)
+[sub_resource type="Resource" id="Resource_dei72"]
+script = ExtResource("16_ukq51")
+entity_name = &"remote"
 
 [sub_resource type="Resource" id="Resource_h545c"]
 script = ExtResource("7_pwjkb")
-entity = SubResource("Resource_bqdxq")
+entity_reference = SubResource("Resource_dei72")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_k7imv"]
@@ -228,9 +220,13 @@ source_entity = SubResource("Resource_wsnse")
 signal_id = &"select"
 signal_data = SubResource("Resource_20gtp")
 
+[sub_resource type="Resource" id="Resource_6j231"]
+script = ExtResource("16_ukq51")
+entity_name = &"managed"
+
 [sub_resource type="Resource" id="Resource_srg4g"]
 script = ExtResource("7_pwjkb")
-entity = SubResource("Resource_3g2rs")
+entity_reference = SubResource("Resource_6j231")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_6hdwt"]
@@ -267,9 +263,13 @@ source_entity = SubResource("Resource_vj68e")
 signal_id = &"select"
 signal_data = SubResource("Resource_dq57r")
 
+[sub_resource type="Resource" id="Resource_5wy1o"]
+script = ExtResource("16_ukq51")
+entity_name = &"local"
+
 [sub_resource type="Resource" id="Resource_twvu0"]
 script = ExtResource("7_pwjkb")
-entity = SubResource("Resource_1eh06")
+entity_reference = SubResource("Resource_5wy1o")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_0ey2k"]
@@ -306,9 +306,13 @@ source_entity = SubResource("Resource_oxs1a")
 signal_id = &"select"
 signal_data = SubResource("Resource_a6md4")
 
+[sub_resource type="Resource" id="Resource_sop6m"]
+script = ExtResource("16_ukq51")
+entity_name = &"remote"
+
 [sub_resource type="Resource" id="Resource_p4ltu"]
 script = ExtResource("7_pwjkb")
-entity = SubResource("Resource_bqdxq")
+entity_reference = SubResource("Resource_sop6m")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_gigwf"]
@@ -323,13 +327,34 @@ connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_cap4v")]
 })
 
+[sub_resource type="Resource" id="Resource_1eh06"]
+script = ExtResource("7_2bpjo")
+parent_name = &"Combiner"
+behavior_names = Array[StringName]([&"local_rotator"])
+name = &"local"
+graph_pos = Vector2(880, 0)
+
+[sub_resource type="Resource" id="Resource_3g2rs"]
+script = ExtResource("7_2bpjo")
+parent_name = &"Combiner"
+behavior_names = Array[StringName]([&"managed_rotator"])
+name = &"managed"
+graph_pos = Vector2(880, -260)
+
+[sub_resource type="Resource" id="Resource_bqdxq"]
+script = ExtResource("7_2bpjo")
+parent_name = &"Combiner"
+behavior_names = Array[StringName]([&"remote_rotator"])
+name = &"remote"
+graph_pos = Vector2(880, 260)
+
 [sub_resource type="Resource" id="Resource_xt0lk"]
 script = ExtResource("6_ca887")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Combiner"
 root_pos = Vector2(-160, 0)
-editor_scroll_offset = Vector2(-388.03552, -38.692665)
+editor_scroll_offset = Vector2(-407.03552, -172.69266)
 editor_zoom = 0.51315784
 states = Dictionary[StringName, ExtResource("7_2bpjo")]({
 &"Combiner": SubResource("Resource_egdkw"),

@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="15_cyxff"]
 [ext_resource type="Script" uid="uid://crxoti50cubjm" path="res://demos/cletus_loves_apples/scripts/behaviors/random_roam2d.gd" id="17_ykbt0"]
 [ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="18_g1ujr"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="18_wf6cm"]
 [ext_resource type="Script" uid="uid://cvk0qqgpj0yog" path="res://addons/synapse/scripts/resource_types/behavior_signal_relay_connector_callable_data.gd" id="19_lj5q4"]
 [ext_resource type="Script" uid="uid://4shbinuv0hry" path="res://demos/cletus_loves_apples/scripts/behaviors/sync_animation_blend_position2d.gd" id="21_q4t13"]
 [ext_resource type="Script" uid="uid://bcetgxdjma8r5" path="res://demos/cletus_loves_apples/scripts/behaviors/area_body_detector.gd" id="24_f70pw"]
@@ -618,9 +619,14 @@ source_entity = SubResource("Resource_38sdo")
 signal_id = &"direction_not_set"
 signal_data = SubResource("Resource_npdil")
 
+[sub_resource type="Resource" id="Resource_bqdfc"]
+script = ExtResource("18_wf6cm")
+entity_type = 2
+entity_name = &"idle_animation_state"
+
 [sub_resource type="Resource" id="Resource_tpsjx"]
 script = ExtResource("4_f30wk")
-entity = SubResource("Resource_h6yhb")
+entity_reference = SubResource("Resource_bqdfc")
 property_name = &"value"
 
 [sub_resource type="Resource" id="Resource_wjbwm"]
@@ -657,9 +663,14 @@ source_entity = SubResource("Resource_38sdo")
 signal_id = &"direction_set"
 signal_data = SubResource("Resource_k7r8x")
 
+[sub_resource type="Resource" id="Resource_afigk"]
+script = ExtResource("18_wf6cm")
+entity_type = 2
+entity_name = &"move_animation_state"
+
 [sub_resource type="Resource" id="Resource_2jrwx"]
 script = ExtResource("4_f30wk")
-entity = SubResource("Resource_ow6vi")
+entity_reference = SubResource("Resource_afigk")
 property_name = &"value"
 
 [sub_resource type="Resource" id="Resource_8xr5w"]
@@ -726,9 +737,13 @@ source_entity = SubResource("Resource_i131v")
 signal_id = &"player_attacked"
 signal_data = SubResource("Resource_j3ep1")
 
+[sub_resource type="Resource" id="Resource_41vc0"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Attack"
+
 [sub_resource type="Resource" id="Resource_4aigd"]
 script = ExtResource("4_f30wk")
-entity = SubResource("Resource_umkjr")
+entity_reference = SubResource("Resource_41vc0")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_646jo"]
@@ -765,9 +780,13 @@ source_entity = SubResource("Resource_ryyv5")
 signal_id = &"player_found"
 signal_data = SubResource("Resource_nfcw7")
 
+[sub_resource type="Resource" id="Resource_72ppy"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Pursue"
+
 [sub_resource type="Resource" id="Resource_mthma"]
 script = ExtResource("4_f30wk")
-entity = SubResource("Resource_ew8u4")
+entity_reference = SubResource("Resource_72ppy")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_ffdno"]
@@ -804,9 +823,13 @@ source_entity = SubResource("Resource_ryyv5")
 signal_id = &"player_lost"
 signal_data = SubResource("Resource_fcxow")
 
+[sub_resource type="Resource" id="Resource_x8hol"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Roam"
+
 [sub_resource type="Resource" id="Resource_choq4"]
 script = ExtResource("4_f30wk")
-entity = SubResource("Resource_tx1jp")
+entity_reference = SubResource("Resource_x8hol")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_fw0k5"]
@@ -843,9 +866,13 @@ source_entity = SubResource("Resource_0iejo")
 signal_id = &"timeout"
 signal_data = SubResource("Resource_q0fwm")
 
+[sub_resource type="Resource" id="Resource_2gpbd"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Pursue"
+
 [sub_resource type="Resource" id="Resource_x005s"]
 script = ExtResource("4_f30wk")
-entity = SubResource("Resource_ew8u4")
+entity_reference = SubResource("Resource_2gpbd")
 property_name = &"name"
 
 [sub_resource type="Resource" id="Resource_r8ofl"]
@@ -910,7 +937,7 @@ script = ExtResource("6_lxrs7")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Sequence"
-editor_scroll_offset = Vector2(409.66907, 360.93024)
+editor_scroll_offset = Vector2(125.54248, 29.925781)
 editor_zoom = 0.7298981
 states = Dictionary[StringName, ExtResource("8_toij3")]({
 &"Alive": SubResource("Resource_toij3"),

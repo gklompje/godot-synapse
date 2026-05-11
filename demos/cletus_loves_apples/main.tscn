@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bqbc8s5bry1yv" path="res://addons/synapse/scripts/resource_types/callable_target_data.gd" id="12_i0xtp"]
 [ext_resource type="Script" uid="uid://coa6qrxm42al6" path="res://addons/synapse/scripts/resource_types/sequence_state_data.gd" id="13_ogdtl"]
 [ext_resource type="Script" uid="uid://btvie60n2en4k" path="res://demos/cletus_loves_apples/scripts/behaviors/toggle_menu.gd" id="14_hseae"]
+[ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="18_wtqaf"]
 [ext_resource type="Script" uid="uid://ci681r6g44nvj" path="res://demos/cletus_loves_apples/scripts/behaviors/update_score.gd" id="21_i0xtp"]
 
 [sub_resource type="Resource" id="Resource_6agb5"]
@@ -181,9 +182,14 @@ source_entity = SubResource("Resource_sykwr")
 signal_id = &"load_pressed"
 signal_data = SubResource("Resource_uyi5r")
 
+[sub_resource type="Resource" id="Resource_nl6mg"]
+script = ExtResource("18_wtqaf")
+entity_type = 2
+entity_name = &"save_file_path"
+
 [sub_resource type="Resource" id="Resource_dlojp"]
 script = ExtResource("3_sykwr")
-entity = SubResource("Resource_6iubn")
+entity_reference = SubResource("Resource_nl6mg")
 property_name = &"value"
 
 [sub_resource type="Resource" id="Resource_4g5jp"]
@@ -230,9 +236,14 @@ source_entity = SubResource("Resource_sykwr")
 signal_id = &"save_pressed"
 signal_data = SubResource("Resource_wbhsc")
 
+[sub_resource type="Resource" id="Resource_o305b"]
+script = ExtResource("18_wtqaf")
+entity_type = 2
+entity_name = &"save_file_path"
+
 [sub_resource type="Resource" id="Resource_j3lhy"]
 script = ExtResource("3_sykwr")
-entity = SubResource("Resource_6iubn")
+entity_reference = SubResource("Resource_o305b")
 property_name = &"value"
 
 [sub_resource type="Resource" id="Resource_ert8d"]

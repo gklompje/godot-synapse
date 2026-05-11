@@ -233,8 +233,8 @@ func unwire_signal_bridge_signal_argument(signal_bridge_name: StringName, callab
 
 func assign_signal_bridge_property_reference(signal_bridge_name: StringName, entity_property_reference_data: SynapseEntityPropertyReferenceData, argument_name: StringName) -> void:
 	var signal_bridge_data := signal_bridges[signal_bridge_name]
-	if not has_resource(entity_property_reference_data.entity):
-		push_error("Cannot assign unknown resource to signal bridge: ", entity_property_reference_data.entity)
+	if not has_reference(entity_property_reference_data.entity_reference):
+		push_error("Cannot assign unknown resource to signal bridge: ", entity_property_reference_data.entity_reference)
 		return
 	if signal_bridge_data.wired_parameters.has(argument_name) or signal_bridge_data.property_references.has(argument_name):
 		push_error("Cannot assign argument '", argument_name, "' of signal bridge - already assigned")
@@ -302,6 +302,9 @@ func has_entity(entity_type: EntityType, entity_name: StringName) -> bool:
 	push_error("Unknown entity type: ", entity_type)
 	return false
 
+func has_reference(ref: SynapseEntityReferenceData) -> bool:
+	return has_entity(ref.entity_type, ref.entity_name)
+
 func get_entity(entity_type: EntityType, entity_name: StringName) -> SynapseEntityData:
 	match entity_type:
 		EntityType.STATE:
@@ -314,6 +317,9 @@ func get_entity(entity_type: EntityType, entity_name: StringName) -> SynapseEnti
 			return signal_bridges[entity_name]
 	push_error("Unknown entity type: ", entity_type)
 	return null
+
+func get_entity_from(entity_reference: SynapseEntityReferenceData) -> SynapseEntityData:
+	return get_entity(entity_reference.entity_type, entity_reference.entity_name)
 
 func rename_entity(entity_type: EntityType, current_name: StringName, new_name: StringName) -> void:
 	if not has_entity(entity_type, current_name):
@@ -391,11 +397,11 @@ func remove_entity(entity_type: EntityType, entity_name: StringName) -> void:
 			return
 
 	for ref: SynapseEntityPropertyReferenceData in exposed_callables.values():
-		if entity == ref.entity:
+		if ref.entity_reference.references(entity):
 			push_error("Cannot remove entity with exposed callable '", ref.property_name, "'")
 			return
 	for ref: SynapseEntityPropertyReferenceData in exposed_signals.values():
-		if entity == ref.entity:
+		if ref.entity_reference.references(entity):
 			push_error("Cannot remove entity with exposed signal '", ref.property_name, "'")
 			return
 
@@ -517,7 +523,7 @@ func expose_callable(entity_type: EntityType, entity_name: StringName, callable_
 	if not entity.get_callable_infos_for_signals(state_machine).any(func(d: Dictionary) -> bool: return d["name"] == callable_name):
 		push_warning(get_entity_type_name(entity_type), " '", entity_name, "' has no callable called '", callable_name, "'")
 		return
-	exposed_callables[public_name] = SynapseEntityPropertyReferenceData.create(entity, callable_name)
+	exposed_callables[public_name] = SynapseEntityPropertyReferenceData.create(SynapseEntityReferenceData.from(entity), callable_name)
 	entity_callable_exposed.emit(entity, callable_name, public_name)
 
 func unexpose_callable(public_name: StringName) -> void:
@@ -526,7 +532,7 @@ func unexpose_callable(public_name: StringName) -> void:
 		return
 	var entity_property_reference_data := exposed_callables[public_name]
 	exposed_callables.erase(public_name)
-	entity_callable_unexposed.emit(entity_property_reference_data.entity, entity_property_reference_data.property_name, public_name)
+	entity_callable_unexposed.emit(get_entity_from(entity_property_reference_data.entity_reference), entity_property_reference_data.property_name, public_name)
 
 func rename_exposed_callable(current_public_name: StringName, new_public_name: StringName) -> void:
 	if not exposed_callables.has(current_public_name):
@@ -535,7 +541,7 @@ func rename_exposed_callable(current_public_name: StringName, new_public_name: S
 	var entity_property_reference_data := exposed_callables[current_public_name]
 	exposed_callables.erase(current_public_name)
 	exposed_callables[new_public_name] = entity_property_reference_data
-	exposed_entity_callable_renamed.emit(entity_property_reference_data.entity, entity_property_reference_data.property_name, current_public_name, new_public_name)
+	exposed_entity_callable_renamed.emit(get_entity_from(entity_property_reference_data.entity_reference), entity_property_reference_data.property_name, current_public_name, new_public_name)
 
 func expose_signal(entity_type: EntityType, entity_name: StringName, signal_name: StringName, public_name: StringName, state_machine: SynapseStateMachine) -> void:
 	if exposed_signals.has(public_name):
@@ -548,7 +554,7 @@ func expose_signal(entity_type: EntityType, entity_name: StringName, signal_name
 	if not entity.get_signal_infos_for_callables(state_machine).any(func(d: Dictionary) -> bool: return d["name"] == signal_name):
 		push_warning(get_entity_type_name(entity_type), " '", entity_name, "' has no signal called '", signal_name, "'")
 		return
-	exposed_signals[public_name] = SynapseEntityPropertyReferenceData.create(entity, signal_name)
+	exposed_signals[public_name] = SynapseEntityPropertyReferenceData.create(SynapseEntityReferenceData.from(entity), signal_name)
 	entity_signal_exposed.emit(entity, signal_name, public_name)
 
 func unexpose_signal(public_name: StringName) -> void:
@@ -557,7 +563,7 @@ func unexpose_signal(public_name: StringName) -> void:
 		return
 	var entity_property_reference_data := exposed_signals[public_name]
 	exposed_signals.erase(public_name)
-	entity_signal_unexposed.emit(entity_property_reference_data.entity, entity_property_reference_data.property_name, public_name)
+	entity_signal_unexposed.emit(get_entity_from(entity_property_reference_data.entity_reference), entity_property_reference_data.property_name, public_name)
 
 func rename_exposed_signal(current_public_name: StringName, new_public_name: StringName) -> void:
 	if not exposed_signals.has(current_public_name):
@@ -566,7 +572,7 @@ func rename_exposed_signal(current_public_name: StringName, new_public_name: Str
 	var entity_property_reference_data := exposed_signals[current_public_name]
 	exposed_signals.erase(current_public_name)
 	exposed_signals[new_public_name] = entity_property_reference_data
-	exposed_entity_signal_renamed.emit(entity_property_reference_data.entity, entity_property_reference_data.property_name, current_public_name, new_public_name)
+	exposed_entity_signal_renamed.emit(get_entity_from(entity_property_reference_data.entity_reference), entity_property_reference_data.property_name, current_public_name, new_public_name)
 
 func has_existing_signal_connection(from_entity_type: EntityType, from_entity_name: StringName, from_signal_id: StringName, to_entity_type: EntityType, to_entity_name: StringName, to_callable_id: StringName) -> bool:
 	var from_resource: SynapseEntityData
