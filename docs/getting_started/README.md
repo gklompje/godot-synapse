@@ -38,37 +38,8 @@ just find it under `editor_features` in the
 then open up both files in a text editor and copy the list of `disabled_classes` in the provided
 file over to your profile, then re-import it.
 
-## Scene Setup
-The first thing we need to do is add a state machine node to a scene. For this guide we will just
-create a new empty 2D scene to work with.
-
-Next, we add a **SynapseStateMachine** node to the scene so we end up with:
-<p align="center">
-  <img src="./media/scene_tree_1.png" alt="Starter scene tree" />
-</p>
-
-We just renamed our state machine to "FirstSM" because "SynapseStateMachine" is a bit long, but pick
-any name you like. Next, if we select the state machine node in the scene tree we see a bottom panel
-dock appear (if you want to see the icons, you can enable them in `Editor` → `Editor Settings...`
-and then under the `Editor` section look for `Bottom Dock Tab Style`):
-<p align="center">
-   <img src="./media/bottom_panel_dock.png" alt="Bottom panel dock" />
-</p>
-
-The Synapse editor should open up automatically, but if it doesn't just click on the "Synapse"
-bottom dock tab. When first enabling the plugin (and whenever Godot is started with it enabled), you
-may be greeted with the below dialog in the dock:
-<p align="center">
-  <img src="./media/caching.png" alt="Script caching dialog" />
-</p>
-
-Upon loading up, Synapse searches through the current project's files looking for any scripts that
-extend its functionality, such as custom states and behaviors. This should only take a few seconds
-to complete and only happens on startup. Any new scripts and changes to existing scripts will be
-picked up incrementally when you save a file.
-
-Now that we have our basic scene set up, it's time to start building our state machine. For that,
-head over to [Part 1: Building a State Machine](getting_started-1.md).
+With the initial setup out of the way, it's time to start building your first state machine. Head
+over to [Part 1: Building a State Machine](getting_started-1.md).
 
 | [Back to Documentation](../README.md) | [Next: Part 1 →](getting_started-1.md) |
 | :--- | ---: |

@@ -1,11 +1,45 @@
 # Getting Started Part 1
 
+## Scene Setup
+The first thing we need to do is add a state machine node to a scene. For this guide we will just
+create a new empty 2D scene to work with.
+
+Next, we add a **SynapseStateMachine** node to the scene so we end up with:
+<p align="center">
+  <img src="./media/scene_tree_1.png" alt="Starter scene tree" />
+</p>
+
+We just renamed our state machine to "FirstSM" because "SynapseStateMachine" is a bit long, but pick
+any name you like. Next, if we select the state machine node in the scene tree we see a bottom panel
+dock appear (if you want to see the icons, you can enable them in `Editor` → `Editor Settings...`
+and then under the `Editor` section look for `Bottom Dock Tab Style`):
+<p align="center">
+   <img src="./media/bottom_panel_dock.png" alt="Bottom panel dock" />
+</p>
+
+The Synapse editor should open up automatically, but if it doesn't just click on the "Synapse"
+bottom dock tab. When first enabling the plugin (and whenever Godot is started with it enabled), you
+may be greeted with the below dialog in the dock:
+<p align="center">
+  <img src="./media/caching.png" alt="Script caching dialog" />
+</p>
+
+Upon loading up, Synapse searches through the current project's files looking for any scripts that
+extend its functionality, such as custom states and behaviors. This should only take a few seconds
+to complete and only happens on startup. Any new scripts and changes to existing scripts will be
+picked up incrementally when you save a file.
+
+Now that we have our basic scene set up, it's time to start building our state machine.
+
 ## Building a State Machine
 When opening up the Synapse editor (bottom dock tab) for the first time on a state machine, we're
 greeted with this lonely fellow:
 <p align="center">
   <img src="./media/root.png" alt="Root state" />
 </p>
+
+(The hieroglyphic-looking symbols below the "root state" label are for exposing signals and
+callables in nested state machines, which we won't worry about in this guide.)
 
 We call this graph node the "root sentinel" and it is always present in the editor. Unlike most
 other things we'll see in the editor later on, this node doesn't have a runtime representation. It's
@@ -64,7 +98,15 @@ refer to the connection points as input ports and output ports throughout this g
 color coded to help identify their purpose, with connections typically going from darker to lighter
 shades of the same color.
 
-Finally, we have our behaviors. This is where we add logic, so without further ado...
+Next, there's an expandable "behaviors" slot showing the state's behaviors, which has an output port
+where we can attach behaviors. It's empty right now, but we'll fix that in the next section.
+
+Lastly, our state has two signal output ports. These offer a simpler alternative compared to adding
+a behavior if all we want to do is trigger a callback on another entity when the state is entered or
+exited.
+
+OK, so now we have an idea of all the things a basic state provides. More importantly, we have a
+state machine with some *structure* to which we can add *logic* using a behavior.
 
 ### Adding a Behavior
 As you may have guessed, adding a behavior is just like adding a state. By dragging a connection

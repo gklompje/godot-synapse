@@ -9,11 +9,20 @@ To start with, we'll revisit our DemoTest behavior from previous parts of this g
 a basic signal connection, we'll need two behaviors that are active at the same time. However, since
 our state machine currently only has behaviors owned by two different states in a selector, they can
 never be unsuspended together. Let's add a third behavior to our root state so it's always
-unsuspended as long as our state machine is active. We'll give this one's "Test Name" property a
-value of "root", and assign its `test_number` parameter. Our complete state machine now looks like
-this:
+unsuspended as long as our state machine is active. While you can drag out from the root state's
+"behaviors" slot as before, there is another way to add things to our state machine- simply
+right-click on an empty section of the graph:
 <p align="center">
-  <img src="./media/root_behavior.png" alt="Add a behavior to the root state" />
+  <img src="./media/right_click_add.gif" alt="Add a behavior to the root state by right-clicking" />
+</p>
+
+Dragging to create an entity will always create the connection for us, but when adding something
+from the right-click menu we need to set up connections ourselves (most entity types will produce a
+warning if they are left stranded without any connections). Now that we have our third behavior,
+we'll give its "Test Name" property a value of "root", and assign its `test_number` parameter. Our
+complete state machine now looks like this:
+<p align="center">
+  <img src="./media/root_behavior.png" alt="State machine with a behavior owned by the root state" />
 </p>
 
 ### Connecting a Signal
