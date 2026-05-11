@@ -67,16 +67,13 @@ script = ExtResource("9_1eh06")
 state_name = &"Combiner"
 method_name = &"deselect"
 
-[sub_resource type="Resource" id="Resource_egdkw"]
-script = ExtResource("7_bvgd8")
-child_names = Array[StringName]([&"managed", &"local", &"remote"])
-behavior_names = Array[StringName]([&"managed_selector", &"local_selector", &"remote_selector"])
-name = &"Combiner"
-graph_pos = Vector2(117.41584, 3.7137935)
+[sub_resource type="Resource" id="Resource_ukq51"]
+script = ExtResource("16_ukq51")
+entity_name = &"Combiner"
 
 [sub_resource type="Resource" id="Resource_bk0ad"]
 script = ExtResource("10_bqdxq")
-target_entity = SubResource("Resource_egdkw")
+target_entity_reference = SubResource("Resource_ukq51")
 callable_id = &"deselect"
 callable_data = SubResource("Resource_obpvk")
 
@@ -117,9 +114,13 @@ script = ExtResource("9_1eh06")
 state_name = &"Combiner"
 method_name = &"deselect"
 
+[sub_resource type="Resource" id="Resource_ukm6l"]
+script = ExtResource("16_ukq51")
+entity_name = &"Combiner"
+
 [sub_resource type="Resource" id="Resource_ptkha"]
 script = ExtResource("10_bqdxq")
-target_entity = SubResource("Resource_egdkw")
+target_entity_reference = SubResource("Resource_ukm6l")
 callable_id = &"deselect"
 callable_data = SubResource("Resource_pk5n2")
 
@@ -160,9 +161,13 @@ script = ExtResource("9_1eh06")
 state_name = &"Combiner"
 method_name = &"deselect"
 
+[sub_resource type="Resource" id="Resource_mlb88"]
+script = ExtResource("16_ukq51")
+entity_name = &"Combiner"
+
 [sub_resource type="Resource" id="Resource_q1vms"]
 script = ExtResource("10_bqdxq")
-target_entity = SubResource("Resource_egdkw")
+target_entity_reference = SubResource("Resource_mlb88")
 callable_id = &"deselect"
 callable_data = SubResource("Resource_ur2tp")
 
@@ -203,9 +208,13 @@ script = ExtResource("9_1eh06")
 state_name = &"Combiner"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_f5uiw"]
+script = ExtResource("16_ukq51")
+entity_name = &"Combiner"
+
 [sub_resource type="Resource" id="Resource_7fxms"]
 script = ExtResource("10_bqdxq")
-target_entity = SubResource("Resource_egdkw")
+target_entity_reference = SubResource("Resource_f5uiw")
 callable_id = &"select"
 callable_data = SubResource("Resource_qrhwy")
 
@@ -246,9 +255,13 @@ script = ExtResource("9_1eh06")
 state_name = &"Combiner"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_v6gxy"]
+script = ExtResource("16_ukq51")
+entity_name = &"Combiner"
+
 [sub_resource type="Resource" id="Resource_htuou"]
 script = ExtResource("10_bqdxq")
-target_entity = SubResource("Resource_egdkw")
+target_entity_reference = SubResource("Resource_v6gxy")
 callable_id = &"select"
 callable_data = SubResource("Resource_fw1wm")
 
@@ -289,9 +302,13 @@ script = ExtResource("9_1eh06")
 state_name = &"Combiner"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_e7k1x"]
+script = ExtResource("16_ukq51")
+entity_name = &"Combiner"
+
 [sub_resource type="Resource" id="Resource_sluax"]
 script = ExtResource("10_bqdxq")
-target_entity = SubResource("Resource_egdkw")
+target_entity_reference = SubResource("Resource_e7k1x")
 callable_id = &"select"
 callable_data = SubResource("Resource_ajedy")
 
@@ -327,6 +344,13 @@ connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_cap4v")]
 })
 
+[sub_resource type="Resource" id="Resource_egdkw"]
+script = ExtResource("7_bvgd8")
+child_names = Array[StringName]([&"managed", &"local", &"remote"])
+behavior_names = Array[StringName]([&"managed_selector", &"local_selector", &"remote_selector"])
+name = &"Combiner"
+graph_pos = Vector2(117.41584, 3.7137935)
+
 [sub_resource type="Resource" id="Resource_1eh06"]
 script = ExtResource("7_2bpjo")
 parent_name = &"Combiner"
@@ -354,7 +378,7 @@ godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Combiner"
 root_pos = Vector2(-160, 0)
-editor_scroll_offset = Vector2(-407.03552, -172.69266)
+editor_scroll_offset = Vector2(-94.105255, -8)
 editor_zoom = 0.51315784
 states = Dictionary[StringName, ExtResource("7_2bpjo")]({
 &"Combiner": SubResource("Resource_egdkw"),

@@ -394,7 +394,7 @@ func create_signal_bridge_graph_node(signal_bridge_data: SynapseSignalBridgeData
 	var source_signal_data := signal_bridge_data.connected_signals[SynapseSignalBridgeData.CALLABLE_NAME][0] as SynapseSignalSourceData
 	var source_graph_node := get_graph_node_for(source_signal_data.source_entity)
 	var source_slot_name := source_graph_node.get_slot_name_for_emitted_signal_name(source_signal_data.signal_id)
-	var target_graph_node := get_graph_node_for(signal_bridge_data.callable_target_data.target_entity)
+	var target_graph_node := get_graph_node_for_reference(signal_bridge_data.callable_target_data.target_entity_reference)
 	var target_slot_name := target_graph_node.get_slot_name_for_signal_receive_callable_name(signal_bridge_data.callable_target_data.callable_id)
 	graph_node.setup_for(signal_bridge_data, source_graph_node.get_emitted_signal_info(source_slot_name), target_graph_node.get_signal_receive_slot_callable_info(target_slot_name))
 	graph_node.slots_updated.connect(update_connections)
@@ -753,7 +753,8 @@ func erase(undo_action: String, state_names: Array[StringName], behavior_names: 
 			var signal_bridge_data := state_machine.data.signal_bridges[signal_bridge_name]
 			@warning_ignore("unsafe_cast")
 			var source_signal_data := signal_bridge_data.connected_signals[SynapseSignalBridgeData.CALLABLE_NAME][0] as SynapseSignalSourceData
-			if is_being_deleted.call(source_signal_data.source_entity) or is_being_deleted.call(signal_bridge_data.callable_target_data.target_entity):
+			var target_entity := state_machine.data.get_entity_from(signal_bridge_data.callable_target_data.target_entity_reference)
+			if is_being_deleted.call(source_signal_data.source_entity) or is_being_deleted.call(target_entity):
 				erase_signal_bridge_undoable(signal_bridge_name)
 			else:
 				# clear all argument references to entities being deleted
@@ -1780,7 +1781,7 @@ func _on_state_machine_data_signal_bridge_added(signal_bridge_data: SynapseSigna
 	@warning_ignore("unsafe_cast")
 	var source_signal_data := signal_bridge_data.connected_signals[SynapseSignalBridgeData.CALLABLE_NAME][0] as SynapseSignalSourceData
 	var source_graph_node := get_graph_node_for(source_signal_data.source_entity)
-	var target_graph_node := get_graph_node_for(signal_bridge_data.callable_target_data.target_entity)
+	var target_graph_node := get_graph_node_for_reference(signal_bridge_data.callable_target_data.target_entity_reference)
 	var source_slot_name := source_graph_node.get_slot_name_for_emitted_signal_name(source_signal_data.signal_id)
 	var target_slot_name := target_graph_node.get_slot_name_for_signal_receive_callable_name(signal_bridge_data.callable_target_data.callable_id)
 	var source_connection_proxy := ConnectionProxy.of(source_graph_node, source_slot_name, signal_bridge_graph_node, SynapseSignalBridgeGraphNode.SLOT_BRIDGE)
@@ -1796,7 +1797,7 @@ func _on_state_machine_data_signal_bridge_removed(signal_bridge_data: SynapseSig
 	@warning_ignore("unsafe_cast")
 	var source_signal_data := signal_bridge_data.connected_signals[SynapseSignalBridgeData.CALLABLE_NAME][0] as SynapseSignalSourceData
 	var source_graph_node := get_graph_node_for(source_signal_data.source_entity)
-	var target_graph_node := get_graph_node_for(signal_bridge_data.callable_target_data.target_entity)
+	var target_graph_node := get_graph_node_for_reference(signal_bridge_data.callable_target_data.target_entity_reference)
 	var source_slot_name := source_graph_node.get_slot_name_for_emitted_signal_name(source_signal_data.signal_id)
 	var target_slot_name := target_graph_node.get_slot_name_for_signal_receive_callable_name(signal_bridge_data.callable_target_data.callable_id)
 	remove_connection_between(source_graph_node, source_slot_name, signal_bridge_graph_node, SynapseSignalBridgeGraphNode.SLOT_BRIDGE)

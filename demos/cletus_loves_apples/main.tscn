@@ -96,15 +96,25 @@ script = ExtResource("11_27d52")
 nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
 callable_data = SubResource("Resource_1yyv0")
 
-[sub_resource type="Resource" id="Resource_gwl4q"]
+[sub_resource type="Resource" id="Resource_0hk63"]
+script = ExtResource("18_wtqaf")
+entity_name = &"GameStateMachine"
+
+[sub_resource type="Resource" id="Resource_trdjc"]
+script = ExtResource("12_i0xtp")
+target_entity_reference = SubResource("Resource_0hk63")
+callable_id = &"load_state_machine"
+callable_data = SubResource("Resource_5f0nb")
+
+[sub_resource type="Resource" id="Resource_y5u8s"]
 script = ExtResource("11_uip7n")
 node_path = NodePath("DemoCletusMenuManager")
-signal_name = &"new_game_pressed"
+signal_name = &"load_pressed"
 
-[sub_resource type="Resource" id="Resource_qgvwk"]
+[sub_resource type="Resource" id="Resource_uyi5r"]
 script = ExtResource("10_6agb5")
 nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
-signal_data = SubResource("Resource_gwl4q")
+signal_data = SubResource("Resource_y5u8s")
 
 [sub_resource type="Resource" id="Resource_bqcqc"]
 script = ExtResource("11_uip7n")
@@ -139,42 +149,6 @@ graph_pos = Vector2(800, -140)
 connected_signals = Dictionary[StringName, Array]({
 &"game_over": [SubResource("Resource_xa0bs")]
 })
-
-[sub_resource type="Resource" id="Resource_k574m"]
-script = ExtResource("9_hseae")
-source_entity = SubResource("Resource_sykwr")
-signal_id = &"new_game_pressed"
-signal_data = SubResource("Resource_qgvwk")
-
-[sub_resource type="Resource" id="Resource_xks12"]
-script = ExtResource("8_8iqro")
-state_machine_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
-linked_parameter_names = Dictionary[StringName, StringName]({
-&"game_started": &"game_started",
-&"score": &"score"
-})
-parent_name = &"Sequence"
-name = &"GameStateMachine"
-graph_pos = Vector2(800, 240)
-connected_signals = Dictionary[StringName, Array]({
-&"reset": [SubResource("Resource_k574m")]
-})
-
-[sub_resource type="Resource" id="Resource_trdjc"]
-script = ExtResource("12_i0xtp")
-target_entity = SubResource("Resource_xks12")
-callable_id = &"load_state_machine"
-callable_data = SubResource("Resource_5f0nb")
-
-[sub_resource type="Resource" id="Resource_y5u8s"]
-script = ExtResource("11_uip7n")
-node_path = NodePath("DemoCletusMenuManager")
-signal_name = &"load_pressed"
-
-[sub_resource type="Resource" id="Resource_uyi5r"]
-script = ExtResource("10_6agb5")
-nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
-signal_data = SubResource("Resource_y5u8s")
 
 [sub_resource type="Resource" id="Resource_6bs0a"]
 script = ExtResource("9_hseae")
@@ -214,9 +188,13 @@ script = ExtResource("11_27d52")
 nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
 callable_data = SubResource("Resource_ovcn1")
 
+[sub_resource type="Resource" id="Resource_3vg8e"]
+script = ExtResource("18_wtqaf")
+entity_name = &"GameStateMachine"
+
 [sub_resource type="Resource" id="Resource_ee6h4"]
 script = ExtResource("12_i0xtp")
-target_entity = SubResource("Resource_xks12")
+target_entity_reference = SubResource("Resource_3vg8e")
 callable_id = &"save_state_machine"
 callable_data = SubResource("Resource_cngy0")
 
@@ -256,6 +234,36 @@ name = &"save_pressed__c::save_state_machine"
 graph_pos = Vector2(580, 360)
 connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_n6d1w")]
+})
+
+[sub_resource type="Resource" id="Resource_gwl4q"]
+script = ExtResource("11_uip7n")
+node_path = NodePath("DemoCletusMenuManager")
+signal_name = &"new_game_pressed"
+
+[sub_resource type="Resource" id="Resource_qgvwk"]
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/Menu/MenuStateMachine")
+signal_data = SubResource("Resource_gwl4q")
+
+[sub_resource type="Resource" id="Resource_k574m"]
+script = ExtResource("9_hseae")
+source_entity = SubResource("Resource_sykwr")
+signal_id = &"new_game_pressed"
+signal_data = SubResource("Resource_qgvwk")
+
+[sub_resource type="Resource" id="Resource_xks12"]
+script = ExtResource("8_8iqro")
+state_machine_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
+linked_parameter_names = Dictionary[StringName, StringName]({
+&"game_started": &"game_started",
+&"score": &"score"
+})
+parent_name = &"Sequence"
+name = &"GameStateMachine"
+graph_pos = Vector2(800, 240)
+connected_signals = Dictionary[StringName, Array]({
+&"reset": [SubResource("Resource_k574m")]
 })
 
 [sub_resource type="Resource" id="Resource_5cwxp"]
@@ -301,26 +309,31 @@ source_entity = SubResource("Resource_sykwr")
 signal_id = &"new_game_pressed"
 signal_data = SubResource("Resource_r4nk2")
 
-[sub_resource type="Resource" id="Resource_wag0o"]
+[sub_resource type="Resource" id="Resource_dyoim"]
 script = ExtResource("11_uip7n")
 node_path = NodePath("DemoOneShotTimer")
 signal_name = &"timeout"
 
-[sub_resource type="Resource" id="Resource_4rav1"]
+[sub_resource type="Resource" id="Resource_7vdto"]
 script = ExtResource("10_6agb5")
 nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
-signal_data = SubResource("Resource_wag0o")
+signal_data = SubResource("Resource_dyoim")
 
-[sub_resource type="Resource" id="Resource_w6rec"]
+[sub_resource type="Resource" id="Resource_87h7i"]
 script = ExtResource("10_6agb5")
 nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
-signal_data = SubResource("Resource_4rav1")
+signal_data = SubResource("Resource_7vdto")
 
-[sub_resource type="Resource" id="Resource_n1ve4"]
+[sub_resource type="Resource" id="Resource_mp2xy"]
+script = ExtResource("18_wtqaf")
+entity_name = &"GameStateMachine"
+
+[sub_resource type="Resource" id="Resource_swpb0"]
 script = ExtResource("9_hseae")
 source_entity = SubResource("Resource_xks12")
+source_entity_reference = SubResource("Resource_mp2xy")
 signal_id = &"player_died"
-signal_data = SubResource("Resource_w6rec")
+signal_data = SubResource("Resource_87h7i")
 
 [sub_resource type="Resource" id="Resource_hseae"]
 script = ExtResource("13_ogdtl")
@@ -330,7 +343,7 @@ name = &"Sequence"
 graph_pos = Vector2(240, 0)
 connected_signals = Dictionary[StringName, Array]({
 &"advance": [SubResource("Resource_3qii8"), SubResource("Resource_77h8b"), SubResource("Resource_iwsrv")],
-&"reset": [SubResource("Resource_n1ve4")]
+&"reset": [SubResource("Resource_swpb0")]
 })
 
 [sub_resource type="Resource" id="Resource_i3dxv"]
@@ -338,8 +351,8 @@ script = ExtResource("4_o8olj")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Sequence"
-editor_scroll_offset = Vector2(-516.90466, -120.10897)
-editor_zoom = 0.4665071
+editor_scroll_offset = Vector2(-370.73627, -57.46286)
+editor_zoom = 0.620921
 states = Dictionary[StringName, ExtResource("6_sykwr")]({
 &"GameStateMachine": SubResource("Resource_xks12"),
 &"MenuStateMachine": SubResource("Resource_sykwr"),

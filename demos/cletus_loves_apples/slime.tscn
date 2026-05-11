@@ -602,9 +602,14 @@ script = ExtResource("19_lj5q4")
 behavior_name = &"ToIdle"
 signal_relay_connector_name = &"travel"
 
+[sub_resource type="Resource" id="Resource_wf6cm"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"ToIdle"
+
 [sub_resource type="Resource" id="Resource_xfpf7"]
 script = ExtResource("15_cyxff")
-target_entity = SubResource("Resource_ugabk")
+target_entity_reference = SubResource("Resource_wf6cm")
 callable_id = &"travel"
 callable_data = SubResource("Resource_c1vgl")
 
@@ -646,9 +651,14 @@ script = ExtResource("19_lj5q4")
 behavior_name = &"ToMove"
 signal_relay_connector_name = &"travel"
 
+[sub_resource type="Resource" id="Resource_obwlg"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"ToMove"
+
 [sub_resource type="Resource" id="Resource_teeri"]
 script = ExtResource("15_cyxff")
-target_entity = SubResource("Resource_px518")
+target_entity_reference = SubResource("Resource_obwlg")
 callable_id = &"travel"
 callable_data = SubResource("Resource_w0vld")
 
@@ -690,39 +700,13 @@ script = ExtResource("14_08jg3")
 state_name = &"Alive"
 method_name = &"select"
 
-[sub_resource type="Resource" id="Resource_tx1jp"]
-script = ExtResource("8_toij3")
-parent_name = &"Alive"
-behavior_names = Array[StringName]([&"DemoRandomRoam2D"])
-name = &"Roam"
-graph_pos = Vector2(1640, -40)
-
-[sub_resource type="Resource" id="Resource_ew8u4"]
-script = ExtResource("8_toij3")
-parent_name = &"Alive"
-behavior_names = Array[StringName]([&"DemoAttackPlayer", &"DemoFaceTargetObject"])
-name = &"Pursue"
-graph_pos = Vector2(1640, 320)
-
-[sub_resource type="Resource" id="Resource_umkjr"]
-script = ExtResource("8_toij3")
-parent_name = &"Alive"
-behavior_names = Array[StringName]([&"SyncAttackDirection", &"AttackComplete", &"DemoStandStill", &"PlayAttackAnimation"])
-name = &"Attack"
-graph_pos = Vector2(1640, 680)
-
-[sub_resource type="Resource" id="Resource_toij3"]
-script = ExtResource("10_vs6h4")
-transitions = Array[Array]([[SubResource("Resource_tx1jp"), SubResource("Resource_ew8u4")], [SubResource("Resource_ew8u4"), SubResource("Resource_tx1jp")], [SubResource("Resource_ew8u4"), SubResource("Resource_umkjr")], [SubResource("Resource_umkjr"), SubResource("Resource_ew8u4")], [SubResource("Resource_umkjr"), SubResource("Resource_tx1jp")], [SubResource("Resource_tx1jp"), SubResource("Resource_umkjr")]])
-parent_name = &"Sequence"
-child_names = Array[StringName]([&"Roam", &"Attack", &"Pursue"])
-behavior_names = Array[StringName]([&"StartFlicker", &"DemoFlicker", &"DemoSmoothMotion2D", &"SyncIdleDirection", &"SyncMoveDirection", &"DetectPlayer", &"DemoTargetPlayer", &"DemoCheckPlayer", &"ToIdle", &"DemoCheckDirection", &"ToMove", &"AliveTimeout"])
-name = &"Alive"
-graph_pos = Vector2(600, 100)
+[sub_resource type="Resource" id="Resource_8j1ju"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Alive"
 
 [sub_resource type="Resource" id="Resource_kx3oe"]
 script = ExtResource("15_cyxff")
-target_entity = SubResource("Resource_toij3")
+target_entity_reference = SubResource("Resource_8j1ju")
 callable_id = &"select"
 callable_data = SubResource("Resource_w8fsp")
 
@@ -763,9 +747,13 @@ script = ExtResource("14_08jg3")
 state_name = &"Alive"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_038pp"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Alive"
+
 [sub_resource type="Resource" id="Resource_ne410"]
 script = ExtResource("15_cyxff")
-target_entity = SubResource("Resource_toij3")
+target_entity_reference = SubResource("Resource_038pp")
 callable_id = &"select"
 callable_data = SubResource("Resource_t00nq")
 
@@ -806,9 +794,13 @@ script = ExtResource("14_08jg3")
 state_name = &"Alive"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_o5ctx"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Alive"
+
 [sub_resource type="Resource" id="Resource_h8n0g"]
 script = ExtResource("15_cyxff")
-target_entity = SubResource("Resource_toij3")
+target_entity_reference = SubResource("Resource_o5ctx")
 callable_id = &"select"
 callable_data = SubResource("Resource_guebd")
 
@@ -849,9 +841,13 @@ script = ExtResource("14_08jg3")
 state_name = &"Alive"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_6te75"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Alive"
+
 [sub_resource type="Resource" id="Resource_wxx6p"]
 script = ExtResource("15_cyxff")
-target_entity = SubResource("Resource_toij3")
+target_entity_reference = SubResource("Resource_6te75")
 callable_id = &"select"
 callable_data = SubResource("Resource_5kc0r")
 
@@ -886,6 +882,36 @@ graph_pos = Vector2(2140, 920)
 connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_xenuq")]
 })
+
+[sub_resource type="Resource" id="Resource_tx1jp"]
+script = ExtResource("8_toij3")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"DemoRandomRoam2D"])
+name = &"Roam"
+graph_pos = Vector2(1640, -40)
+
+[sub_resource type="Resource" id="Resource_ew8u4"]
+script = ExtResource("8_toij3")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"DemoAttackPlayer", &"DemoFaceTargetObject"])
+name = &"Pursue"
+graph_pos = Vector2(1640, 320)
+
+[sub_resource type="Resource" id="Resource_umkjr"]
+script = ExtResource("8_toij3")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"SyncAttackDirection", &"AttackComplete", &"DemoStandStill", &"PlayAttackAnimation"])
+name = &"Attack"
+graph_pos = Vector2(1640, 680)
+
+[sub_resource type="Resource" id="Resource_toij3"]
+script = ExtResource("10_vs6h4")
+transitions = Array[Array]([[SubResource("Resource_tx1jp"), SubResource("Resource_ew8u4")], [SubResource("Resource_ew8u4"), SubResource("Resource_tx1jp")], [SubResource("Resource_ew8u4"), SubResource("Resource_umkjr")], [SubResource("Resource_umkjr"), SubResource("Resource_ew8u4")], [SubResource("Resource_umkjr"), SubResource("Resource_tx1jp")], [SubResource("Resource_tx1jp"), SubResource("Resource_umkjr")]])
+parent_name = &"Sequence"
+child_names = Array[StringName]([&"Roam", &"Attack", &"Pursue"])
+behavior_names = Array[StringName]([&"StartFlicker", &"DemoFlicker", &"DemoSmoothMotion2D", &"SyncIdleDirection", &"SyncMoveDirection", &"DetectPlayer", &"DemoTargetPlayer", &"DemoCheckPlayer", &"ToIdle", &"DemoCheckDirection", &"ToMove", &"AliveTimeout"])
+name = &"Alive"
+graph_pos = Vector2(600, 100)
 
 [sub_resource type="Resource" id="Resource_ykbt0"]
 script = ExtResource("8_toij3")

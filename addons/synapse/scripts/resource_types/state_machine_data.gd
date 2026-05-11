@@ -392,7 +392,7 @@ func remove_entity(entity_type: EntityType, entity_name: StringName) -> void:
 	for signal_bridge_data: SynapseSignalBridgeData in signal_bridges.values():
 		@warning_ignore("unsafe_cast")
 		var source_signal_data := signal_bridge_data.connected_signals[SynapseSignalBridgeData.CALLABLE_NAME][0] as SynapseSignalSourceData
-		if is_same(entity, source_signal_data.source_entity) or is_same(entity, signal_bridge_data.callable_target_data.target_entity):
+		if is_same(entity, source_signal_data.source_entity) or signal_bridge_data.callable_target_data.target_entity_reference.references(entity):
 			push_error("Cannot remove entity with signal bridge still attached")
 			return
 
@@ -448,7 +448,7 @@ func create_callable_target_data_for(state_machine: SynapseStateMachine, to_enti
 	var entity := get_entity(to_entity_type, to_entity_name)
 	var callable_data := entity.create_callable_data(to_callable_id, state_machine)
 	if callable_data:
-		return SynapseCallableTargetData.of(entity, to_callable_id, callable_data)
+		return SynapseCallableTargetData.of(SynapseEntityReferenceData.of(to_entity_type, to_entity_name), to_callable_id, callable_data)
 	else:
 		push_warning("No callable data for ", get_entity_type_name(to_entity_type), " '", to_entity_name, "': ", to_callable_id)
 		return null

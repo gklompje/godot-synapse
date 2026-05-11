@@ -174,7 +174,8 @@ func get_configuration_warnings(state_machine: SynapseStateMachine) -> Array[Dic
 	var warnings: Array[Dictionary] = []
 	var callable_info := {}
 
-	for info in callable_target_data.target_entity.get_callable_infos_for_signals(state_machine):
+	var target_entity := state_machine.data.get_entity_from(callable_target_data.target_entity_reference)
+	for info in target_entity.get_callable_infos_for_signals(state_machine):
 		if info["name"] == callable_target_data.callable_id:
 			callable_info = info
 			break
@@ -188,6 +189,6 @@ func get_configuration_warnings(state_machine: SynapseStateMachine) -> Array[Dic
 				continue
 			warnings.append({ ConfigurationWarningKey.TEXT: "Missing required argument '%s'" % [argument_name] })
 	else:
-		push_warning("Unable to locate callable info for '", callable_target_data.callable_id ,"' on: ", callable_target_data.target_entity)
+		push_warning("Unable to locate callable info for '", callable_target_data.callable_id ,"' on: ", callable_target_data.target_entity_reference)
 
 	return warnings

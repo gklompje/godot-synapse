@@ -615,39 +615,13 @@ script = ExtResource("14_gvweq")
 state_name = &"Alive"
 method_name = &"select"
 
-[sub_resource type="Resource" id="Resource_dg4x6"]
-script = ExtResource("8_vo65d")
-parent_name = &"Alive"
-behavior_names = Array[StringName]([&"DemoCheckSlimes", &"DemoUpdateVectorOnActionInput"])
-name = &"PlayerControlled"
-graph_pos = Vector2(980, -520)
-
-[sub_resource type="Resource" id="Resource_ew2pw"]
-script = ExtResource("8_vo65d")
-parent_name = &"Alive"
-behavior_names = Array[StringName]([&"DemoAvoidSlimes"])
-name = &"AvoidEnemy"
-graph_pos = Vector2(980, -120)
-
-[sub_resource type="Resource" id="Resource_gnu8x"]
-script = ExtResource("8_vo65d")
-parent_name = &"Alive"
-behavior_names = Array[StringName]([&"DemoConsumeApple", &"DemoFaceTargetObject"])
-name = &"PursueApple"
-graph_pos = Vector2(980, 280)
-
-[sub_resource type="Resource" id="Resource_7ehqe"]
-script = ExtResource("9_y3jy5")
-transitions = Array[Array]([[SubResource("Resource_dg4x6"), SubResource("Resource_ew2pw")], [SubResource("Resource_ew2pw"), SubResource("Resource_dg4x6")], [SubResource("Resource_dg4x6"), SubResource("Resource_gnu8x")], [SubResource("Resource_gnu8x"), SubResource("Resource_dg4x6")], [SubResource("Resource_ew2pw"), SubResource("Resource_gnu8x")], [SubResource("Resource_gnu8x"), SubResource("Resource_ew2pw")]])
-parent_name = &"Selector"
-child_names = Array[StringName]([&"PlayerControlled", &"AvoidEnemy", &"PursueApple"])
-behavior_names = Array[StringName]([&"FindClosestApple", &"DemoAreaBodyDetector", &"DemoTargetClosestApple", &"SyncIdleDirection", &"SyncWalkingDirection", &"DemoCheckDirection", &"ToWalking", &"ToIdle", &"SlimeDetector", &"DemoSmoothMotion2D"])
-name = &"Alive"
-graph_pos = Vector2(380, -120)
+[sub_resource type="Resource" id="Resource_ivjey"]
+script = ExtResource("5_ivjey")
+entity_name = &"Alive"
 
 [sub_resource type="Resource" id="Resource_fcym1"]
 script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_7ehqe")
+target_entity_reference = SubResource("Resource_ivjey")
 callable_id = &"select"
 callable_data = SubResource("Resource_kis21")
 
@@ -688,9 +662,13 @@ script = ExtResource("14_gvweq")
 state_name = &"Alive"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_oselg"]
+script = ExtResource("5_ivjey")
+entity_name = &"Alive"
+
 [sub_resource type="Resource" id="Resource_gqmfl"]
 script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_7ehqe")
+target_entity_reference = SubResource("Resource_oselg")
 callable_id = &"select"
 callable_data = SubResource("Resource_7o3pt")
 
@@ -731,24 +709,13 @@ script = ExtResource("14_gvweq")
 state_name = &"Selector"
 method_name = &"select"
 
-[sub_resource type="Resource" id="Resource_crltp"]
-script = ExtResource("8_vo65d")
-parent_name = &"Selector"
-behavior_names = Array[StringName]([&"DemoOneShotTimer"])
-name = &"Dead"
-graph_pos = Vector2(380, 160)
-
-[sub_resource type="Resource" id="Resource_qrame"]
-script = ExtResource("9_y3jy5")
-transitions = Array[Array]([[SubResource("Resource_7ehqe"), SubResource("Resource_crltp")]])
-child_names = Array[StringName]([&"Alive", &"Dead"])
-behavior_names = Array[StringName]([&"DieWhenAttacked"])
-name = &"Selector"
-graph_pos = Vector2(-200, 0)
+[sub_resource type="Resource" id="Resource_ublu2"]
+script = ExtResource("5_ivjey")
+entity_name = &"Selector"
 
 [sub_resource type="Resource" id="Resource_48owv"]
 script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_qrame")
+target_entity_reference = SubResource("Resource_ublu2")
 callable_id = &"select"
 callable_data = SubResource("Resource_0fkei")
 
@@ -789,9 +756,14 @@ script = ExtResource("19_n4tyk")
 behavior_name = &"ToIdle"
 signal_relay_connector_name = &"travel"
 
+[sub_resource type="Resource" id="Resource_rjj05"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"ToIdle"
+
 [sub_resource type="Resource" id="Resource_l0tpd"]
 script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_nyfnd")
+target_entity_reference = SubResource("Resource_rjj05")
 callable_id = &"travel"
 callable_data = SubResource("Resource_8vnk5")
 
@@ -833,9 +805,14 @@ script = ExtResource("19_n4tyk")
 behavior_name = &"ToWalking"
 signal_relay_connector_name = &"travel"
 
+[sub_resource type="Resource" id="Resource_544ik"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"ToWalking"
+
 [sub_resource type="Resource" id="Resource_7tfmw"]
 script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_nox33")
+target_entity_reference = SubResource("Resource_544ik")
 callable_id = &"travel"
 callable_data = SubResource("Resource_npjsm")
 
@@ -877,9 +854,13 @@ script = ExtResource("14_gvweq")
 state_name = &"Alive"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_p5t7m"]
+script = ExtResource("5_ivjey")
+entity_name = &"Alive"
+
 [sub_resource type="Resource" id="Resource_b3omi"]
 script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_7ehqe")
+target_entity_reference = SubResource("Resource_p5t7m")
 callable_id = &"select"
 callable_data = SubResource("Resource_ns0wi")
 
@@ -920,9 +901,13 @@ script = ExtResource("14_gvweq")
 state_name = &"Alive"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_33xuv"]
+script = ExtResource("5_ivjey")
+entity_name = &"Alive"
+
 [sub_resource type="Resource" id="Resource_5kix5"]
 script = ExtResource("15_f1rb7")
-target_entity = SubResource("Resource_7ehqe")
+target_entity_reference = SubResource("Resource_33xuv")
 callable_id = &"select"
 callable_data = SubResource("Resource_utp1u")
 
@@ -958,13 +943,58 @@ connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_5ggck")]
 })
 
+[sub_resource type="Resource" id="Resource_dg4x6"]
+script = ExtResource("8_vo65d")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"DemoCheckSlimes", &"DemoUpdateVectorOnActionInput"])
+name = &"PlayerControlled"
+graph_pos = Vector2(980, -520)
+
+[sub_resource type="Resource" id="Resource_ew2pw"]
+script = ExtResource("8_vo65d")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"DemoAvoidSlimes"])
+name = &"AvoidEnemy"
+graph_pos = Vector2(980, -120)
+
+[sub_resource type="Resource" id="Resource_gnu8x"]
+script = ExtResource("8_vo65d")
+parent_name = &"Alive"
+behavior_names = Array[StringName]([&"DemoConsumeApple", &"DemoFaceTargetObject"])
+name = &"PursueApple"
+graph_pos = Vector2(980, 280)
+
+[sub_resource type="Resource" id="Resource_7ehqe"]
+script = ExtResource("9_y3jy5")
+transitions = Array[Array]([[SubResource("Resource_dg4x6"), SubResource("Resource_ew2pw")], [SubResource("Resource_ew2pw"), SubResource("Resource_dg4x6")], [SubResource("Resource_dg4x6"), SubResource("Resource_gnu8x")], [SubResource("Resource_gnu8x"), SubResource("Resource_dg4x6")], [SubResource("Resource_ew2pw"), SubResource("Resource_gnu8x")], [SubResource("Resource_gnu8x"), SubResource("Resource_ew2pw")]])
+parent_name = &"Selector"
+child_names = Array[StringName]([&"PlayerControlled", &"AvoidEnemy", &"PursueApple"])
+behavior_names = Array[StringName]([&"FindClosestApple", &"DemoAreaBodyDetector", &"DemoTargetClosestApple", &"SyncIdleDirection", &"SyncWalkingDirection", &"DemoCheckDirection", &"ToWalking", &"ToIdle", &"SlimeDetector", &"DemoSmoothMotion2D"])
+name = &"Alive"
+graph_pos = Vector2(380, -120)
+
+[sub_resource type="Resource" id="Resource_crltp"]
+script = ExtResource("8_vo65d")
+parent_name = &"Selector"
+behavior_names = Array[StringName]([&"DemoOneShotTimer"])
+name = &"Dead"
+graph_pos = Vector2(380, 160)
+
+[sub_resource type="Resource" id="Resource_qrame"]
+script = ExtResource("9_y3jy5")
+transitions = Array[Array]([[SubResource("Resource_7ehqe"), SubResource("Resource_crltp")]])
+child_names = Array[StringName]([&"Alive", &"Dead"])
+behavior_names = Array[StringName]([&"DieWhenAttacked"])
+name = &"Selector"
+graph_pos = Vector2(-200, 0)
+
 [sub_resource type="Resource" id="Resource_gvweq"]
 script = ExtResource("6_3j7p7")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Selector"
 root_pos = Vector2(-480, 0)
-editor_scroll_offset = Vector2(-685.8144, -157.7746)
+editor_scroll_offset = Vector2(-229.54042, -8)
 editor_zoom = 0.45320922
 states = Dictionary[StringName, ExtResource("8_vo65d")]({
 &"Alive": SubResource("Resource_7ehqe"),

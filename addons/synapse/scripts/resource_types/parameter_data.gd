@@ -57,7 +57,7 @@ func get_configuration_warnings(state_machine: SynapseStateMachine) -> Array[Dic
 			if signal_bridge_data.property_references.values().any(func(ref: SynapseEntityPropertyReferenceData) -> bool: return ref.entity_reference.references(self)):
 				referenced = true
 				break
-			if signal_bridge_data.callable_target_data.target_entity == self:
+			if signal_bridge_data.callable_target_data.target_entity_reference.references(self):
 				setter_connected = true
 		if not signal_connected:
 			for signal_sources: Array in entity_data.connected_signals.values():

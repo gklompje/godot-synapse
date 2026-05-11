@@ -117,31 +117,13 @@ script = ExtResource("8_81dkp")
 state_name = &"Selector"
 method_name = &"select"
 
-[sub_resource type="Resource" id="Resource_hr3en"]
-script = ExtResource("5_ng58k")
-parent_name = &"Selector"
-behavior_names = Array[StringName]([&"ToggleLightBulbOff"])
-name = &"Off"
-graph_pos = Vector2(220, -80)
-
-[sub_resource type="Resource" id="Resource_wdn7j"]
-script = ExtResource("5_ng58k")
-parent_name = &"Selector"
-behavior_names = Array[StringName]([&"ToggleLightBulbOn"])
-name = &"On"
-graph_pos = Vector2(220, -300)
-
-[sub_resource type="Resource" id="Resource_meqst"]
-script = ExtResource("8_ng58k")
-transitions = Array[Array]([[SubResource("Resource_hr3en"), SubResource("Resource_wdn7j")], [SubResource("Resource_wdn7j"), SubResource("Resource_hr3en")]])
-child_names = Array[StringName]([&"On", &"Off"])
-behavior_names = Array[StringName]([&"CheckBatteryCharge"])
-name = &"Selector"
-graph_pos = Vector2(-60, -200)
+[sub_resource type="Resource" id="Resource_8bloh"]
+script = ExtResource("15_8bloh")
+entity_name = &"Selector"
 
 [sub_resource type="Resource" id="Resource_vadnl"]
 script = ExtResource("9_7x864")
-target_entity = SubResource("Resource_meqst")
+target_entity_reference = SubResource("Resource_8bloh")
 callable_id = &"select"
 callable_data = SubResource("Resource_qmd8g")
 
@@ -182,9 +164,13 @@ script = ExtResource("8_81dkp")
 state_name = &"Selector"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_aaw0y"]
+script = ExtResource("15_8bloh")
+entity_name = &"Selector"
+
 [sub_resource type="Resource" id="Resource_w7yw2"]
 script = ExtResource("9_7x864")
-target_entity = SubResource("Resource_meqst")
+target_entity_reference = SubResource("Resource_aaw0y")
 callable_id = &"select"
 callable_data = SubResource("Resource_twbse")
 
@@ -219,6 +205,28 @@ graph_pos = Vector2(560, 180)
 connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_pfcfd")]
 })
+
+[sub_resource type="Resource" id="Resource_hr3en"]
+script = ExtResource("5_ng58k")
+parent_name = &"Selector"
+behavior_names = Array[StringName]([&"ToggleLightBulbOff"])
+name = &"Off"
+graph_pos = Vector2(220, -80)
+
+[sub_resource type="Resource" id="Resource_wdn7j"]
+script = ExtResource("5_ng58k")
+parent_name = &"Selector"
+behavior_names = Array[StringName]([&"ToggleLightBulbOn"])
+name = &"On"
+graph_pos = Vector2(220, -300)
+
+[sub_resource type="Resource" id="Resource_meqst"]
+script = ExtResource("8_ng58k")
+transitions = Array[Array]([[SubResource("Resource_hr3en"), SubResource("Resource_wdn7j")], [SubResource("Resource_wdn7j"), SubResource("Resource_hr3en")]])
+child_names = Array[StringName]([&"On", &"Off"])
+behavior_names = Array[StringName]([&"CheckBatteryCharge"])
+name = &"Selector"
+graph_pos = Vector2(-60, -200)
 
 [sub_resource type="Resource" id="Resource_q8l4a"]
 script = ExtResource("4_12ggu")

@@ -152,45 +152,13 @@ script = ExtResource("7_g8vmr")
 state_name = &"SimpleCalculator"
 method_name = &"select"
 
-[sub_resource type="Resource" id="Resource_tm3ko"]
-script = ExtResource("7_jj8l3")
-parent_name = &"SimpleCalculator"
-behavior_names = Array[StringName]([&"Add"])
-name = &"Add"
-graph_pos = Vector2(500.62497, 22.498913)
-
-[sub_resource type="Resource" id="Resource_k8y7s"]
-script = ExtResource("7_jj8l3")
-parent_name = &"SimpleCalculator"
-behavior_names = Array[StringName]([&"Divide"])
-name = &"Divide"
-graph_pos = Vector2(504.67126, 803.1807)
-
-[sub_resource type="Resource" id="Resource_8qh2c"]
-script = ExtResource("7_jj8l3")
-parent_name = &"SimpleCalculator"
-behavior_names = Array[StringName]([&"Multiply"])
-name = &"Multiply"
-graph_pos = Vector2(500, 540)
-
-[sub_resource type="Resource" id="Resource_3lpug"]
-script = ExtResource("7_jj8l3")
-parent_name = &"SimpleCalculator"
-behavior_names = Array[StringName]([&"Subtract"])
-name = &"Subtract"
-graph_pos = Vector2(500, 260)
-
-[sub_resource type="Resource" id="Resource_j6w1u"]
-script = ExtResource("7_0okgq")
-transitions = Array[Array]([[SubResource("Resource_tm3ko"), SubResource("Resource_k8y7s")], [SubResource("Resource_tm3ko"), SubResource("Resource_8qh2c")], [SubResource("Resource_tm3ko"), SubResource("Resource_3lpug")], [SubResource("Resource_k8y7s"), SubResource("Resource_8qh2c")], [SubResource("Resource_k8y7s"), SubResource("Resource_3lpug")], [SubResource("Resource_k8y7s"), SubResource("Resource_tm3ko")], [SubResource("Resource_8qh2c"), SubResource("Resource_k8y7s")], [SubResource("Resource_8qh2c"), SubResource("Resource_3lpug")], [SubResource("Resource_8qh2c"), SubResource("Resource_tm3ko")], [SubResource("Resource_3lpug"), SubResource("Resource_k8y7s")], [SubResource("Resource_3lpug"), SubResource("Resource_8qh2c")], [SubResource("Resource_3lpug"), SubResource("Resource_tm3ko")]])
-child_names = Array[StringName]([&"Add", &"Subtract", &"Multiply", &"Divide"])
-behavior_names = Array[StringName]([&"SelectOperation", &"UpdateB", &"UpdateA", &"UpdateLabel"])
-name = &"SimpleCalculator"
-graph_pos = Vector2(-860, 0)
+[sub_resource type="Resource" id="Resource_av1rg"]
+script = ExtResource("14_av1rg")
+entity_name = &"SimpleCalculator"
 
 [sub_resource type="Resource" id="Resource_2ptce"]
 script = ExtResource("8_g21qm")
-target_entity = SubResource("Resource_j6w1u")
+target_entity_reference = SubResource("Resource_av1rg")
 callable_id = &"select"
 callable_data = SubResource("Resource_447ar")
 
@@ -231,9 +199,13 @@ script = ExtResource("7_g8vmr")
 state_name = &"SimpleCalculator"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_fws2o"]
+script = ExtResource("14_av1rg")
+entity_name = &"SimpleCalculator"
+
 [sub_resource type="Resource" id="Resource_remfy"]
 script = ExtResource("8_g21qm")
-target_entity = SubResource("Resource_j6w1u")
+target_entity_reference = SubResource("Resource_fws2o")
 callable_id = &"select"
 callable_data = SubResource("Resource_4wpqb")
 
@@ -274,9 +246,13 @@ script = ExtResource("7_g8vmr")
 state_name = &"SimpleCalculator"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_l8gqc"]
+script = ExtResource("14_av1rg")
+entity_name = &"SimpleCalculator"
+
 [sub_resource type="Resource" id="Resource_ohynf"]
 script = ExtResource("8_g21qm")
-target_entity = SubResource("Resource_j6w1u")
+target_entity_reference = SubResource("Resource_l8gqc")
 callable_id = &"select"
 callable_data = SubResource("Resource_uhg5m")
 
@@ -317,9 +293,13 @@ script = ExtResource("7_g8vmr")
 state_name = &"SimpleCalculator"
 method_name = &"select"
 
+[sub_resource type="Resource" id="Resource_ms0x5"]
+script = ExtResource("14_av1rg")
+entity_name = &"SimpleCalculator"
+
 [sub_resource type="Resource" id="Resource_wcgbg"]
 script = ExtResource("8_g21qm")
-target_entity = SubResource("Resource_j6w1u")
+target_entity_reference = SubResource("Resource_ms0x5")
 callable_id = &"select"
 callable_data = SubResource("Resource_6c8ve")
 
@@ -354,6 +334,42 @@ graph_pos = Vector2(80, -300)
 connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_go0cb")]
 })
+
+[sub_resource type="Resource" id="Resource_tm3ko"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Add"])
+name = &"Add"
+graph_pos = Vector2(500.62497, 22.498913)
+
+[sub_resource type="Resource" id="Resource_k8y7s"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Divide"])
+name = &"Divide"
+graph_pos = Vector2(504.67126, 803.1807)
+
+[sub_resource type="Resource" id="Resource_8qh2c"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Multiply"])
+name = &"Multiply"
+graph_pos = Vector2(500, 540)
+
+[sub_resource type="Resource" id="Resource_3lpug"]
+script = ExtResource("7_jj8l3")
+parent_name = &"SimpleCalculator"
+behavior_names = Array[StringName]([&"Subtract"])
+name = &"Subtract"
+graph_pos = Vector2(500, 260)
+
+[sub_resource type="Resource" id="Resource_j6w1u"]
+script = ExtResource("7_0okgq")
+transitions = Array[Array]([[SubResource("Resource_tm3ko"), SubResource("Resource_k8y7s")], [SubResource("Resource_tm3ko"), SubResource("Resource_8qh2c")], [SubResource("Resource_tm3ko"), SubResource("Resource_3lpug")], [SubResource("Resource_k8y7s"), SubResource("Resource_8qh2c")], [SubResource("Resource_k8y7s"), SubResource("Resource_3lpug")], [SubResource("Resource_k8y7s"), SubResource("Resource_tm3ko")], [SubResource("Resource_8qh2c"), SubResource("Resource_k8y7s")], [SubResource("Resource_8qh2c"), SubResource("Resource_3lpug")], [SubResource("Resource_8qh2c"), SubResource("Resource_tm3ko")], [SubResource("Resource_3lpug"), SubResource("Resource_k8y7s")], [SubResource("Resource_3lpug"), SubResource("Resource_8qh2c")], [SubResource("Resource_3lpug"), SubResource("Resource_tm3ko")]])
+child_names = Array[StringName]([&"Add", &"Subtract", &"Multiply", &"Divide"])
+behavior_names = Array[StringName]([&"SelectOperation", &"UpdateB", &"UpdateA", &"UpdateLabel"])
+name = &"SimpleCalculator"
+graph_pos = Vector2(-860, 0)
 
 [sub_resource type="Resource" id="Resource_xxjd7"]
 script = ExtResource("6_2gi34")
