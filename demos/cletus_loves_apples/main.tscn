@@ -244,25 +244,30 @@ connected_signals = Dictionary[StringName, Array]({
 &"reset": [SubResource("Resource_k574m")]
 })
 
-[sub_resource type="Resource" id="Resource_bqcqc"]
+[sub_resource type="Resource" id="Resource_wtqaf"]
 script = ExtResource("11_uip7n")
 node_path = NodePath("DemoOneShotTimer")
 signal_name = &"timeout"
 
-[sub_resource type="Resource" id="Resource_wtqaf"]
-script = ExtResource("10_6agb5")
-nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
-signal_data = SubResource("Resource_bqcqc")
-
 [sub_resource type="Resource" id="Resource_ahxxp"]
 script = ExtResource("10_6agb5")
-nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
+nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
 signal_data = SubResource("Resource_wtqaf")
 
 [sub_resource type="Resource" id="Resource_xa0bs"]
-script = ExtResource("9_hseae")
-signal_id = &"player_died"
+script = ExtResource("10_6agb5")
+nested_state_machine_node_path = NodePath("../PanelContainer/SubViewportContainer/SubViewport/Game/GameStateMachine")
 signal_data = SubResource("Resource_ahxxp")
+
+[sub_resource type="Resource" id="Resource_h5wwe"]
+script = ExtResource("18_wtqaf")
+entity_name = &"GameStateMachine"
+
+[sub_resource type="Resource" id="Resource_qbyp8"]
+script = ExtResource("9_hseae")
+source_entity_reference = SubResource("Resource_h5wwe")
+signal_id = &"player_died"
+signal_data = SubResource("Resource_xa0bs")
 
 [sub_resource type="Resource" id="Resource_sykwr"]
 script = ExtResource("8_8iqro")
@@ -275,7 +280,7 @@ parent_name = &"Sequence"
 name = &"MenuStateMachine"
 graph_pos = Vector2(800, -140)
 connected_signals = Dictionary[StringName, Array]({
-&"game_over": [SubResource("Resource_xa0bs")]
+&"game_over": [SubResource("Resource_qbyp8")]
 })
 
 [sub_resource type="Resource" id="Resource_5cwxp"]
@@ -375,7 +380,7 @@ script = ExtResource("4_o8olj")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Sequence"
-editor_scroll_offset = Vector2(-370.73627, -57.46286)
+editor_scroll_offset = Vector2(-379.73627, -101.46286)
 editor_zoom = 0.620921
 states = Dictionary[StringName, ExtResource("6_sykwr")]({
 &"GameStateMachine": SubResource("Resource_xks12"),
