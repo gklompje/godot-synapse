@@ -62,7 +62,7 @@ func get_configuration_warnings(state_machine: SynapseStateMachine) -> Array[Dic
 		if not signal_connected:
 			for signal_sources: Array in entity_data.connected_signals.values():
 				for signal_source_data: SynapseSignalSourceData in signal_sources:
-					if signal_source_data.source_entity == self:
+					if signal_source_data.source_entity_reference.references(self):
 						signal_connected = true
 						break
 				if signal_connected:

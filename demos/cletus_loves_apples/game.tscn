@@ -57,41 +57,13 @@ script = ExtResource("4_ceoqq")
 nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
 signal_data = SubResource("Resource_pe5jx")
 
-[sub_resource type="Resource" id="Resource_27jue"]
-script = ExtResource("5_2gcp4")
-node_path = NodePath("DemoSlimeManager")
-signal_name = &"attack_success"
-
-[sub_resource type="Resource" id="Resource_rpkv3"]
-script = ExtResource("2_mn3e2")
-owner_state_name = &"CletusStateMachine"
-managed = true
-node_path = NodePath("DemoSlimeManager")
-parameters = Dictionary[StringName, StringName]({
-&"map_area": &"map_area"
-})
-name = &"DemoSlimeManager"
-graph_pos = Vector2(560, 700)
-
-[sub_resource type="Resource" id="Resource_7xdfq"]
-script = ExtResource("3_rpkv3")
-source_entity = SubResource("Resource_rpkv3")
-signal_id = &"attack_success"
-signal_data = SubResource("Resource_27jue")
-
-[sub_resource type="Resource" id="Resource_5wsv1"]
-script = ExtResource("10_mf84r")
-state_machine_path = NodePath("../Cletus/CletusStateMachine")
-behavior_names = Array[StringName]([&"DemoSaveLoad", &"DemoSlimeManager", &"DemoAppleManager", &"DemoCletusManager", &"DemoGameManager"])
-name = &"CletusStateMachine"
-graph_pos = Vector2(280, 300)
-connected_signals = Dictionary[StringName, Array]({
-&"register_attack": [SubResource("Resource_7xdfq")]
-})
+[sub_resource type="Resource" id="Resource_pp7ec"]
+script = ExtResource("8_pp7ec")
+entity_name = &"CletusStateMachine"
 
 [sub_resource type="Resource" id="Resource_57j8m"]
 script = ExtResource("3_rpkv3")
-source_entity = SubResource("Resource_5wsv1")
+source_entity_reference = SubResource("Resource_pp7ec")
 signal_id = &"apple_consumed"
 signal_data = SubResource("Resource_t5fm0")
 
@@ -105,9 +77,13 @@ script = ExtResource("4_ceoqq")
 nested_state_machine_node_path = NodePath("../Cletus/CletusStateMachine")
 signal_data = SubResource("Resource_t1nlt")
 
+[sub_resource type="Resource" id="Resource_ucsk4"]
+script = ExtResource("8_pp7ec")
+entity_name = &"CletusStateMachine"
+
 [sub_resource type="Resource" id="Resource_3rktv"]
 script = ExtResource("3_rpkv3")
-source_entity = SubResource("Resource_5wsv1")
+source_entity_reference = SubResource("Resource_ucsk4")
 signal_id = &"died"
 signal_data = SubResource("Resource_wwbc4")
 
@@ -134,6 +110,17 @@ managed = true
 node_path = NodePath("DemoSaveLoad")
 name = &"DemoSaveLoad"
 graph_pos = Vector2(560, 200)
+
+[sub_resource type="Resource" id="Resource_rpkv3"]
+script = ExtResource("2_mn3e2")
+owner_state_name = &"CletusStateMachine"
+managed = true
+node_path = NodePath("DemoSlimeManager")
+parameters = Dictionary[StringName, StringName]({
+&"map_area": &"map_area"
+})
+name = &"DemoSlimeManager"
+graph_pos = Vector2(560, 700)
 
 [sub_resource type="Resource" id="Resource_wocjb"]
 script = ExtResource("8_pp7ec")
@@ -203,6 +190,32 @@ parameter = SubResource("Resource_hksta")
 exposed = true
 name = &"score"
 graph_pos = Vector2(900, 60)
+
+[sub_resource type="Resource" id="Resource_27jue"]
+script = ExtResource("5_2gcp4")
+node_path = NodePath("DemoSlimeManager")
+signal_name = &"attack_success"
+
+[sub_resource type="Resource" id="Resource_t6kyd"]
+script = ExtResource("8_pp7ec")
+entity_type = 1
+entity_name = &"DemoSlimeManager"
+
+[sub_resource type="Resource" id="Resource_7xdfq"]
+script = ExtResource("3_rpkv3")
+source_entity_reference = SubResource("Resource_t6kyd")
+signal_id = &"attack_success"
+signal_data = SubResource("Resource_27jue")
+
+[sub_resource type="Resource" id="Resource_5wsv1"]
+script = ExtResource("10_mf84r")
+state_machine_path = NodePath("../Cletus/CletusStateMachine")
+behavior_names = Array[StringName]([&"DemoSaveLoad", &"DemoSlimeManager", &"DemoAppleManager", &"DemoCletusManager", &"DemoGameManager"])
+name = &"CletusStateMachine"
+graph_pos = Vector2(280, 300)
+connected_signals = Dictionary[StringName, Array]({
+&"register_attack": [SubResource("Resource_7xdfq")]
+})
 
 [sub_resource type="Resource" id="Resource_kwekc"]
 script = ExtResource("4_fom3w")

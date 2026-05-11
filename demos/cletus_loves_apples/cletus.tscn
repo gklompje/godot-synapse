@@ -630,9 +630,14 @@ script = ExtResource("18_gp0yu")
 node_path = NodePath("DemoConsumeApple")
 signal_name = &"apple_consumed"
 
+[sub_resource type="Resource" id="Resource_o7lq6"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoConsumeApple"
+
 [sub_resource type="Resource" id="Resource_vvahh"]
 script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_2rd6k")
+source_entity_reference = SubResource("Resource_o7lq6")
 signal_id = &"apple_consumed"
 signal_data = SubResource("Resource_e5kwh")
 
@@ -677,9 +682,14 @@ script = ExtResource("18_gp0yu")
 node_path = NodePath("DemoTargetClosestApple")
 signal_name = &"apple_targeted"
 
+[sub_resource type="Resource" id="Resource_tpmq4"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoTargetClosestApple"
+
 [sub_resource type="Resource" id="Resource_438yx"]
 script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_h44jr")
+source_entity_reference = SubResource("Resource_tpmq4")
 signal_id = &"apple_targeted"
 signal_data = SubResource("Resource_jponx")
 
@@ -724,9 +734,14 @@ script = ExtResource("18_gp0yu")
 node_path = NodePath("DemoRegisterAttack")
 signal_name = &"attack_registered"
 
+[sub_resource type="Resource" id="Resource_81tun"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DieWhenAttacked"
+
 [sub_resource type="Resource" id="Resource_isy0m"]
 script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_frqbu")
+source_entity_reference = SubResource("Resource_81tun")
 signal_id = &"attack_registered"
 signal_data = SubResource("Resource_bpsvq")
 
@@ -772,9 +787,14 @@ script = ExtResource("18_gp0yu")
 node_path = NodePath("DemoCheckDirection")
 signal_name = &"direction_not_set"
 
+[sub_resource type="Resource" id="Resource_n80w5"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoCheckDirection"
+
 [sub_resource type="Resource" id="Resource_5duy2"]
 script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_5hgts")
+source_entity_reference = SubResource("Resource_n80w5")
 signal_id = &"direction_not_set"
 signal_data = SubResource("Resource_ifc75")
 
@@ -821,9 +841,14 @@ script = ExtResource("18_gp0yu")
 node_path = NodePath("DemoCheckDirection")
 signal_name = &"direction_set"
 
+[sub_resource type="Resource" id="Resource_dlbp7"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoCheckDirection"
+
 [sub_resource type="Resource" id="Resource_l6ef1"]
 script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_5hgts")
+source_entity_reference = SubResource("Resource_dlbp7")
 signal_id = &"direction_set"
 signal_data = SubResource("Resource_4olb2")
 
@@ -869,9 +894,14 @@ script = ExtResource("18_gp0yu")
 node_path = NodePath("DemoAvoidSlimes")
 signal_name = &"no_more_slimes"
 
+[sub_resource type="Resource" id="Resource_7v7dk"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoAvoidSlimes"
+
 [sub_resource type="Resource" id="Resource_uyj4r"]
 script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_p04ga")
+source_entity_reference = SubResource("Resource_7v7dk")
 signal_id = &"no_more_slimes"
 signal_data = SubResource("Resource_78uft")
 
@@ -916,9 +946,14 @@ script = ExtResource("18_gp0yu")
 node_path = NodePath("DemoCheckSlimes")
 signal_name = &"panic"
 
+[sub_resource type="Resource" id="Resource_cmv2p"]
+script = ExtResource("5_ivjey")
+entity_type = 1
+entity_name = &"DemoCheckSlimes"
+
 [sub_resource type="Resource" id="Resource_5ggck"]
 script = ExtResource("4_uxyf7")
-source_entity = SubResource("Resource_h6jf6")
+source_entity_reference = SubResource("Resource_cmv2p")
 signal_id = &"panic"
 signal_data = SubResource("Resource_h0xb0")
 

@@ -362,17 +362,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("@Node@88940")
 signal_name = &"timeout"
 
-[sub_resource type="Resource" id="Resource_kpr8q"]
-script = ExtResource("3_0xl54")
-owner_state_name = &"Alive"
-managed = true
-node_path = NodePath("@Node@88940")
-name = &"StartFlicker"
-graph_pos = Vector2(940, -180)
+[sub_resource type="Resource" id="Resource_3q6m4"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"StartFlicker"
 
 [sub_resource type="Resource" id="Resource_xm1w3"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_kpr8q")
+source_entity_reference = SubResource("Resource_3q6m4")
 signal_id = &"timeout"
 signal_data = SubResource("Resource_f70pw")
 
@@ -470,6 +467,14 @@ managed = true
 node_path = NodePath("DemoOneShotTimer")
 name = &"SpawnTimeout"
 graph_pos = Vector2(460, -640)
+
+[sub_resource type="Resource" id="Resource_kpr8q"]
+script = ExtResource("3_0xl54")
+owner_state_name = &"Alive"
+managed = true
+node_path = NodePath("@Node@88940")
+name = &"StartFlicker"
+graph_pos = Vector2(940, -180)
 
 [sub_resource type="Resource" id="Resource_p7bfs"]
 script = ExtResource("3_0xl54")
@@ -618,9 +623,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("DemoCheckDirection")
 signal_name = &"direction_not_set"
 
+[sub_resource type="Resource" id="Resource_u6t2c"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"DemoCheckDirection"
+
 [sub_resource type="Resource" id="Resource_5x3et"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_38sdo")
+source_entity_reference = SubResource("Resource_u6t2c")
 signal_id = &"direction_not_set"
 signal_data = SubResource("Resource_npdil")
 
@@ -667,9 +677,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("DemoCheckDirection")
 signal_name = &"direction_set"
 
+[sub_resource type="Resource" id="Resource_5urqd"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"DemoCheckDirection"
+
 [sub_resource type="Resource" id="Resource_nhx2i"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_38sdo")
+source_entity_reference = SubResource("Resource_5urqd")
 signal_id = &"direction_set"
 signal_data = SubResource("Resource_k7r8x")
 
@@ -715,9 +730,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("DemoAttackPlayer")
 signal_name = &"player_attacked"
 
+[sub_resource type="Resource" id="Resource_68pa8"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"DemoAttackPlayer"
+
 [sub_resource type="Resource" id="Resource_dfusg"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_i131v")
+source_entity_reference = SubResource("Resource_68pa8")
 signal_id = &"player_attacked"
 signal_data = SubResource("Resource_j3ep1")
 
@@ -762,9 +782,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("DemoCheckPlayer")
 signal_name = &"player_found"
 
+[sub_resource type="Resource" id="Resource_ymqu7"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"DemoCheckPlayer"
+
 [sub_resource type="Resource" id="Resource_xygfc"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_ryyv5")
+source_entity_reference = SubResource("Resource_ymqu7")
 signal_id = &"player_found"
 signal_data = SubResource("Resource_nfcw7")
 
@@ -809,9 +834,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("DemoCheckPlayer")
 signal_name = &"player_lost"
 
+[sub_resource type="Resource" id="Resource_mhjot"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"DemoCheckPlayer"
+
 [sub_resource type="Resource" id="Resource_ld4tk"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_ryyv5")
+source_entity_reference = SubResource("Resource_mhjot")
 signal_id = &"player_lost"
 signal_data = SubResource("Resource_fcxow")
 
@@ -856,9 +886,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("@Node@84568")
 signal_name = &"timeout"
 
+[sub_resource type="Resource" id="Resource_wilvg"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"AttackComplete"
+
 [sub_resource type="Resource" id="Resource_xenuq"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_0iejo")
+source_entity_reference = SubResource("Resource_wilvg")
 signal_id = &"timeout"
 signal_data = SubResource("Resource_q0fwm")
 
@@ -925,9 +960,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("DemoOneShotTimer")
 signal_name = &"timeout"
 
+[sub_resource type="Resource" id="Resource_6hypi"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"SpawnTimeout"
+
 [sub_resource type="Resource" id="Resource_q4t13"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_g1ujr")
+source_entity_reference = SubResource("Resource_6hypi")
 signal_id = &"timeout"
 signal_data = SubResource("Resource_paux8")
 
@@ -936,9 +976,14 @@ script = ExtResource("11_b12qb")
 node_path = NodePath("@Node@85761")
 signal_name = &"timeout"
 
+[sub_resource type="Resource" id="Resource_4i6ia"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"AliveTimeout"
+
 [sub_resource type="Resource" id="Resource_ojine"]
 script = ExtResource("10_toij3")
-source_entity = SubResource("Resource_2i8hc")
+source_entity_reference = SubResource("Resource_4i6ia")
 signal_id = &"timeout"
 signal_data = SubResource("Resource_xscuj")
 

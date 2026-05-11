@@ -82,9 +82,14 @@ script = ExtResource("10_3g2rs")
 node_path = NodePath("DemoWidgetStateSelector")
 signal_name = &"deselect"
 
+[sub_resource type="Resource" id="Resource_brujv"]
+script = ExtResource("16_ukq51")
+entity_type = 1
+entity_name = &"managed_selector"
+
 [sub_resource type="Resource" id="Resource_gnoj8"]
 script = ExtResource("9_egdkw")
-source_entity = SubResource("Resource_wsnse")
+source_entity_reference = SubResource("Resource_brujv")
 signal_id = &"deselect"
 signal_data = SubResource("Resource_uq1uu")
 
@@ -129,9 +134,14 @@ script = ExtResource("10_3g2rs")
 node_path = NodePath("../LocalWidgetStateSelectorBehavior")
 signal_name = &"deselect"
 
+[sub_resource type="Resource" id="Resource_rlpv5"]
+script = ExtResource("16_ukq51")
+entity_type = 1
+entity_name = &"local_selector"
+
 [sub_resource type="Resource" id="Resource_17fth"]
 script = ExtResource("9_egdkw")
-source_entity = SubResource("Resource_vj68e")
+source_entity_reference = SubResource("Resource_rlpv5")
 signal_id = &"deselect"
 signal_data = SubResource("Resource_xdemn")
 
@@ -176,9 +186,14 @@ script = ExtResource("10_3g2rs")
 node_path = NodePath("../GridContainer/RemoteSceneBehaviorWidget/RemoteSceneWidgetStateSelectorBehavior")
 signal_name = &"deselect"
 
+[sub_resource type="Resource" id="Resource_0gsmw"]
+script = ExtResource("16_ukq51")
+entity_type = 1
+entity_name = &"remote_selector"
+
 [sub_resource type="Resource" id="Resource_wt30o"]
 script = ExtResource("9_egdkw")
-source_entity = SubResource("Resource_oxs1a")
+source_entity_reference = SubResource("Resource_0gsmw")
 signal_id = &"deselect"
 signal_data = SubResource("Resource_pixjf")
 
@@ -223,9 +238,14 @@ script = ExtResource("10_3g2rs")
 node_path = NodePath("DemoWidgetStateSelector")
 signal_name = &"select"
 
+[sub_resource type="Resource" id="Resource_u2sqn"]
+script = ExtResource("16_ukq51")
+entity_type = 1
+entity_name = &"managed_selector"
+
 [sub_resource type="Resource" id="Resource_0hxid"]
 script = ExtResource("9_egdkw")
-source_entity = SubResource("Resource_wsnse")
+source_entity_reference = SubResource("Resource_u2sqn")
 signal_id = &"select"
 signal_data = SubResource("Resource_20gtp")
 
@@ -270,9 +290,14 @@ script = ExtResource("10_3g2rs")
 node_path = NodePath("../LocalWidgetStateSelectorBehavior")
 signal_name = &"select"
 
+[sub_resource type="Resource" id="Resource_qnrt2"]
+script = ExtResource("16_ukq51")
+entity_type = 1
+entity_name = &"local_selector"
+
 [sub_resource type="Resource" id="Resource_by5yj"]
 script = ExtResource("9_egdkw")
-source_entity = SubResource("Resource_vj68e")
+source_entity_reference = SubResource("Resource_qnrt2")
 signal_id = &"select"
 signal_data = SubResource("Resource_dq57r")
 
@@ -317,9 +342,14 @@ script = ExtResource("10_3g2rs")
 node_path = NodePath("../GridContainer/RemoteSceneBehaviorWidget/RemoteSceneWidgetStateSelectorBehavior")
 signal_name = &"select"
 
+[sub_resource type="Resource" id="Resource_tuipk"]
+script = ExtResource("16_ukq51")
+entity_type = 1
+entity_name = &"remote_selector"
+
 [sub_resource type="Resource" id="Resource_cap4v"]
 script = ExtResource("9_egdkw")
-source_entity = SubResource("Resource_oxs1a")
+source_entity_reference = SubResource("Resource_tuipk")
 signal_id = &"select"
 signal_data = SubResource("Resource_a6md4")
 

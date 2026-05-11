@@ -132,9 +132,14 @@ script = ExtResource("9_libwo")
 node_path = NodePath("CheckBatteryCharge")
 signal_name = &"switch_off"
 
+[sub_resource type="Resource" id="Resource_s76jr"]
+script = ExtResource("15_8bloh")
+entity_type = 1
+entity_name = &"CheckBatteryCharge"
+
 [sub_resource type="Resource" id="Resource_7x864"]
 script = ExtResource("8_eawnn")
-source_entity = SubResource("Resource_p3mx0")
+source_entity_reference = SubResource("Resource_s76jr")
 signal_id = &"switch_off"
 signal_data = SubResource("Resource_81dkp")
 
@@ -179,9 +184,14 @@ script = ExtResource("9_libwo")
 node_path = NodePath("CheckBatteryCharge")
 signal_name = &"switch_on"
 
+[sub_resource type="Resource" id="Resource_j4mog"]
+script = ExtResource("15_8bloh")
+entity_type = 1
+entity_name = &"CheckBatteryCharge"
+
 [sub_resource type="Resource" id="Resource_pfcfd"]
 script = ExtResource("8_eawnn")
-source_entity = SubResource("Resource_p3mx0")
+source_entity_reference = SubResource("Resource_j4mog")
 signal_id = &"switch_on"
 signal_data = SubResource("Resource_r1qvx")
 

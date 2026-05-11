@@ -19,4 +19,4 @@ func _to_string() -> String:
 	return "[%s]%s" % [SynapseStateMachineData.get_entity_type_name(entity_type), entity_name]
 
 func references(entity: SynapseEntityData) -> bool:
-	return entity_name == entity.name and entity_type == SynapseStateMachineData.get_entity_type(entity)
+	return entity_type == SynapseStateMachineData.get_entity_type(entity) and entity_name == entity.name
