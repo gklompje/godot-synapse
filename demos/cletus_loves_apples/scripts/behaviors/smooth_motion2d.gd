@@ -17,6 +17,9 @@ extends SynapseDemoCharacterBehavior2D
 static func get_category() -> StringName:
 	return SynapseBehavior.CATEGORY_DEMOS
 
+func _get_read_only_parameters() -> PackedStringArray:
+	return ["movement_direction_normal", "acceleration", "deceleration", "max_speed", "terrain_movement_speed"]
+
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
@@ -39,5 +42,12 @@ func _physics_process(delta: float) -> void:
 	# go!
 	character.move_and_slide()
 
-func _get_read_only_parameters() -> PackedStringArray:
-	return ["movement_direction_normal", "acceleration", "deceleration", "max_speed", "terrain_movement_speed"]
+func _get_custom_save_data() -> Dictionary:
+	# we save the character's velocity so the motion isn't cancelled when loading,
+	# and so motion isn't carried over when starting a new game (the initially saved value is zero)
+	return {
+		&"velocity": character.velocity,
+	}
+
+func _load_custom_save_data(custom_save_data: Dictionary) -> void:
+	character.velocity = custom_save_data[&"velocity"]
