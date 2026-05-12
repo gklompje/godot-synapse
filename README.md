@@ -5,6 +5,8 @@
 # Synapse
 **An extensible state machine framework for Godot with a graph-based user interface.**
 
+[View on Godot Asset Library](https://godotengine.org/asset-library/asset/5150)
+
 <p align="center">
   <img src="./docs/media/graph_ui.gif" alt="Synapse graph UI in action" />
 </p>
@@ -42,9 +44,16 @@ between alpha versions.
 * **Nesting:** Sub-state machines for modular, reusable logic.
 
 ## 🚀 Getting Started
-1. **Installation:** Copy the `addons/synapse` folder into your project's `addons/` directory.
-2. **Enable:** Go to `Project -> Project Settings -> Plugins` and enable Synapse.
-3. **Learn:** 
+1. **Installation:**
+    * **Godot Asset Library (Recommended):**
+      * Click on the AssetLib tab at the top of the editor.
+      * Search for "Synapse" and click Download.
+      * Once downloaded, click Install. Ensure that the addons/synapse folder is selected.
+    * **Manual Installation (Alternative):**
+      * Download or clone this repository.
+      * Copy the `addons/synapse` folder into your project's `addons/` directory.
+3. **Enable:** Go to `Project -> Project Settings -> Plugins` and enable Synapse.
+4. **Learn:** 
     - Familiarize yourself with the [Core Concepts](docs/concepts.md).
     - Follow the [Getting Started Guide](docs/getting_started/README.md).
     - Explore the [Demos](demos/README.md).
