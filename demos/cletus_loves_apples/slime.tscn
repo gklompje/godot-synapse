@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="18_g1ujr"]
 [ext_resource type="Script" uid="uid://cnr6qi36kntkd" path="res://addons/synapse/scripts/resource_types/entity_reference.gd" id="18_wf6cm"]
 [ext_resource type="Script" uid="uid://cvk0qqgpj0yog" path="res://addons/synapse/scripts/resource_types/behavior_signal_relay_connector_callable_data.gd" id="19_lj5q4"]
+[ext_resource type="Script" uid="uid://b7obqsohqm2ry" path="res://addons/synapse/scripts/resource_types/state_signal_data.gd" id="20_bqdfc"]
 [ext_resource type="Script" uid="uid://4shbinuv0hry" path="res://demos/cletus_loves_apples/scripts/behaviors/sync_animation_blend_position2d.gd" id="21_q4t13"]
 [ext_resource type="Script" uid="uid://bcetgxdjma8r5" path="res://demos/cletus_loves_apples/scripts/behaviors/area_body_detector.gd" id="24_f70pw"]
 [ext_resource type="Script" uid="uid://bcnysstvjn2t8" path="res://demos/cletus_loves_apples/scripts/behaviors/target_closest_object_in_group.gd" id="25_xm1w3"]
@@ -289,7 +290,7 @@ states/die/position = Vector2(728, 235)
 states/spawn/node = SubResource("AnimationNodeAnimation_sm1oj")
 states/spawn/position = Vector2(375, 100)
 transitions = ["Start", "spawn", SubResource("AnimationNodeStateMachineTransition_5jnip"), "spawn", "Idle", SubResource("AnimationNodeStateMachineTransition_r5764"), "Idle", "Move", SubResource("AnimationNodeStateMachineTransition_0xl54"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_f30wk"), "Move", "die", SubResource("AnimationNodeStateMachineTransition_vs6h4"), "Idle", "die", SubResource("AnimationNodeStateMachineTransition_lxrs7"), "Attack", "Move", SubResource("AnimationNodeStateMachineTransition_pde61"), "Move", "Attack", SubResource("AnimationNodeStateMachineTransition_ypp2l"), "Attack", "die", SubResource("AnimationNodeStateMachineTransition_lj5q4")]
-graph_offset = Vector2(44, -128)
+graph_offset = Vector2(45, 0)
 
 [sub_resource type="Resource" id="Resource_2i8hc"]
 script = ExtResource("3_0xl54")
@@ -458,7 +459,7 @@ owner_state_name = &"Attack"
 managed = true
 node_path = NodePath("DemoAnimationTreeStateMachineTravel2")
 name = &"PlayAttackAnimation"
-graph_pos = Vector2(1840, 640)
+graph_pos = Vector2(1840, 600)
 
 [sub_resource type="Resource" id="Resource_g1ujr"]
 script = ExtResource("3_0xl54")
@@ -592,6 +593,26 @@ parameter = SubResource("Resource_p3n0w")
 name = &"player"
 graph_pos = Vector2(1360, -700)
 
+[sub_resource type="Resource" id="Resource_ecer4"]
+script = ExtResource("12_ypp2l")
+value = &"Attack"
+
+[sub_resource type="Resource" id="Resource_12424"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_ecer4")
+name = &"target_state"
+graph_pos = Vector2(2160, 600)
+
+[sub_resource type="Resource" id="Resource_u4a0s"]
+script = ExtResource("12_ypp2l")
+value = &"die"
+
+[sub_resource type="Resource" id="Resource_iyj63"]
+script = ExtResource("5_vs6h4")
+parameter = SubResource("Resource_u4a0s")
+name = &"target_state2"
+graph_pos = Vector2(1340, 1200)
+
 [sub_resource type="Resource" id="Resource_lj5q4"]
 script = ExtResource("9_paux8")
 value = 1.0
@@ -708,6 +729,112 @@ name = &"direction_set__c::travel"
 graph_pos = Vector2(760, -1480)
 connected_signals = Dictionary[StringName, Array]({
 &"__bridge_callable": [SubResource("Resource_nhx2i")]
+})
+
+[sub_resource type="Resource" id="Resource_bsgyn"]
+script = ExtResource("19_lj5q4")
+behavior_name = &"PlayAttackAnimation"
+signal_relay_connector_name = &"travel"
+
+[sub_resource type="Resource" id="Resource_l0ch6"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"PlayAttackAnimation"
+
+[sub_resource type="Resource" id="Resource_5uvvi"]
+script = ExtResource("15_cyxff")
+target_entity_reference = SubResource("Resource_l0ch6")
+callable_id = &"travel"
+callable_data = SubResource("Resource_bsgyn")
+
+[sub_resource type="Resource" id="Resource_o2gi2"]
+script = ExtResource("20_bqdfc")
+state_name = &"Attack"
+signal_name = &"entered"
+
+[sub_resource type="Resource" id="Resource_s2f6d"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Attack"
+
+[sub_resource type="Resource" id="Resource_convk"]
+script = ExtResource("10_toij3")
+source_entity_reference = SubResource("Resource_s2f6d")
+signal_id = &"entered"
+signal_data = SubResource("Resource_o2gi2")
+
+[sub_resource type="Resource" id="Resource_aea7i"]
+script = ExtResource("18_wf6cm")
+entity_type = 2
+entity_name = &"target_state"
+
+[sub_resource type="Resource" id="Resource_us2ya"]
+script = ExtResource("4_f30wk")
+entity_reference = SubResource("Resource_aea7i")
+property_name = &"value"
+
+[sub_resource type="Resource" id="Resource_qcwgw"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_5uvvi")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"target_state": SubResource("Resource_us2ya")
+})
+name = &"entered__c::travel"
+graph_pos = Vector2(2380, 600)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_convk")]
+})
+
+[sub_resource type="Resource" id="Resource_gj00y"]
+script = ExtResource("19_lj5q4")
+behavior_name = &"DemoAnimationTreeStateMachineTravel"
+signal_relay_connector_name = &"travel"
+
+[sub_resource type="Resource" id="Resource_iyoao"]
+script = ExtResource("18_wf6cm")
+entity_type = 1
+entity_name = &"DemoAnimationTreeStateMachineTravel"
+
+[sub_resource type="Resource" id="Resource_sj463"]
+script = ExtResource("15_cyxff")
+target_entity_reference = SubResource("Resource_iyoao")
+callable_id = &"travel"
+callable_data = SubResource("Resource_gj00y")
+
+[sub_resource type="Resource" id="Resource_bvmrb"]
+script = ExtResource("20_bqdfc")
+state_name = &"Dead"
+signal_name = &"entered"
+
+[sub_resource type="Resource" id="Resource_ealgb"]
+script = ExtResource("18_wf6cm")
+entity_name = &"Dead"
+
+[sub_resource type="Resource" id="Resource_abwo7"]
+script = ExtResource("10_toij3")
+source_entity_reference = SubResource("Resource_ealgb")
+signal_id = &"entered"
+signal_data = SubResource("Resource_bvmrb")
+
+[sub_resource type="Resource" id="Resource_visqi"]
+script = ExtResource("18_wf6cm")
+entity_type = 2
+entity_name = &"target_state2"
+
+[sub_resource type="Resource" id="Resource_yasen"]
+script = ExtResource("4_f30wk")
+entity_reference = SubResource("Resource_visqi")
+property_name = &"value"
+
+[sub_resource type="Resource" id="Resource_ji1c0"]
+script = ExtResource("7_reatw")
+callable_target_data = SubResource("Resource_sj463")
+property_references = Dictionary[StringName, ExtResource("4_f30wk")]({
+&"target_state": SubResource("Resource_yasen")
+})
+name = &"entered__c::travel2"
+graph_pos = Vector2(1560, 1200)
+connected_signals = Dictionary[StringName, Array]({
+&"__bridge_callable": [SubResource("Resource_abwo7")]
 })
 
 [sub_resource type="Resource" id="Resource_w8fsp"]
@@ -1008,7 +1135,7 @@ script = ExtResource("6_lxrs7")
 godot_version = "4.6-stable (official)"
 plugin_version = "0.1.0-alpha"
 root_state = &"Sequence"
-editor_scroll_offset = Vector2(125.54248, 29.925781)
+editor_scroll_offset = Vector2(346.30652, 770.8739)
 editor_zoom = 0.7298981
 states = Dictionary[StringName, ExtResource("8_toij3")]({
 &"Alive": SubResource("Resource_toij3"),
@@ -1051,36 +1178,20 @@ parameters = Dictionary[StringName, ExtResource("5_vs6h4")]({
 &"max_speed": SubResource("Resource_04uid"),
 &"move_animation_state": SubResource("Resource_ow6vi"),
 &"player": SubResource("Resource_axx5h"),
+&"target_state": SubResource("Resource_12424"),
+&"target_state2": SubResource("Resource_iyj63"),
 &"terrain_movement_speed": SubResource("Resource_1dsbc")
 })
 signal_bridges = Dictionary[StringName, ExtResource("7_reatw")]({
 &"direction_not_set__c::travel": SubResource("Resource_wjbwm"),
 &"direction_set__c::travel": SubResource("Resource_8xr5w"),
+&"entered__c::travel": SubResource("Resource_qcwgw"),
+&"entered__c::travel2": SubResource("Resource_ji1c0"),
 &"player_attacked__c::select": SubResource("Resource_646jo"),
 &"player_found__c::select": SubResource("Resource_ffdno"),
 &"player_lost__c::select": SubResource("Resource_fw0k5"),
 &"timeout__c::select": SubResource("Resource_r8ofl")
 })
-
-[sub_resource type="GDScript" id="GDScript_1dsbc"]
-script/source = "@tool
-class_name SynapseDemoAnimationTreeStateMachineTravelBehavior
-extends SynapseBehavior
-
-@export var animation_tree: AnimationTree
-@export var target_state: String
-
-var _playback: AnimationNodeStateMachinePlayback
-
-static func get_category() -> StringName:
-	return CATEGORY_DEMOS
-
-func _state_machine_created() -> void:
-	_playback = animation_tree.get(\"parameters/playback\")
-
-func _unsuspend() -> void:
-	_playback.travel(target_state)
-"
 
 [node name="Slime" type="CharacterBody2D" unique_id=1658128313 groups=["enemies"]]
 collision_layer = 4
@@ -1154,9 +1265,8 @@ script = ExtResource("15_b12qb")
 
 [node name="DemoAnimationTreeStateMachineTravel" type="Node" parent="SlimeStateMachine" unique_id=188172875 node_paths=PackedStringArray("animation_tree")]
 process_mode = 4
-script = SubResource("GDScript_1dsbc")
+script = ExtResource("30_cyxff")
 animation_tree = NodePath("../../AnimationTree")
-target_state = "die"
 
 [node name="DemoRandomRoam2D" type="Node" parent="SlimeStateMachine" unique_id=1020747677 node_paths=PackedStringArray("character")]
 process_mode = 4
@@ -1221,9 +1331,8 @@ detector = NodePath("../../PlayerAttackArea2D")
 
 [node name="DemoAnimationTreeStateMachineTravel2" type="Node" parent="SlimeStateMachine" unique_id=1192101083 node_paths=PackedStringArray("animation_tree")]
 process_mode = 4
-script = SubResource("GDScript_1dsbc")
+script = ExtResource("30_cyxff")
 animation_tree = NodePath("../../AnimationTree")
-target_state = "Attack"
 
 [node name="@Node@78499" type="Node" parent="SlimeStateMachine" unique_id=1555211254 node_paths=PackedStringArray("animation_tree")]
 process_mode = 4
