@@ -5,7 +5,8 @@
 # Synapse
 **An extensible state machine framework for Godot with a graph-based user interface.**
 
-[View on Godot Asset Library](https://godotengine.org/asset-library/asset/5150)
+* [View on Godot Asset Library](https://godotengine.org/asset-library/asset/5150) (Godot <= 4.6)
+* [View on Godot Asset Store](https://store.godotengine.org/asset/gklompje/synapse-graph-based-state-machine/) (Godot 4.7+)
 
 <p align="center">
   <img src="./docs/media/graph_ui.gif" alt="Synapse graph UI in action" />
