@@ -45,19 +45,23 @@ between alpha versions.
 
 ## 🚀 Getting Started
 1. **Installation:**
-    * **Godot Asset Library (Recommended):**
-      * Click on the AssetLib tab at the top of the editor.
-      * Search for "Synapse" and click Download.
-      * Once downloaded, click Install. Ensure that the addons/synapse folder is selected.
-    * **Manual Installation (Alternative):**
-      * Download or clone this repository.
-      * Copy the `addons/synapse` folder into your project's `addons/` directory.
+	* **Godot Asset Library (Recommended, Godot 4.6):**
+		* Click on the AssetLib tab at the top of the editor.
+		* Search for "Synapse" and select "Synapse: Graph-Based State Machine".
+		* Click Download. Once downloaded, click Install. Ensure that the addons/synapse folder is selected.
+	* **Godot Asset Store (Recommended, Godot 4.7+):**
+		* Click on the Asset Store tab at the top of the editor.
+		* Search for "Synapse" and select "Synapse: Graph-Based State Machine".
+		* Click Download. When downloaded, click Install. Ensure that the addons/synapse folder is selected.
+	* **Manual Installation (Alternative):**
+		* Download or clone this repository.
+		* Copy the `addons/synapse` folder into your project's `addons/` directory.
 3. **Enable:** Go to `Project -> Project Settings -> Plugins` and enable Synapse.
 4. **Learn:** 
-    - Familiarize yourself with the [Core Concepts](docs/concepts.md).
-    - Follow the [Getting Started Guide](docs/getting_started/README.md).
-    - Explore the [Demos](demos/README.md).
-    - Read the [Documentation](docs/README.md).
+	- Familiarize yourself with the [Core Concepts](docs/concepts.md).
+	- Follow the [Getting Started Guide](docs/getting_started/README.md).
+	- Explore the [Demos](demos/README.md).
+	- Read the [Documentation](docs/README.md).
 
 ## 🗺️ Roadmap & Contributing
 - **View the Full Roadmap:** [ROADMAP.md](docs/ROADMAP.md)

@@ -16,17 +16,21 @@ is a great place to start if you aren't!)
 
 ### Instructions
 1. **Installation:**
-	* **Godot Asset Library (Recommended):**
-	  * Click on the AssetLib tab at the top of the editor.
-	  * Search for "Synapse" and click Download.
-	  * Once downloaded, click Install. Ensure that the addons/synapse folder is selected.
+	* **Godot Asset Library (Recommended, Godot 4.6):**
+		* Click on the AssetLib tab at the top of the editor.
+		* Search for "Synapse" and select "Synapse: Graph-Based State Machine".
+		* Click Download. Once downloaded, click Install. Ensure that the addons/synapse folder is selected.
+	* **Godot Asset Store (Recommended, Godot 4.7+):**
+		* Click on the Asset Store tab at the top of the editor.
+		* Search for "Synapse" and select "Synapse: Graph-Based State Machine".
+		* Click Download. When downloaded, click Install. Ensure that the addons/synapse folder is selected.
 	* **Manual Installation (Alternative):**
-	  * Download or clone this repository.
-	  * Copy the `addons/synapse` folder into your project's `addons/` directory.
+		* Download or clone this repository.
+		* Copy the `addons/synapse` folder into your project's `addons/` directory.
 2. **Enable:** Go to `Project -> Project Settings -> Plugins` and enable Synapse.
 3. **Core Concepts:** If you haven't already, give the [Core Concepts](../concepts.md) a quick read
 so you know what to expect.
-4. Download ([link](https://github.com/gklompje/godot-synapse/releases/download/v0.1.0-alpha/demos.zip))
+4. Download ([link](https://github.com/gklompje/godot-synapse/releases/download/v0.1.1-alpha/demos.zip))
 and extract the `demos` directory into your project- this guide uses some of their components.
 
 ### Hide Synapse Internal Classes (Recommended)
