@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://chkp6qtolydwd"]
+
+[ext_resource type="Script" uid="uid://bbmndrkwkffdh" path="res://demos/multiplayer/debug_client.gd" id="2_4ojqu"]
+[ext_resource type="PackedScene" uid="uid://ccb0o5huw1lc" path="res://demos/multiplayer/map.tscn" id="3_47g50"]
+[ext_resource type="Script" uid="uid://bjvl7popsg6yk" path="res://demos/multiplayer/rpc_bridge.gd" id="4_0wfsv"]
+[ext_resource type="Script" uid="uid://b15aaeitp6co7" path="res://demos/multiplayer/server.gd" id="8_8ffbm"]
+
+[node name="Server" type="Node2D" unique_id=356599772]
+script = ExtResource("8_8ffbm")
+
+[node name="SynapseMultiplayerDebugClient" type="Node" parent="." unique_id=1732805073]
+unique_name_in_owner = true
+script = ExtResource("2_4ojqu")
+client_name = "Server"
+client_color = Color(0, 1, 1, 1)
+metadata/_custom_type_script = "uid://bbmndrkwkffdh"
+
+[node name="Map" parent="." unique_id=1829847488 instance=ExtResource("3_47g50")]
+
+[node name="MultiplayerRoot" type="Node2D" parent="Map" unique_id=1036305615]
+unique_name_in_owner = true
+script = ExtResource("4_0wfsv")
+
+[node name="CharacterSpawner" type="MultiplayerSpawner" parent="Map/MultiplayerRoot" unique_id=938833178]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://c068lu73a18jd")
+spawn_path = NodePath("../Characters")
+
+[node name="Characters" type="Node2D" parent="Map/MultiplayerRoot" unique_id=9147231]

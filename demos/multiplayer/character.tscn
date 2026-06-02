@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://c068lu73a18jd"]
+
+[ext_resource type="Script" uid="uid://fsch08g0ybl2" path="res://demos/multiplayer/character.gd" id="1_0k510"]
+[ext_resource type="Texture2D" uid="uid://bg8s6lnc0nu5x" path="res://demos/assets/smiley.svg" id="1_58g6f"]
+[ext_resource type="Script" uid="uid://ceetsmex74c8w" path="res://addons/synapse/scripts/state_machine/state_machine.gd" id="1_kch84"]
+[ext_resource type="Script" uid="uid://c27ldfbuhep62" path="res://addons/synapse/scripts/resource_types/behavior_data.gd" id="2_58g6f"]
+[ext_resource type="Script" uid="uid://c83j5yoeja8v2" path="res://addons/synapse/scripts/resource_types/entity_property_reference_data.gd" id="3_1ni3b"]
+[ext_resource type="Script" uid="uid://dsew22n14vfvr" path="res://addons/synapse/scripts/resource_types/parameter_data.gd" id="4_o6xlq"]
+[ext_resource type="Script" uid="uid://c3pafal6u8bkj" path="res://addons/synapse/scripts/resource_types/state_machine_data.gd" id="5_at60r"]
+[ext_resource type="Script" uid="uid://0dnjgtqdcbcc" path="res://addons/synapse/scripts/parameters/input_action_parameter.gd" id="5_k84hx"]
+[ext_resource type="Script" uid="uid://dv7cyjk552llw" path="res://addons/synapse/scripts/parameters/vector2_parameter.gd" id="6_0k510"]
+[ext_resource type="Script" uid="uid://c2ra4mmq5hp37" path="res://addons/synapse/scripts/resource_types/signal_bridge_data.gd" id="6_k84hx"]
+[ext_resource type="Script" uid="uid://lupnfi3kylvf" path="res://addons/synapse/scripts/resource_types/state_data.gd" id="7_0k510"]
+[ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="7_k84hx"]
+[ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="8_moxio"]
+[ext_resource type="Script" uid="uid://c320j60gxoicp" path="res://demos/cletus_loves_apples/scripts/behaviors/update_vector_on_action_input.gd" id="11_moxio"]
+
+[sub_resource type="Resource" id="Resource_3nf45"]
+script = ExtResource("2_58g6f")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("DemoSmoothMotion2D")
+parameters = Dictionary[StringName, StringName]({
+&"acceleration": &"acceleration",
+&"deceleration": &"acceleration",
+&"max_speed": &"max_speed",
+&"movement_direction_normal": &"vector",
+&"terrain_movement_speed": &"terrain_movement_speed"
+})
+name = &"DemoSmoothMotion2D"
+graph_pos = Vector2(1160, -260)
+
+[sub_resource type="Resource" id="Resource_bwdxt"]
+script = ExtResource("2_58g6f")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("DemoUpdateVectorOnActionInput")
+parameters = Dictionary[StringName, StringName]({
+&"input_down": &"SynapseInputActionParameter4",
+&"input_left": &"SynapseInputActionParameter",
+&"input_right": &"SynapseInputActionParameter2",
+&"input_up": &"SynapseInputActionParameter3",
+&"vector": &"vector"
+})
+name = &"DemoUpdateVectorOnActionInput"
+graph_pos = Vector2(540, -260)
+
+[sub_resource type="Resource" id="Resource_rwd0w"]
+script = ExtResource("5_k84hx")
+value = &"ui_left"
+
+[sub_resource type="Resource" id="Resource_yi1do"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_rwd0w")
+name = &"SynapseInputActionParameter"
+graph_pos = Vector2(0, -700)
+
+[sub_resource type="Resource" id="Resource_2a04v"]
+script = ExtResource("5_k84hx")
+value = &"ui_right"
+
+[sub_resource type="Resource" id="Resource_yyxw6"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_2a04v")
+name = &"SynapseInputActionParameter2"
+graph_pos = Vector2(0, -540)
+
+[sub_resource type="Resource" id="Resource_7een0"]
+script = ExtResource("5_k84hx")
+value = &"ui_up"
+
+[sub_resource type="Resource" id="Resource_qemvw"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_7een0")
+name = &"SynapseInputActionParameter3"
+graph_pos = Vector2(0, -380)
+
+[sub_resource type="Resource" id="Resource_6sief"]
+script = ExtResource("5_k84hx")
+value = &"ui_down"
+
+[sub_resource type="Resource" id="Resource_swvhm"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_6sief")
+name = &"SynapseInputActionParameter4"
+graph_pos = Vector2(0, -220)
+
+[sub_resource type="Resource" id="Resource_0k510"]
+script = ExtResource("7_k84hx")
+value = 10000.0
+
+[sub_resource type="Resource" id="Resource_moxio"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_0k510")
+name = &"acceleration"
+graph_pos = Vector2(0, 360)
+
+[sub_resource type="Resource" id="Resource_pswt3"]
+script = ExtResource("7_k84hx")
+value = 500.0
+
+[sub_resource type="Resource" id="Resource_74vto"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_pswt3")
+name = &"max_speed"
+graph_pos = Vector2(0, 520)
+
+[sub_resource type="Resource" id="Resource_1y8u2"]
+script = ExtResource("7_k84hx")
+value = 1.0
+
+[sub_resource type="Resource" id="Resource_7265j"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_1y8u2")
+name = &"terrain_movement_speed"
+graph_pos = Vector2(0, 680)
+
+[sub_resource type="Resource" id="Resource_c3xme"]
+script = ExtResource("6_0k510")
+
+[sub_resource type="Resource" id="Resource_vnugn"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_c3xme")
+name = &"vector"
+graph_pos = Vector2(940, -260)
+
+[sub_resource type="Resource" id="Resource_82pkc"]
+script = ExtResource("7_0k510")
+behavior_names = Array[StringName]([&"DemoSmoothMotion2D", &"DemoUpdateVectorOnActionInput"])
+name = &"State"
+graph_pos = Vector2(280, 0)
+
+[sub_resource type="Resource" id="Resource_8gngt"]
+script = ExtResource("5_at60r")
+godot_version = "4.6.3-stable (official)"
+plugin_version = "0.1.1-alpha"
+root_state = &"State"
+editor_scroll_offset = Vector2(-623.1847, 28.00354)
+editor_zoom = 0.68301314
+states = Dictionary[StringName, ExtResource("7_0k510")]({
+&"State": SubResource("Resource_82pkc")
+})
+behaviors = Dictionary[StringName, ExtResource("2_58g6f")]({
+&"DemoSmoothMotion2D": SubResource("Resource_3nf45"),
+&"DemoUpdateVectorOnActionInput": SubResource("Resource_bwdxt")
+})
+parameters = Dictionary[StringName, ExtResource("4_o6xlq")]({
+&"SynapseInputActionParameter": SubResource("Resource_yi1do"),
+&"SynapseInputActionParameter2": SubResource("Resource_yyxw6"),
+&"SynapseInputActionParameter3": SubResource("Resource_qemvw"),
+&"SynapseInputActionParameter4": SubResource("Resource_swvhm"),
+&"acceleration": SubResource("Resource_moxio"),
+&"max_speed": SubResource("Resource_74vto"),
+&"terrain_movement_speed": SubResource("Resource_7265j"),
+&"vector": SubResource("Resource_vnugn")
+})
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0k510"]
+radius = 62.03225
+
+[node name="Character" type="CharacterBody2D" unique_id=1158741979]
+script = ExtResource("1_0k510")
+
+[node name="SynapseStateMachine" type="Node" parent="." unique_id=1265201410]
+script = ExtResource("1_kch84")
+data = SubResource("Resource_8gngt")
+metadata/_custom_type_script = "uid://ceetsmex74c8w"
+
+[node name="DemoSmoothMotion2D" type="Node" parent="SynapseStateMachine" unique_id=777174843 node_paths=PackedStringArray("character")]
+process_mode = 4
+script = ExtResource("8_moxio")
+character = NodePath("../..")
+
+[node name="DemoUpdateVectorOnActionInput" type="Node" parent="SynapseStateMachine" unique_id=2058535949]
+process_mode = 4
+script = ExtResource("11_moxio")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1363195864]
+unique_name_in_owner = true
+texture = ExtResource("1_58g6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=424286759]
+shape = SubResource("CircleShape2D_0k510")
