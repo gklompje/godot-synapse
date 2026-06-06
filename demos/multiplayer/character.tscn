@@ -14,6 +14,19 @@
 [ext_resource type="Script" uid="uid://2qeph5d2gamy" path="res://addons/synapse/scripts/parameters/float_parameter.gd" id="7_k84hx"]
 [ext_resource type="Script" uid="uid://db44f2cl1gm35" path="res://demos/cletus_loves_apples/scripts/behaviors/smooth_motion2d.gd" id="8_moxio"]
 [ext_resource type="Script" uid="uid://c320j60gxoicp" path="res://demos/cletus_loves_apples/scripts/behaviors/update_vector_on_action_input.gd" id="11_moxio"]
+[ext_resource type="Script" uid="uid://byvvh7btp7yeu" path="res://demos/multiplayer/position_recorder_behavior.gd" id="14_moxio"]
+[ext_resource type="Script" uid="uid://c67v4pwqumnmu" path="res://demos/multiplayer/position_receiver_behavior.gd" id="15_3nf45"]
+
+[sub_resource type="Resource" id="Resource_1kmye"]
+script = ExtResource("2_58g6f")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("DemoPositionRecorder2D")
+parameters = Dictionary[StringName, StringName]({
+&"position": &"position"
+})
+name = &"DemoPositionRecorder2D"
+graph_pos = Vector2(540, -460)
 
 [sub_resource type="Resource" id="Resource_3nf45"]
 script = ExtResource("2_58g6f")
@@ -44,6 +57,17 @@ parameters = Dictionary[StringName, StringName]({
 })
 name = &"DemoUpdateVectorOnActionInput"
 graph_pos = Vector2(540, -260)
+
+[sub_resource type="Resource" id="Resource_mc1wr"]
+script = ExtResource("2_58g6f")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("DemoPositionReceiver2D")
+parameters = Dictionary[StringName, StringName]({
+&"position": &"position"
+})
+name = &"DemoPositionReceiver2D"
+graph_pos = Vector2(1265.5668, -493.22018)
 
 [sub_resource type="Resource" id="Resource_rwd0w"]
 script = ExtResource("5_k84hx")
@@ -105,6 +129,16 @@ parameter = SubResource("Resource_pswt3")
 name = &"max_speed"
 graph_pos = Vector2(0, 520)
 
+[sub_resource type="Resource" id="Resource_oe2oe"]
+script = ExtResource("6_0k510")
+replication_mode = 2
+
+[sub_resource type="Resource" id="Resource_6qi7s"]
+script = ExtResource("4_o6xlq")
+parameter = SubResource("Resource_oe2oe")
+name = &"position"
+graph_pos = Vector2(940, -460)
+
 [sub_resource type="Resource" id="Resource_1y8u2"]
 script = ExtResource("7_k84hx")
 value = 1.0
@@ -117,6 +151,7 @@ graph_pos = Vector2(0, 680)
 
 [sub_resource type="Resource" id="Resource_c3xme"]
 script = ExtResource("6_0k510")
+replication_mode = 2
 
 [sub_resource type="Resource" id="Resource_vnugn"]
 script = ExtResource("4_o6xlq")
@@ -126,7 +161,7 @@ graph_pos = Vector2(940, -260)
 
 [sub_resource type="Resource" id="Resource_82pkc"]
 script = ExtResource("7_0k510")
-behavior_names = Array[StringName]([&"DemoSmoothMotion2D", &"DemoUpdateVectorOnActionInput"])
+behavior_names = Array[StringName]([&"DemoSmoothMotion2D", &"DemoUpdateVectorOnActionInput", &"DemoPositionRecorder2D", &"DemoPositionReceiver2D"])
 name = &"State"
 graph_pos = Vector2(280, 0)
 
@@ -135,12 +170,14 @@ script = ExtResource("5_at60r")
 godot_version = "4.6.3-stable (official)"
 plugin_version = "0.1.1-alpha"
 root_state = &"State"
-editor_scroll_offset = Vector2(-623.1847, 28.00354)
-editor_zoom = 0.68301314
+editor_scroll_offset = Vector2(80.00488, -281)
+editor_zoom = 0.5483832
 states = Dictionary[StringName, ExtResource("7_0k510")]({
 &"State": SubResource("Resource_82pkc")
 })
 behaviors = Dictionary[StringName, ExtResource("2_58g6f")]({
+&"DemoPositionReceiver2D": SubResource("Resource_mc1wr"),
+&"DemoPositionRecorder2D": SubResource("Resource_1kmye"),
 &"DemoSmoothMotion2D": SubResource("Resource_3nf45"),
 &"DemoUpdateVectorOnActionInput": SubResource("Resource_bwdxt")
 })
@@ -151,6 +188,7 @@ parameters = Dictionary[StringName, ExtResource("4_o6xlq")]({
 &"SynapseInputActionParameter4": SubResource("Resource_swvhm"),
 &"acceleration": SubResource("Resource_moxio"),
 &"max_speed": SubResource("Resource_74vto"),
+&"position": SubResource("Resource_6qi7s"),
 &"terrain_movement_speed": SubResource("Resource_7265j"),
 &"vector": SubResource("Resource_vnugn")
 })
@@ -159,6 +197,7 @@ parameters = Dictionary[StringName, ExtResource("4_o6xlq")]({
 radius = 62.03225
 
 [node name="Character" type="CharacterBody2D" unique_id=1158741979]
+collision_layer = 0
 script = ExtResource("1_0k510")
 
 [node name="SynapseStateMachine" type="Node" parent="." unique_id=1265201410]
@@ -174,6 +213,18 @@ character = NodePath("../..")
 [node name="DemoUpdateVectorOnActionInput" type="Node" parent="SynapseStateMachine" unique_id=2058535949]
 process_mode = 4
 script = ExtResource("11_moxio")
+multiplayer_execution_mode = 3
+
+[node name="DemoPositionRecorder2D" type="Node" parent="SynapseStateMachine" unique_id=1851428428 node_paths=PackedStringArray("node2d")]
+process_mode = 4
+script = ExtResource("14_moxio")
+node2d = NodePath("../..")
+multiplayer_execution_mode = 3
+
+[node name="DemoPositionReceiver2D" type="Node" parent="SynapseStateMachine" unique_id=1543471043 node_paths=PackedStringArray("node2d")]
+process_mode = 4
+script = ExtResource("15_3nf45")
+node2d = NodePath("../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1363195864]
 unique_name_in_owner = true

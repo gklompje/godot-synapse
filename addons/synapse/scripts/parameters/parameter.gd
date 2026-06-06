@@ -38,7 +38,22 @@
 class_name SynapseParameter
 extends Resource
 
+enum ReplicationMode {
+	## Not replicated. Only updated by the local state machine.
+	LOCAL,
+	## Only replicated by the server.
+	SERVER_AUTH,
+	## Replicated by the owning client, but the value may be rejected by server-side validation.
+	CLIENT_PREDICTED,
+	## Replicated by the owning client.
+	CLIENT_AUTH,
+}
+
+## The parameters's unique name within its owning state machine.
 @export var name: StringName
+
+## How this parameter's value is replicated to multiplayer peers.
+@export var replication_mode: ReplicationMode = ReplicationMode.LOCAL
 
 ## Used at runtime as a target for signal bridges to set the value, and when loading saved data.
 func set_value(new_value: Variant) -> void:
@@ -57,3 +72,13 @@ func get_value_for_saving() -> Variant:
 @warning_ignore("unused_parameter")
 func set_from_saved_value(saved_value: Variant, state_machine: SynapseStateMachine) -> void:
 	set_value(saved_value)
+
+## Called by the state machine to determine whether or not this parameter's replication mode
+## indicates that replication updates must be sent to multiplayer peers.
+func should_replicate(is_server: bool, is_owner: bool) -> bool:
+	match replication_mode:
+		ReplicationMode.SERVER_AUTH:
+			return is_server
+		ReplicationMode.CLIENT_PREDICTED, SynapseParameter.ReplicationMode.CLIENT_AUTH:
+			return is_owner and not is_server
+	return false

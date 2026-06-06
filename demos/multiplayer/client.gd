@@ -24,11 +24,8 @@ func _ready() -> void:
 	# register
 	debug_client.client_color = color
 	debug_client.client_name = "Client %d" % [multiplayer.multiplayer_peer.get_unique_id()]
-	debug_client.connected.connect(_on_debug_client_connected, CONNECT_ONE_SHOT)
-	multiplayer.peer_connected.connect(_on_multiplayer_peer_connected.bind(color))
-
-func _on_debug_client_connected() -> void:
 	debug_client.debug_log("Connected")
+	multiplayer.peer_connected.connect(_on_multiplayer_peer_connected.bind(color))
 
 func _on_multiplayer_peer_connected(peer_id: int, color: Color) -> void:
 	if peer_id != 1:

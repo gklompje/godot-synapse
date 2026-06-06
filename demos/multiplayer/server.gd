@@ -18,9 +18,6 @@ func _ready() -> void:
 		return
 	multiplayer.multiplayer_peer = peer
 
-	debug_client.connected.connect(_on_debug_client_connected, CONNECT_ONE_SHOT)
-
-func _on_debug_client_connected() -> void:
 	debug_client.debug_log("Initialized")
 
 func _on_client_connected(id: int, color: Color) -> void:

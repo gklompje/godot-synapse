@@ -56,6 +56,22 @@ const CATEGORY_DEMOS := &"Demos"
 const CATEGORY_MATH := &"Math"
 const CATEGORY_UTILITY := &"Utility"
 
+enum MultiplayerExecutionMode {
+	## Runs on Server, Owning Client, and Proxies (e.g., VFX).
+	EVERYONE,
+	## Runs only on the peer that owns the state machine.
+	AUTHORITY_ONLY,
+	## Runs only on the server.
+	SERVER_ONLY,
+	## Runs only on the client controlling this state machine.
+	CLIENT_OWNER_ONLY,
+	## Runs only on other clients observing this state machine.
+	PROXIES_ONLY
+}
+
+## Determines if/how this behavior is enabled across network peers (default [code]EVERYONE[/code]).
+@export var multiplayer_execution_mode: MultiplayerExecutionMode = MultiplayerExecutionMode.EVERYONE
+
 ## The state machine to which this behavior belongs. Set by the state machine editor, or during
 ## state machine initialization. Don't set directly.
 var state_machine: SynapseStateMachine:
@@ -348,6 +364,24 @@ func _suspend() -> void:
 func unsuspend() -> void:
 	if not _suspended:
 		return
+
+	if state_machine and multiplayer_execution_mode != MultiplayerExecutionMode.EVERYONE:
+		var is_server := state_machine.multiplayer.is_server()
+		var is_auth := state_machine.is_multiplayer_authority()
+		match multiplayer_execution_mode:
+			MultiplayerExecutionMode.AUTHORITY_ONLY:
+				if not is_auth:
+					return
+			MultiplayerExecutionMode.SERVER_ONLY:
+				if not is_server:
+					return
+			MultiplayerExecutionMode.CLIENT_OWNER_ONLY:
+				if is_server or not is_auth:
+					return
+			MultiplayerExecutionMode.PROXIES_ONLY:
+				if is_server or is_auth:
+					return
+
 	_suspended = false
 	process_mode = PROCESS_MODE_INHERIT
 	_unsuspend()

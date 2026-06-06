@@ -26,4 +26,5 @@ func _spawn_character(data: Variant) -> Node:
 	@warning_ignore("unsafe_cast")
 	character.set_multiplayer_authority(data["peer_id"] as int)
 	character.color = data["color"]
+	character.name = "CharacterForPeer" + str(data["peer_id"])
 	return character
