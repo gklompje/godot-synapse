@@ -57,15 +57,15 @@ const CATEGORY_MATH := &"Math"
 const CATEGORY_UTILITY := &"Utility"
 
 enum MultiplayerExecutionMode {
-	## Runs on Server, Owning Client, and Proxies (e.g., VFX).
+	## Executes on all peers.
 	EVERYONE,
-	## Runs only on the peer that owns the state machine.
+	## Executes only on the peer that is the multiplayer authority for the owning state machine.
 	AUTHORITY_ONLY,
-	## Runs only on the server.
+	## Executes only on the server.
 	SERVER_ONLY,
-	## Runs only on the client controlling this state machine.
+	## Executes only on the client that is the multiplayer authority for the owning state machine.
 	CLIENT_OWNER_ONLY,
-	## Runs only on other clients observing this state machine.
+	## Executes only clients that are *not* the multiplayer authority for the owning state machine.
 	PROXIES_ONLY
 }
 

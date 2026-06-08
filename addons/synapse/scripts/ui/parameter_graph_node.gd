@@ -46,6 +46,20 @@ func setup_for(parameter_data: SynapseParameterData, undo_redo: EditorUndoRedoMa
 	@warning_ignore("unsafe_cast")
 	link_script(parameter_data.parameter.get_script() as Script)
 
+	var _replication_mode_button := OptionButton.new()
+	_replication_mode_button.text = "R"
+	_replication_mode_button.tooltip_text = "Replication mode"
+	_replication_mode_button.add_item("Local (none)", SynapseParameter.ReplicationMode.LOCAL)
+	_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.LOCAL), "Not replicated. Only updated by the local state machine.")
+	_replication_mode_button.add_item("Server", SynapseParameter.ReplicationMode.SERVER_AUTH)
+	_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.SERVER_AUTH), "Only replicated by the server.")
+	_replication_mode_button.add_item("Client (validated)", SynapseParameter.ReplicationMode.CLIENT_PREDICTED)
+	_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.CLIENT_PREDICTED), "Replicated by the owning client, but the value may be rejected by server-side validation.")
+	_replication_mode_button.add_item("Client (authoritative)", SynapseParameter.ReplicationMode.CLIENT_AUTH)
+	_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.CLIENT_AUTH), "Replicated by the owning client.")
+	add_title_button(_replication_mode_button)
+	_replication_mode_button.selected = _replication_mode_button.get_item_index(parameter_data.parameter.replication_mode)
+	_replication_mode_button.item_selected.connect(_on_replication_mode_selected)
 	_export_button = Button.new()
 	_export_button.tooltip_text = "Toggle visibility in inspector and other state machines"
 	add_title_button(_export_button)
@@ -116,3 +130,8 @@ func _update_visibility_icon(exposed: bool) -> void:
 		_export_button.icon = SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.UI_VISIBLE)
 	else:
 		_export_button.icon = SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.UI_HIDDEN)
+
+func _on_replication_mode_selected(mode: SynapseParameter.ReplicationMode) -> void:
+	# TODO: undo/redo
+	_proxy.parameter_data.parameter.replication_mode = mode
+	_proxy.parameter_data.parameter.emit_changed()
