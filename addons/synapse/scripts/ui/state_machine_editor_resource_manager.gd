@@ -37,6 +37,11 @@ class UIDs:
 class Icons:
 	enum {
 		BEHAVIOR,
+		BEHAVIOR_EXECUTION_EVERYONE,
+		BEHAVIOR_EXECUTION_AUTHORITY_ONLY,
+		BEHAVIOR_EXECUTION_SERVER_ONLY,
+		BEHAVIOR_EXECUTION_CLIENT_OWNER_ONLY,
+		BEHAVIOR_EXECUTION_PROXIES_ONLY,
 		PARAMETER,
 		PARAMETER_REPLICATION_LOCAL,
 		PARAMETER_REPLICATION_SERVER,
@@ -65,6 +70,16 @@ class Icons:
 		match icon:
 			BEHAVIOR:
 				return load("uid://c1mjn5rsw7v6a")
+			BEHAVIOR_EXECUTION_EVERYONE:
+				return load("uid://d4kmgu6h4046t")
+			BEHAVIOR_EXECUTION_AUTHORITY_ONLY:
+				return load("uid://dujfdcpgh1n4")
+			BEHAVIOR_EXECUTION_SERVER_ONLY:
+				return load("uid://dalh370f68qh1")
+			BEHAVIOR_EXECUTION_CLIENT_OWNER_ONLY:
+				return load("uid://0qg4nn641a86")
+			BEHAVIOR_EXECUTION_PROXIES_ONLY:
+				return load("uid://rf0omcubyndv")
 			PARAMETER:
 				return load("uid://r0bf3np5qisi")
 			PARAMETER_REPLICATION_LOCAL:

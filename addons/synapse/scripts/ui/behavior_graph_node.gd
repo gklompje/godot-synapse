@@ -4,6 +4,7 @@ extends SynapseStateMachineEditorGraphNode
 
 const SLOT_OWNER_STATE := &"owner state"
 
+var _execution_mode_button: OptionButton
 var _parameter_value_defs: Dictionary[StringName, Dictionary] = {}
 
 func setup_for(behavior_data: SynapseBehaviorData, state_machine: SynapseStateMachine) -> void:
@@ -11,6 +12,27 @@ func setup_for(behavior_data: SynapseBehaviorData, state_machine: SynapseStateMa
 	if not behavior:
 		push_error("Unable to locate behavior at ", behavior_data.node_path)
 		return
+
+	if state_machine.multiplayer_sync_enabled: # TODO: trigger when changed in the inspector (just show/hide)
+		_execution_mode_button = OptionButton.new()
+		_execution_mode_button.text = "Execution mode"
+		_execution_mode_button.tooltip_text = "Determines if/how this behavior is enabled across network peers."
+		_execution_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.BEHAVIOR_EXECUTION_EVERYONE), "", SynapseBehavior.MultiplayerExecutionMode.EVERYONE)
+		_execution_mode_button.set_item_tooltip(_execution_mode_button.get_item_index(SynapseBehavior.MultiplayerExecutionMode.EVERYONE), "Executes on all peers.")
+		_execution_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.BEHAVIOR_EXECUTION_AUTHORITY_ONLY), "", SynapseBehavior.MultiplayerExecutionMode.AUTHORITY_ONLY)
+		_execution_mode_button.set_item_tooltip(_execution_mode_button.get_item_index(SynapseBehavior.MultiplayerExecutionMode.AUTHORITY_ONLY), "Executes only on the peer that is the multiplayer authority for the owning state machine.")
+		_execution_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.BEHAVIOR_EXECUTION_SERVER_ONLY), "", SynapseBehavior.MultiplayerExecutionMode.SERVER_ONLY)
+		_execution_mode_button.set_item_tooltip(_execution_mode_button.get_item_index(SynapseBehavior.MultiplayerExecutionMode.SERVER_ONLY), "Executes only on the server.")
+		_execution_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.BEHAVIOR_EXECUTION_CLIENT_OWNER_ONLY), "", SynapseBehavior.MultiplayerExecutionMode.CLIENT_OWNER_ONLY)
+		_execution_mode_button.set_item_tooltip(_execution_mode_button.get_item_index(SynapseBehavior.MultiplayerExecutionMode.CLIENT_OWNER_ONLY), "Executes only on the client that is the multiplayer authority for the owning state machine.")
+		_execution_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.BEHAVIOR_EXECUTION_PROXIES_ONLY), "", SynapseBehavior.MultiplayerExecutionMode.PROXIES_ONLY)
+		_execution_mode_button.set_item_tooltip(_execution_mode_button.get_item_index(SynapseBehavior.MultiplayerExecutionMode.PROXIES_ONLY), "Executes only clients that are *not* the multiplayer authority for the owning state machine.")
+		add_title_button(_execution_mode_button)
+		_execution_mode_button.selected = _execution_mode_button.get_item_index(behavior.multiplayer_execution_mode)
+		_execution_mode_button.item_selected.connect(_on_execution_mode_selected.bind(behavior))
+
+		EditorInterface.get_inspector().property_edited.connect(_on_inspector_property_edited.bind(behavior))
+
 	@warning_ignore("unsafe_cast")
 	var script := behavior.get_script() as Script
 	if behavior.scene_file_path.is_empty():
@@ -57,3 +79,20 @@ func get_parameter_value_info(slot_name: StringName) -> Dictionary:
 
 func get_entity_type() -> SynapseStateMachineData.EntityType:
 	return SynapseStateMachineData.EntityType.BEHAVIOR
+
+func _on_execution_mode_selected(mode: SynapseBehavior.MultiplayerExecutionMode, behavior: SynapseBehavior) -> void:
+	# TODO: undo/redo
+	behavior.multiplayer_execution_mode = mode
+	if is_same(EditorInterface.get_inspector().get_edited_object(), behavior):
+		behavior.notify_property_list_changed()
+		EditorInterface.inspect_object(behavior)
+
+func _on_inspector_property_edited(property_name: String, behavior: SynapseBehavior) -> void:
+	if property_name != "multiplayer_execution_mode":
+		return
+
+	if not is_same(EditorInterface.get_inspector().get_edited_object(), behavior):
+		return
+
+	if _execution_mode_button:
+		_execution_mode_button.selected = _execution_mode_button.get_item_index(behavior.multiplayer_execution_mode)
