@@ -38,7 +38,7 @@ signal data_set
 ## multiplayer synchronization using Godot's high-level multiplayer API when connected to peers.
 ## Disable this if you don't want to synchronize this state machine, or if you are using a custom
 ## multiplayer synchronization method.
-@export var multiplayer_sync_enabled := true
+@export var multiplayer_sync_enabled := false
 
 var is_created := false
 var root: SynapseState

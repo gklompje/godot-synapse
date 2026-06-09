@@ -17,6 +17,17 @@
 [ext_resource type="Script" uid="uid://byvvh7btp7yeu" path="res://demos/multiplayer/position_recorder_behavior.gd" id="14_moxio"]
 [ext_resource type="Script" uid="uid://c67v4pwqumnmu" path="res://demos/multiplayer/position_receiver_behavior.gd" id="15_3nf45"]
 
+[sub_resource type="Resource" id="Resource_mc1wr"]
+script = ExtResource("2_58g6f")
+owner_state_name = &"State"
+managed = true
+node_path = NodePath("DemoPositionReceiver2D")
+parameters = Dictionary[StringName, StringName]({
+&"position": &"position"
+})
+name = &"DemoPositionReceiver2D"
+graph_pos = Vector2(1265.5668, -493.22018)
+
 [sub_resource type="Resource" id="Resource_1kmye"]
 script = ExtResource("2_58g6f")
 owner_state_name = &"State"
@@ -41,7 +52,7 @@ parameters = Dictionary[StringName, StringName]({
 &"terrain_movement_speed": &"terrain_movement_speed"
 })
 name = &"DemoSmoothMotion2D"
-graph_pos = Vector2(1160, -260)
+graph_pos = Vector2(1260, -260)
 
 [sub_resource type="Resource" id="Resource_bwdxt"]
 script = ExtResource("2_58g6f")
@@ -57,17 +68,6 @@ parameters = Dictionary[StringName, StringName]({
 })
 name = &"DemoUpdateVectorOnActionInput"
 graph_pos = Vector2(540, -260)
-
-[sub_resource type="Resource" id="Resource_mc1wr"]
-script = ExtResource("2_58g6f")
-owner_state_name = &"State"
-managed = true
-node_path = NodePath("DemoPositionReceiver2D")
-parameters = Dictionary[StringName, StringName]({
-&"position": &"position"
-})
-name = &"DemoPositionReceiver2D"
-graph_pos = Vector2(1265.5668, -493.22018)
 
 [sub_resource type="Resource" id="Resource_rwd0w"]
 script = ExtResource("5_k84hx")
@@ -131,7 +131,7 @@ graph_pos = Vector2(0, 520)
 
 [sub_resource type="Resource" id="Resource_oe2oe"]
 script = ExtResource("6_0k510")
-replication_mode = 2
+replication_mode = 3
 
 [sub_resource type="Resource" id="Resource_6qi7s"]
 script = ExtResource("4_o6xlq")
@@ -151,7 +151,7 @@ graph_pos = Vector2(0, 680)
 
 [sub_resource type="Resource" id="Resource_c3xme"]
 script = ExtResource("6_0k510")
-replication_mode = 2
+replication_mode = 3
 
 [sub_resource type="Resource" id="Resource_vnugn"]
 script = ExtResource("4_o6xlq")
@@ -170,8 +170,8 @@ script = ExtResource("5_at60r")
 godot_version = "4.6.3-stable (official)"
 plugin_version = "0.1.1-alpha"
 root_state = &"State"
-editor_scroll_offset = Vector2(80.00488, -281)
-editor_zoom = 0.5483832
+editor_scroll_offset = Vector2(-130.3924, -355.67676)
+editor_zoom = 0.799462
 states = Dictionary[StringName, ExtResource("7_0k510")]({
 &"State": SubResource("Resource_82pkc")
 })
@@ -203,6 +203,7 @@ script = ExtResource("1_0k510")
 [node name="SynapseStateMachine" type="Node" parent="." unique_id=1265201410]
 script = ExtResource("1_kch84")
 data = SubResource("Resource_8gngt")
+multiplayer_sync_enabled = true
 metadata/_custom_type_script = "uid://ceetsmex74c8w"
 
 [node name="DemoSmoothMotion2D" type="Node" parent="SynapseStateMachine" unique_id=777174843 node_paths=PackedStringArray("character")]

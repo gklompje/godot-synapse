@@ -38,6 +38,10 @@ class Icons:
 	enum {
 		BEHAVIOR,
 		PARAMETER,
+		PARAMETER_REPLICATION_LOCAL,
+		PARAMETER_REPLICATION_SERVER,
+		PARAMETER_REPLICATION_CLIENT_PREDICTED,
+		PARAMETER_REPLICATION_CLIENT_AUTH,
 		SIGNAL_BRIDGE,
 		STATE_MACHINE,
 		STATE_ROOT,
@@ -63,6 +67,14 @@ class Icons:
 				return load("uid://c1mjn5rsw7v6a")
 			PARAMETER:
 				return load("uid://r0bf3np5qisi")
+			PARAMETER_REPLICATION_LOCAL:
+				return load("uid://ceo0o4ednx8po")
+			PARAMETER_REPLICATION_SERVER:
+				return load("uid://diuuh68opsnur")
+			PARAMETER_REPLICATION_CLIENT_PREDICTED:
+				return load("uid://cdbkbar1uevs8")
+			PARAMETER_REPLICATION_CLIENT_AUTH:
+				return load("uid://cys17gjltcpgn")
 			SIGNAL_BRIDGE:
 				return load("uid://cjtjo2ad7afpv")
 			STATE_MACHINE:
