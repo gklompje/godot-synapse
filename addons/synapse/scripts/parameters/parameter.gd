@@ -66,12 +66,27 @@ func set_value(new_value: Variant) -> void:
 func get_value_for_saving() -> Variant:
 	return get(&"value")
 
+## Called by the state machine to retrieve this parameter's value for syncing to multiplayer peers.
+## [br][br]
+## Calls [method get_value_for_saving] by default. Override this method to provide a value suitable
+## for wire transmission if this parameter's value is not usable as-is.
+func get_value_for_multiplayer_sync() -> Variant:
+	return get_value_for_saving()
+
 ## Called by the state machine to restore a previously saved value returned by
 ## [method get_value_for_saving].[br][br]
 ## The default implementation calls [method set_value] directly.
 @warning_ignore("unused_parameter")
 func set_from_saved_value(saved_value: Variant, state_machine: SynapseStateMachine) -> void:
 	set_value(saved_value)
+
+## Called by the state machine when syncing this parameter from a multiplayer peer's
+## [method get_value_for_multiplayer_sync].[br][br]
+## The default implementation calls [method set_from_saved_value]. Override this method if you
+## have a custom implementation of [method get_value_for_multiplayer_sync].
+@warning_ignore("unused_parameter")
+func set_from_multiplayer_sync_value(sync_value: Variant, state_machine: SynapseStateMachine) -> void:
+	set_from_saved_value(sync_value, state_machine)
 
 ## Called by the state machine to determine whether or not this parameter's replication mode
 ## indicates that replication updates must be sent to multiplayer peers.

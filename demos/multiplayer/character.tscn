@@ -26,7 +26,7 @@ parameters = Dictionary[StringName, StringName]({
 &"position": &"position"
 })
 name = &"DemoPositionReceiver2D"
-graph_pos = Vector2(1265.5668, -493.22018)
+graph_pos = Vector2(1380, -480)
 
 [sub_resource type="Resource" id="Resource_1kmye"]
 script = ExtResource("2_58g6f")
@@ -52,7 +52,7 @@ parameters = Dictionary[StringName, StringName]({
 &"terrain_movement_speed": &"terrain_movement_speed"
 })
 name = &"DemoSmoothMotion2D"
-graph_pos = Vector2(1260, -260)
+graph_pos = Vector2(1380, -260)
 
 [sub_resource type="Resource" id="Resource_bwdxt"]
 script = ExtResource("2_58g6f")
@@ -131,13 +131,13 @@ graph_pos = Vector2(0, 520)
 
 [sub_resource type="Resource" id="Resource_oe2oe"]
 script = ExtResource("6_0k510")
-replication_mode = 3
+replication_mode = 2
 
 [sub_resource type="Resource" id="Resource_6qi7s"]
 script = ExtResource("4_o6xlq")
 parameter = SubResource("Resource_oe2oe")
 name = &"position"
-graph_pos = Vector2(940, -460)
+graph_pos = Vector2(1060, -460)
 
 [sub_resource type="Resource" id="Resource_1y8u2"]
 script = ExtResource("7_k84hx")
@@ -157,7 +157,7 @@ replication_mode = 3
 script = ExtResource("4_o6xlq")
 parameter = SubResource("Resource_c3xme")
 name = &"vector"
-graph_pos = Vector2(940, -260)
+graph_pos = Vector2(1060, -260)
 
 [sub_resource type="Resource" id="Resource_82pkc"]
 script = ExtResource("7_0k510")
@@ -170,8 +170,8 @@ script = ExtResource("5_at60r")
 godot_version = "4.6.3-stable (official)"
 plugin_version = "0.1.1-alpha"
 root_state = &"State"
-editor_scroll_offset = Vector2(-130.3924, -355.67676)
-editor_zoom = 0.799462
+editor_scroll_offset = Vector2(-97.31232, -454.0019)
+editor_zoom = 0.72678363
 states = Dictionary[StringName, ExtResource("7_0k510")]({
 &"State": SubResource("Resource_82pkc")
 })

@@ -61,9 +61,14 @@ func exit() -> void:
 ## States [b]should not[/b] enter/exit themselves during saving/loading, as that is managed by the
 ## state machine.[br][br]
 ## See [method SynapseStateMachine.get_save_data] for more details on saving.
-@warning_ignore("unused_parameter")
 func get_save_data() -> Dictionary:
 	return {}
+
+## Returns a dictionary containing this state's multiplayer peer synchronization data.[br][br]
+## The default implementation calls [method get_save_data]. Custom states can override this method
+## to provide different data for synchronization versus saving.
+func get_sync_data() -> Dictionary:
+	return get_save_data()
 
 ## Loads the given save data created by [method get_save_data].[br][br]
 ## Called automatically when the state machine loads from its save. States [b]should not[/b]
@@ -72,3 +77,10 @@ func get_save_data() -> Dictionary:
 @warning_ignore("unused_parameter")
 func load_save_data(save_data: Dictionary) -> void:
 	pass
+
+## Applies synchronization data received from a multiplayer peer's [method get_save_data].[br][br]
+## The default implementation calls [method load_save_data]. Custom states can override this method
+## to handle multiplayer peer synchronization differently to loading saved data.
+@warning_ignore("unused_parameter")
+func apply_sync_data(sync_data: Dictionary) -> void:
+	load_save_data(sync_data)
