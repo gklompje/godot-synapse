@@ -18,7 +18,7 @@ const SAVE_DATA_PARAMETER_VALUE := &"parameters" # FIXME: "value" (needs migrati
 const SYNC_DATA_STATE_MACHINE_ACTIVE = &"active"
 const SYNC_DATA_STATES := &"states"
 const SYNC_DATA_PARAMETERS := &"parameters"
-const SYNC_DATA_PARAMETER_VALUE := &"parameters"
+const SYNC_DATA_PARAMETER_VALUE := &"value"
 
 signal pre_created
 signal created
@@ -154,6 +154,17 @@ func is_active(state_name: StringName) -> bool:
 		return state.active
 	return false
 
+func get_runtime_object_from(ref: SynapseEntityReferenceData) -> Object:
+	match ref.entity_type:
+		SynapseStateMachineData.EntityType.STATE:
+			return all_states[ref.entity_name]
+		SynapseStateMachineData.EntityType.BEHAVIOR:
+			return all_behaviors[ref.entity_name]
+		SynapseStateMachineData.EntityType.PARAMETER:
+			return all_parameters[ref.entity_name]
+	push_warning("Cannot find runtime object corresponding to unknown reference entity type: ", ref)
+	return null
+
 ## Returns a dictionary containing this state machine's save data.[br][br]
 ## If the state machine was active before this method was called, it will be deactiated until saving
 ## is complete. This method only creates the save data in memory, so the caller is responsible for
@@ -221,19 +232,6 @@ func load_save_data(save_data: Dictionary) -> void:
 	elif was_active:
 		activate()
 
-## ---------------- RPC METHODS ----------------
-
-# TODO: REMOVE
-func __debug_log(...args: Array) -> void:
-	var debug_client: SynapseMultiplayerDebugClient
-	if multiplayer.is_server():
-		debug_client = $/root/Server/SynapseMultiplayerDebugClient
-	else:
-		debug_client = $/root/Client/SynapseMultiplayerDebugClient
-	@warning_ignore("unsafe_cast")
-	debug_client.debug_log(str.callv(args) as String)
-
-# TODO: move to public
 ## Returns the multiplayer sync data for this state machine, to send to peers.[br][br]
 ## If [param differential] is [code]true[/code], only returns the parameter values that have changed
 ## since the last time differential data was cleared.[br][br]
@@ -242,19 +240,19 @@ func __debug_log(...args: Array) -> void:
 ## changed after the call with [code]clear_differential=true[/code].
 func get_multiplayer_sync_data(differential: bool, clear_differential: bool = true) -> Dictionary:
 	if differential:
+		# TODO: states (if server... does differential states even make sense? maybe send the whole bunch if *any* state changes occurred)
 		var return_data := _multiplayer_sync_data_baseline.duplicate()
 		if clear_differential:
 			_multiplayer_sync_data_baseline.clear()
 		return return_data
 
-	var sync_data: Dictionary = {}
+	var sync_data := {}
 	var is_server := multiplayer.is_server()
 	var is_owner := is_multiplayer_authority()
 
 	# server is always authoritative for state replication
 	# TODO: provide option to let client owner do this?
 	if is_server:
-		# TODO: differential (does that even make sense?)
 		var state_sync_datas: Dictionary = {}
 		for state_name in all_states:
 			var state_sync_data := all_states[state_name].get_sync_data()
@@ -275,7 +273,8 @@ func get_multiplayer_sync_data(differential: bool, clear_differential: bool = tr
 		_multiplayer_sync_data_baseline.clear()
 	return sync_data
 
-# TODO: move to public
+## Applies the specified multiplayer sync data produced by another peer's
+## [method get_multiplayer_sync_data] to this state machine.[br][br]
 func apply_multiplayer_sync_data(sync_data: Dictionary) -> void:
 	# states
 	var state_sync_datas: Dictionary = sync_data.get(SYNC_DATA_STATES, {})
@@ -292,118 +291,15 @@ func apply_multiplayer_sync_data(sync_data: Dictionary) -> void:
 		all_parameters[parameter_name].set_from_multiplayer_sync_value(parameter_sync_datas[parameter_name][SYNC_DATA_PARAMETER_VALUE], self)
 	_ignore_parameter_value_set_for_sync = false
 
+## ---------------- RPC METHODS ----------------
+
 @rpc("any_peer", "call_remote", "reliable")
 func sync_multiplayer_data_full(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), false)
 
 @rpc("any_peer", "call_remote", "unreliable_ordered")
-func sync_multiplayer_data_delta(sync_data: Dictionary) -> void:
+func sync_multiplayer_data_differential(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), true)
-
-func _sync_multiplayer_data(sync_data: Dictionary, sender_id: int, differential: bool) -> void:
-	if sender_id == 0:
-		push_error("Local invocation of RPC method _sync_multiplayer_data not supported- use apply_multiplayer_sync_data")
-		return
-
-	if not multiplayer.is_server() and sender_id != 1:
-		# never accept calls from anyone but the server
-		push_warning("Rejecting sync data from non-server peer ", sender_id, ": ", sync_data)
-		return
-
-	if is_created:
-		_handle_multiplayer_sync_data(sync_data, sender_id, differential)
-	else:
-		created.connect(_handle_multiplayer_sync_data.bind(sync_data, sender_id, differential), CONNECT_ONE_SHOT)
-
-# TODO: move to private
-func _handle_multiplayer_sync_data(sync_data: Dictionary, sender_id: int, differential: bool) -> void:
-	# TODO: validation
-	# TODO: filter sync data to only the parameters we know should be synced (no states!)
-	apply_multiplayer_sync_data(sync_data)
-	if multiplayer.is_server() and sender_id != 1:
-		# broadcast update from server to all clients
-		for peer_id in multiplayer.get_peers():
-			if peer_id != sender_id:
-				if differential:
-					sync_multiplayer_data_delta.rpc_id(peer_id, sync_data)
-				else:
-					sync_multiplayer_data_full.rpc_id(peer_id, sync_data)
-
-# TODO: move to private
-func _multiplayer_tick(delta: float) -> void:
-	if not multiplayer_sync_enabled or multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
-		return
-
-	_time_since_last_differential_sync += delta
-	_time_since_last_full_sync += delta
-	var full := _time_since_last_full_sync >= 1.0 / multiplayer_full_sync_tps
-	var differential := not full and _time_since_last_differential_sync >= 1.0 / multiplayer_differential_sync_tps
-	if full or differential:
-		var sync_data := get_multiplayer_sync_data(differential)
-		if not sync_data.is_empty():
-			if multiplayer.is_server():
-				# broadcast server data to everyone
-				if differential:
-					sync_multiplayer_data_delta.rpc(sync_data)
-				else:
-					sync_multiplayer_data_full.rpc(sync_data)
-			else:
-				# send client data to server
-				if differential:
-					sync_multiplayer_data_delta.rpc_id(1, sync_data)
-				else:
-					sync_multiplayer_data_full.rpc_id(1, sync_data)
-
-		if full:
-			_time_since_last_full_sync = 0.0
-		_time_since_last_differential_sync = 0.0
-
-# TODO: move to signal handlers
-func _on_multiplayer_peer_connected(id: int) -> void:
-	var is_server := multiplayer.is_server()
-	var is_owner := is_multiplayer_authority()
-	if is_created:
-		_handle_multiplayer_peer_connected(id, is_server, is_owner)
-	else:
-		created.connect(_handle_multiplayer_peer_connected.bind(id, is_server, is_owner), CONNECT_ONE_SHOT)
-
-# TODO: move to signal handlers
-func _on_multiplayer_server_disconnected() -> void:
-	if _sync_signals_connected:
-		for parameter_name in all_parameters:
-			var parameter := all_parameters[parameter_name]
-			@warning_ignore("unsafe_property_access")
-			var sig: Signal = parameter.value_set
-			if sig.is_connected(_on_parameter_value_set_for_sync):
-				sig.disconnect(_on_parameter_value_set_for_sync)
-	_sync_signals_connected = false
-
-# TODO: move to private
-func _handle_multiplayer_peer_connected(id: int, is_server: bool, is_owner: bool) -> void:
-	if not _sync_signals_connected:
-		for parameter_name in all_parameters:
-			var parameter := all_parameters[parameter_name]
-			if parameter.should_replicate(is_server, is_owner):
-				@warning_ignore("unsafe_property_access", "unsafe_method_access")
-				parameter.value_set.connect(_on_parameter_value_set_for_sync.bind(parameter_name))
-		_sync_signals_connected = true
-
-	var full_sync_data := get_multiplayer_sync_data(false, false)
-	if is_server:
-		# send server data to new peer
-		sync_multiplayer_data_full.rpc_id(id, full_sync_data)
-	else:
-		# send client data to server (to forward to all peers, including the new peer)
-		sync_multiplayer_data_full.rpc_id(1, full_sync_data)
-		_time_since_last_differential_sync = 0.0
-		_time_since_last_full_sync = 0.0
-
-# TODO: move to signal handlers
-func _on_parameter_value_set_for_sync(_new_value: Variant, parameter_name: StringName) -> void:
-	if _ignore_parameter_value_set_for_sync:
-		return
-	# TODO: set value to sentinel (e.g. 'true'), only call get_value_for_multiplayer_sync() when sending
-	_multiplayer_sync_data_baseline.get_or_add(SYNC_DATA_PARAMETERS, {})[parameter_name] = { SYNC_DATA_PARAMETER_VALUE: all_parameters[parameter_name].get_value_for_multiplayer_sync() }
 
 ## ---------------- INTERNAL METHODS ----------------
 
@@ -541,13 +437,132 @@ func _init_signal_bridges() -> void:
 	for signal_bridge_data: SynapseSignalBridgeData in data.signal_bridges.values():
 		signal_bridge_data.create_bridge(self)
 
-func get_runtime_object_from(ref: SynapseEntityReferenceData) -> Object:
-	match ref.entity_type:
-		SynapseStateMachineData.EntityType.STATE:
-			return all_states[ref.entity_name]
-		SynapseStateMachineData.EntityType.BEHAVIOR:
-			return all_behaviors[ref.entity_name]
-		SynapseStateMachineData.EntityType.PARAMETER:
-			return all_parameters[ref.entity_name]
-	push_warning("Cannot find runtime object corresponding to unknown reference entity type: ", ref)
-	return null
+func _sync_multiplayer_data(sync_data: Dictionary, sender_id: int, differential: bool) -> void:
+	if sender_id == 0:
+		push_error("Local invocation of RPC method _sync_multiplayer_data not supported- use apply_multiplayer_sync_data")
+		return
+
+	if not multiplayer.is_server() and sender_id != 1:
+		# never accept calls from anyone but the server
+		push_warning("Rejecting sync data from non-server peer ", sender_id, ": ", sync_data)
+		return
+
+	if is_created:
+		_handle_multiplayer_sync_data(sync_data, sender_id, differential)
+	elif not differential:
+		# full sync data is important- queue it for processing when we're ready
+		# TODO: clobber by peer ID
+		created.connect(_handle_multiplayer_sync_data.bind(sync_data, sender_id, differential), CONNECT_ONE_SHOT)
+
+func _handle_multiplayer_sync_data(sync_data: Dictionary, sender_id: int, differential: bool) -> void:
+	var is_server := multiplayer.is_server()
+	var sender_is_server := sender_id == 1
+
+	if is_server and sender_is_server:
+		push_error("Unable to reconcile who is the server. This state machine thinks it is the server, but got data from a peer ID 1.")
+		return
+
+	# only include state data if it's from the server
+	var valid_data := {}
+	if sender_is_server:
+		# trust the server
+		valid_data = sync_data
+	else:
+		# only include parameter values we know the peer is supposed to send
+		var sender_is_owner := sender_id == get_multiplayer_authority()
+		if sync_data.has(SYNC_DATA_PARAMETERS) and sync_data[SYNC_DATA_PARAMETERS] is Dictionary:
+			var valid_param_data := {}
+			var param_sync_data: Dictionary = sync_data[SYNC_DATA_PARAMETERS]
+			for parameter_name: StringName in param_sync_data:
+				# TODO: parameter validation
+				var parameter: SynapseParameter = all_parameters.get(parameter_name)
+				if parameter and parameter.should_replicate(false, sender_is_owner):
+					valid_param_data[parameter_name] = param_sync_data[parameter_name]
+			if not valid_param_data.is_empty():
+				valid_data[SYNC_DATA_PARAMETERS] = valid_param_data
+
+	if valid_data.is_empty():
+		return
+
+	apply_multiplayer_sync_data(valid_data)
+	if is_server:
+		# broadcast update from server to all clients
+		for peer_id in multiplayer.get_peers():
+			if peer_id != sender_id:
+				if differential:
+					sync_multiplayer_data_differential.rpc_id(peer_id, valid_data)
+				else:
+					sync_multiplayer_data_full.rpc_id(peer_id, valid_data)
+
+func _multiplayer_tick(delta: float) -> void:
+	if not multiplayer_sync_enabled or multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
+		return
+
+	_time_since_last_differential_sync += delta
+	_time_since_last_full_sync += delta
+	var full := _time_since_last_full_sync >= 1.0 / multiplayer_full_sync_tps
+	var differential := not full and _time_since_last_differential_sync >= 1.0 / multiplayer_differential_sync_tps
+	if full or differential:
+		var sync_data := get_multiplayer_sync_data(differential)
+		if not sync_data.is_empty():
+			if multiplayer.is_server():
+				# broadcast server data to everyone
+				if differential:
+					sync_multiplayer_data_differential.rpc(sync_data)
+				else:
+					sync_multiplayer_data_full.rpc(sync_data)
+			else:
+				# send client data to server
+				if differential:
+					sync_multiplayer_data_differential.rpc_id(1, sync_data)
+				else:
+					sync_multiplayer_data_full.rpc_id(1, sync_data)
+
+		if full:
+			_time_since_last_full_sync = 0.0
+		_time_since_last_differential_sync = 0.0
+
+func _handle_multiplayer_peer_connected(id: int, is_server: bool, is_owner: bool) -> void:
+	if not _sync_signals_connected:
+		for parameter_name in all_parameters:
+			var parameter := all_parameters[parameter_name]
+			if parameter.should_replicate(is_server, is_owner):
+				@warning_ignore("unsafe_property_access", "unsafe_method_access")
+				parameter.value_set.connect(_on_parameter_value_set_for_sync.bind(parameter_name))
+		_sync_signals_connected = true
+
+	var full_sync_data := get_multiplayer_sync_data(false, false)
+	if is_server:
+		# send server data to new peer
+		sync_multiplayer_data_full.rpc_id(id, full_sync_data)
+	else:
+		# send client data to server (to forward to all peers, including the new peer)
+		sync_multiplayer_data_full.rpc_id(1, full_sync_data)
+		_time_since_last_differential_sync = 0.0
+		_time_since_last_full_sync = 0.0
+
+## ---------------- SIGNAL HANDLERS ----------------
+
+func _on_multiplayer_peer_connected(id: int) -> void:
+	var is_server := multiplayer.is_server()
+	var is_owner := is_multiplayer_authority()
+	if is_created:
+		_handle_multiplayer_peer_connected(id, is_server, is_owner)
+	else:
+		created.connect(_handle_multiplayer_peer_connected.bind(id, is_server, is_owner), CONNECT_ONE_SHOT)
+
+func _on_multiplayer_server_disconnected() -> void:
+	if _sync_signals_connected:
+		for parameter_name in all_parameters:
+			var parameter := all_parameters[parameter_name]
+			@warning_ignore("unsafe_property_access")
+			var sig: Signal = parameter.value_set
+			if sig.is_connected(_on_parameter_value_set_for_sync):
+				sig.disconnect(_on_parameter_value_set_for_sync)
+	_sync_signals_connected = false
+
+func _on_parameter_value_set_for_sync(_new_value: Variant, parameter_name: StringName) -> void:
+	if _ignore_parameter_value_set_for_sync:
+		return
+	# TODO: set value to sentinel (e.g. 'true'), only call get_value_for_multiplayer_sync() when sending
+	_multiplayer_sync_data_baseline.get_or_add(SYNC_DATA_PARAMETERS, {})[parameter_name] = { SYNC_DATA_PARAMETER_VALUE: all_parameters[parameter_name].get_value_for_multiplayer_sync() }
