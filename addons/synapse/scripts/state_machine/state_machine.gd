@@ -57,8 +57,9 @@ var all_states: Dictionary[StringName, SynapseState] = {}
 var all_behaviors: Dictionary[StringName, SynapseBehavior] = {}
 var all_parameters: Dictionary[StringName, SynapseParameter] = {}
 
-var _sync_signals_connected := false
-var _multiplayer_sync_data_baseline := {}
+var _dirty_states_for_differential_sync: Dictionary[StringName, bool] = {}
+var _states_differential_sync_baseline: Dictionary[StringName, bool] = {}
+var _dirty_parameters_for_differential_sync: Dictionary[StringName, bool] = {}
 var _time_since_last_differential_sync := 0.0
 var _time_since_last_full_sync := 0.0
 var _ignore_parameter_value_set_for_sync := false
@@ -239,38 +240,50 @@ func load_save_data(save_data: Dictionary) -> void:
 ## the next call to this method with [code]differential=true[/code] will only return data that has
 ## changed after the call with [code]clear_differential=true[/code].
 func get_multiplayer_sync_data(differential: bool, clear_differential: bool = true) -> Dictionary:
-	if differential:
-		# TODO: states (if server... does differential states even make sense? maybe send the whole bunch if *any* state changes occurred)
-		var return_data := _multiplayer_sync_data_baseline.duplicate()
-		if clear_differential:
-			_multiplayer_sync_data_baseline.clear()
-		return return_data
-
 	var sync_data := {}
 	var is_server := multiplayer.is_server()
-	var is_owner := is_multiplayer_authority()
-
-	# server is always authoritative for state replication
-	# TODO: provide option to let client owner do this?
+	var state_sync_datas := {}
 	if is_server:
-		var state_sync_datas: Dictionary = {}
 		for state_name in all_states:
 			var state_sync_data := all_states[state_name].get_sync_data()
 			if not state_sync_data.is_empty():
 				state_sync_datas[state_name] = state_sync_data
-		if not state_sync_datas.is_empty():
-			sync_data[SYNC_DATA_STATES] = state_sync_datas
 
-	var parameter_sync_datas: Dictionary = {}
-	for parameter_name in all_parameters:
-		var parameter := all_parameters[parameter_name]
-		if parameter.should_replicate(is_server, is_owner):
-			parameter_sync_datas[parameter_name] = { SYNC_DATA_PARAMETER_VALUE: parameter.get_value_for_multiplayer_sync() }
-	if not parameter_sync_datas.is_empty():
-		sync_data[SYNC_DATA_PARAMETERS] = parameter_sync_datas
+	if differential:
+		var param_sync_data := {}
+		for parameter_name in _dirty_parameters_for_differential_sync:
+			param_sync_data[parameter_name] = { SYNC_DATA_PARAMETER_VALUE: all_parameters[parameter_name].get_value_for_multiplayer_sync() }
+		if not param_sync_data.is_empty():
+			sync_data[SYNC_DATA_PARAMETERS] = param_sync_data
+
+		# if any state changed, we send all states
+		if is_server and not _dirty_states_for_differential_sync.is_empty():
+			sync_data[SYNC_DATA_STATE_MACHINE_ACTIVE] = root.active
+			if not state_sync_datas.is_empty():
+				sync_data[SYNC_DATA_STATES] = state_sync_datas
+	else:
+		# server is always authoritative for state replication
+		if is_server:
+			sync_data[SYNC_DATA_STATE_MACHINE_ACTIVE] = root.active
+			if not state_sync_datas.is_empty():
+				sync_data[SYNC_DATA_STATES] = state_sync_datas
+
+		# parameters
+		var is_owner := is_multiplayer_authority()
+		var parameter_sync_datas := {}
+		for parameter_name in all_parameters:
+			var parameter := all_parameters[parameter_name]
+			if parameter.should_replicate(is_server, is_owner):
+				parameter_sync_datas[parameter_name] = { SYNC_DATA_PARAMETER_VALUE: parameter.get_value_for_multiplayer_sync() }
+		if not parameter_sync_datas.is_empty():
+			sync_data[SYNC_DATA_PARAMETERS] = parameter_sync_datas
 
 	if clear_differential:
-		_multiplayer_sync_data_baseline.clear()
+		_dirty_parameters_for_differential_sync.clear()
+		_dirty_states_for_differential_sync.clear()
+		for state_name in all_states:
+			_states_differential_sync_baseline[state_name] = all_states[state_name].active
+
 	return sync_data
 
 ## Applies the specified multiplayer sync data produced by another peer's
@@ -293,11 +306,13 @@ func apply_multiplayer_sync_data(sync_data: Dictionary) -> void:
 
 ## ---------------- RPC METHODS ----------------
 
-@rpc("any_peer", "call_remote", "reliable")
+# TODO: use rpc_config() to allow user to customize channel
+@rpc("any_peer", "call_remote", "reliable", 1)
 func sync_multiplayer_data_full(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), false)
 
-@rpc("any_peer", "call_remote", "unreliable_ordered")
+# TODO: use rpc_config() to allow user to customize channel
+@rpc("any_peer", "call_remote", "unreliable_ordered", 2)
 func sync_multiplayer_data_differential(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), true)
 
@@ -449,10 +464,6 @@ func _sync_multiplayer_data(sync_data: Dictionary, sender_id: int, differential:
 
 	if is_created:
 		_handle_multiplayer_sync_data(sync_data, sender_id, differential)
-	elif not differential:
-		# full sync data is important- queue it for processing when we're ready
-		# TODO: clobber by peer ID
-		created.connect(_handle_multiplayer_sync_data.bind(sync_data, sender_id, differential), CONNECT_ONE_SHOT)
 
 func _handle_multiplayer_sync_data(sync_data: Dictionary, sender_id: int, differential: bool) -> void:
 	var is_server := multiplayer.is_server()
@@ -523,13 +534,19 @@ func _multiplayer_tick(delta: float) -> void:
 		_time_since_last_differential_sync = 0.0
 
 func _handle_multiplayer_peer_connected(id: int, is_server: bool, is_owner: bool) -> void:
-	if not _sync_signals_connected:
-		for parameter_name in all_parameters:
-			var parameter := all_parameters[parameter_name]
-			if parameter.should_replicate(is_server, is_owner):
-				@warning_ignore("unsafe_property_access", "unsafe_method_access")
-				parameter.value_set.connect(_on_parameter_value_set_for_sync.bind(parameter_name))
-		_sync_signals_connected = true
+	for parameter_name in all_parameters:
+		var parameter := all_parameters[parameter_name]
+		@warning_ignore("unsafe_property_access", "unsafe_method_access")
+		if not parameter.value_set.is_connected(_on_parameter_value_set_for_sync) and parameter.should_replicate(is_server, is_owner):
+			@warning_ignore("unsafe_property_access", "unsafe_method_access")
+			parameter.value_set.connect(_on_parameter_value_set_for_sync.bind(parameter_name))
+	if is_server:
+		for state_name in all_states:
+			var state := all_states[state_name]
+			if not state.entered.is_connected(_on_state_changed_for_sync):
+				state.entered.connect(_on_state_changed_for_sync.bind(state_name, true))
+			if not state.exited.is_connected(_on_state_changed_for_sync):
+				state.exited.connect(_on_state_changed_for_sync.bind(state_name, false))
 
 	var full_sync_data := get_multiplayer_sync_data(false, false)
 	if is_server:
@@ -552,17 +569,20 @@ func _on_multiplayer_peer_connected(id: int) -> void:
 		created.connect(_handle_multiplayer_peer_connected.bind(id, is_server, is_owner), CONNECT_ONE_SHOT)
 
 func _on_multiplayer_server_disconnected() -> void:
-	if _sync_signals_connected:
-		for parameter_name in all_parameters:
-			var parameter := all_parameters[parameter_name]
-			@warning_ignore("unsafe_property_access")
-			var sig: Signal = parameter.value_set
-			if sig.is_connected(_on_parameter_value_set_for_sync):
-				sig.disconnect(_on_parameter_value_set_for_sync)
-	_sync_signals_connected = false
+	for parameter_name in all_parameters:
+		var parameter := all_parameters[parameter_name]
+		@warning_ignore("unsafe_property_access")
+		var sig: Signal = parameter.value_set
+		if sig.is_connected(_on_parameter_value_set_for_sync):
+			sig.disconnect(_on_parameter_value_set_for_sync)
 
 func _on_parameter_value_set_for_sync(_new_value: Variant, parameter_name: StringName) -> void:
 	if _ignore_parameter_value_set_for_sync:
 		return
-	# TODO: set value to sentinel (e.g. 'true'), only call get_value_for_multiplayer_sync() when sending
-	_multiplayer_sync_data_baseline.get_or_add(SYNC_DATA_PARAMETERS, {})[parameter_name] = { SYNC_DATA_PARAMETER_VALUE: all_parameters[parameter_name].get_value_for_multiplayer_sync() }
+	_dirty_parameters_for_differential_sync[parameter_name] = true
+
+func _on_state_changed_for_sync(state_name: StringName, active: bool) -> void:
+	if _states_differential_sync_baseline.get(state_name) == active:
+		_dirty_states_for_differential_sync.erase(active)
+	else:
+		_dirty_states_for_differential_sync[state_name] = active
