@@ -39,11 +39,22 @@ signal data_set
 ## state machine controls activation in that case.
 @export var activate_on_create := true
 
+@export_group("Multiplayer (High Level API)")
+
 ## If [code]true[/code] (the default), this state machine will automatically participate in
 ## multiplayer synchronization using Godot's high-level multiplayer API when connected to peers.
 ## Disable this if you don't want to synchronize this state machine, or if you are using a custom
 ## multiplayer synchronization method.
-@export var multiplayer_sync_enabled := false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var multiplayer_sync_enabled := false:
+	set(value):
+		multiplayer_sync_enabled = value
+		notify_property_list_changed()
+
+## The channel to send differential multiplayer sync RPC updates on.
+@export var multiplayer_differential_sync_rpc_channel := 1
+
+## The channel to send full multiplayer sync RPC updates on.
+@export var multiplayer_full_sync_rpc_channel := 2
 
 ## The rate (ticks per second) at which differential sync updates are sent to multiplayer peers.
 @export var multiplayer_differential_sync_tps := 30.0
@@ -306,13 +317,11 @@ func apply_multiplayer_sync_data(sync_data: Dictionary) -> void:
 
 ## ---------------- RPC METHODS ----------------
 
-# TODO: use rpc_config() to allow user to customize channel
-@rpc("any_peer", "call_remote", "reliable", 1)
+@rpc
 func sync_multiplayer_data_full(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), false)
 
-# TODO: use rpc_config() to allow user to customize channel
-@rpc("any_peer", "call_remote", "unreliable_ordered", 2)
+@rpc
 func sync_multiplayer_data_differential(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), true)
 
@@ -379,6 +388,19 @@ func _deferred_ready() -> void:
 			var is_owner := is_multiplayer_authority()
 			for peer_id in multiplayer.get_peers():
 				_handle_multiplayer_peer_connected(peer_id, is_server, is_owner)
+
+		rpc_config(&"sync_multiplayer_data_full", {
+			"rpc_mode": MultiplayerAPI.RPCMode.RPC_MODE_ANY_PEER,
+			"transfer_mode": MultiplayerPeer.TransferMode.TRANSFER_MODE_RELIABLE,
+			"call_local": false,
+			"channel": multiplayer_full_sync_rpc_channel,
+		})
+		rpc_config(&"sync_multiplayer_data_differential", {
+			"rpc_mode": MultiplayerAPI.RPCMode.RPC_MODE_ANY_PEER,
+			"transfer_mode": MultiplayerPeer.TransferMode.TRANSFER_MODE_UNRELIABLE_ORDERED,
+			"call_local": false,
+			"channel": multiplayer_differential_sync_rpc_channel,
+		})
 
 func _load_state(state_name: StringName) -> SynapseState:
 	if all_states.has(state_name):
