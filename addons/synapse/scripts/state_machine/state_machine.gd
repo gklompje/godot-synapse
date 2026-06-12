@@ -51,10 +51,10 @@ signal data_set
 		notify_property_list_changed()
 
 ## The channel to send differential multiplayer sync RPC updates on.
-@export var multiplayer_differential_sync_rpc_channel := 1
+@export var multiplayer_differential_sync_rpc_channel := 5
 
 ## The channel to send full multiplayer sync RPC updates on.
-@export var multiplayer_full_sync_rpc_channel := 2
+@export var multiplayer_full_sync_rpc_channel := 4
 
 ## The rate (ticks per second) at which differential sync updates are sent to multiplayer peers.
 @export var multiplayer_differential_sync_tps := 30.0
@@ -317,11 +317,11 @@ func apply_multiplayer_sync_data(sync_data: Dictionary) -> void:
 
 ## ---------------- RPC METHODS ----------------
 
-@rpc
+@rpc("any_peer", "call_remote", "reliable", 4)
 func sync_multiplayer_data_full(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), false)
 
-@rpc
+@rpc("any_peer", "call_remote", "unreliable_ordered", 5)
 func sync_multiplayer_data_differential(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), true)
 
@@ -388,19 +388,6 @@ func _deferred_ready() -> void:
 			var is_owner := is_multiplayer_authority()
 			for peer_id in multiplayer.get_peers():
 				_handle_multiplayer_peer_connected(peer_id, is_server, is_owner)
-
-		rpc_config(&"sync_multiplayer_data_full", {
-			"rpc_mode": MultiplayerAPI.RPCMode.RPC_MODE_ANY_PEER,
-			"transfer_mode": MultiplayerPeer.TransferMode.TRANSFER_MODE_RELIABLE,
-			"call_local": false,
-			"channel": multiplayer_full_sync_rpc_channel,
-		})
-		rpc_config(&"sync_multiplayer_data_differential", {
-			"rpc_mode": MultiplayerAPI.RPCMode.RPC_MODE_ANY_PEER,
-			"transfer_mode": MultiplayerPeer.TransferMode.TRANSFER_MODE_UNRELIABLE_ORDERED,
-			"call_local": false,
-			"channel": multiplayer_differential_sync_rpc_channel,
-		})
 
 func _load_state(state_name: StringName) -> SynapseState:
 	if all_states.has(state_name):
@@ -522,10 +509,31 @@ func _handle_multiplayer_sync_data(sync_data: Dictionary, sender_id: int, differ
 		# broadcast update from server to all clients
 		for peer_id in multiplayer.get_peers():
 			if peer_id != sender_id:
-				if differential:
-					sync_multiplayer_data_differential.rpc_id(peer_id, valid_data)
-				else:
-					sync_multiplayer_data_full.rpc_id(peer_id, valid_data)
+				_send_sync_data(valid_data, differential, peer_id)
+
+func _send_sync_data(sync_data: Dictionary, differential: bool, peer_id: int = 1) -> void:
+	var orig_channel := multiplayer.multiplayer_peer.transfer_channel
+
+	if peer_id < 1:
+		if not multiplayer.is_server():
+			push_error("Clients are not allowed to broadcast")
+			return
+
+		if differential:
+			multiplayer.multiplayer_peer.transfer_channel = multiplayer_differential_sync_rpc_channel
+			sync_multiplayer_data_differential.rpc(sync_data)
+		else:
+			multiplayer.multiplayer_peer.transfer_channel = multiplayer_full_sync_rpc_channel
+			sync_multiplayer_data_full.rpc(sync_data)
+	else:
+		if differential:
+			multiplayer.multiplayer_peer.transfer_channel = multiplayer_differential_sync_rpc_channel
+			sync_multiplayer_data_differential.rpc_id(peer_id, sync_data)
+		else:
+			multiplayer.multiplayer_peer.transfer_channel = multiplayer_full_sync_rpc_channel
+			sync_multiplayer_data_full.rpc_id(peer_id, sync_data)
+
+	multiplayer.multiplayer_peer.transfer_channel = orig_channel
 
 func _multiplayer_tick(delta: float) -> void:
 	if not multiplayer_sync_enabled or multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
@@ -538,18 +546,8 @@ func _multiplayer_tick(delta: float) -> void:
 	if full or differential:
 		var sync_data := get_multiplayer_sync_data(differential)
 		if not sync_data.is_empty():
-			if multiplayer.is_server():
-				# broadcast server data to everyone
-				if differential:
-					sync_multiplayer_data_differential.rpc(sync_data)
-				else:
-					sync_multiplayer_data_full.rpc(sync_data)
-			else:
-				# send client data to server
-				if differential:
-					sync_multiplayer_data_differential.rpc_id(1, sync_data)
-				else:
-					sync_multiplayer_data_full.rpc_id(1, sync_data)
+			# broadcast server data to everyone if server, otherwise send to server
+			_send_sync_data(sync_data, differential, -1 if multiplayer.is_server() else 1)
 
 		if full:
 			_time_since_last_full_sync = 0.0
@@ -573,10 +571,10 @@ func _handle_multiplayer_peer_connected(id: int, is_server: bool, is_owner: bool
 	var full_sync_data := get_multiplayer_sync_data(false, false)
 	if is_server:
 		# send server data to new peer
-		sync_multiplayer_data_full.rpc_id(id, full_sync_data)
+		_send_sync_data(full_sync_data, false, id)
 	else:
 		# send client data to server (to forward to all peers, including the new peer)
-		sync_multiplayer_data_full.rpc_id(1, full_sync_data)
+		_send_sync_data(full_sync_data, false, 1)
 		_time_since_last_differential_sync = 0.0
 		_time_since_last_full_sync = 0.0
 
