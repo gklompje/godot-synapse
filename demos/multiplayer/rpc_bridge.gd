@@ -21,6 +21,14 @@ func spawn_character(id: int, color: Color) -> void:
 	}
 	character_spawner.spawn(spawn_data)
 
+func despawn_character(peer_id: int) -> void:
+	if not multiplayer.is_server():
+		return
+	for node in character_spawner.get_node(character_spawner.spawn_path).get_children():
+		if node.get_multiplayer_authority() == peer_id:
+			node.queue_free()
+			return
+
 func _spawn_character(data: Variant) -> Node:
 	var character := (load(SynapseMultiplayerDemo.SCENE_CHARACTER) as PackedScene).instantiate() as SynapseDemoMultiplayerCharacter
 	@warning_ignore("unsafe_cast")

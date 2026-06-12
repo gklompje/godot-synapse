@@ -39,17 +39,16 @@ func _process(_delta: float) -> void:
 				push_warning("Disconnected with status: ", status)
 				_is_connected = false
 
-func debug_log(message: String, type: String = "print") -> void:
+func debug_log(...args: Array) -> void:
 	var data := {
 		"identity": client_name,
 		"color": client_color.to_html(false),
 		"pid": OS.get_process_id(),
-		"message": message,
-		"type": type
+		"message": str.callv(args),
 	}
 	if _is_connected:
 		_client.put_var(data)
 	else:
 		_message_buffer.append(data)
 		if _message_buffer.size() > message_buffer_size:
-			push_error("Message buffer overflow, dropping message: ", _message_buffer.pop_front())
+			push_warning("Message buffer overflow, dropping message: ", _message_buffer.pop_front())

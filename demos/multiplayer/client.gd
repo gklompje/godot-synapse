@@ -1,13 +1,15 @@
-extends Node2D
+extends Node
 
 @onready var debug_client: SynapseMultiplayerDebugClient = %SynapseMultiplayerDebugClient
 @onready var multiplayer_root: SynapseDemoMultiplayerRPCBridge = %MultiplayerRoot
+@onready var label: Label = %Label
 
 func _ready() -> void:
 	var color := Color.WHITE
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with(SynapseMultiplayerDemo.ARG_CLIENT_COLOR):
 			color = Color(arg.substr(len(SynapseMultiplayerDemo.ARG_CLIENT_COLOR) + 1))
+	label.add_theme_color_override("font_outline_color", color)
 
 	# must be done before we add the multiplayer peer (ot things like MultiplayerSpawner will break)
 	(multiplayer as SceneMultiplayer).root_path = multiplayer_root.get_path()
