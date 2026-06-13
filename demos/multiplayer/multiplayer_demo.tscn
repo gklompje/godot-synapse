@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chkp6qtolydwd"]
 
 [ext_resource type="Script" uid="uid://brvyf52kyanxl" path="res://demos/multiplayer/multiplayer_demo.gd" id="1_0wfsv"]
+[ext_resource type="Script" uid="uid://beouucjm2ca48" path="res://demos/multiplayer/debug_server.gd" id="2_35q7l"]
 [ext_resource type="PackedScene" uid="uid://ccb0o5huw1lc" path="res://demos/multiplayer/map.tscn" id="3_47g50"]
 [ext_resource type="Script" uid="uid://bjvl7popsg6yk" path="res://demos/multiplayer/rpc_bridge.gd" id="4_0wfsv"]
 
@@ -12,6 +13,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0wfsv")
+
+[node name="SynapseMultiplayerDebugServer" type="Node" parent="." unique_id=1672901179]
+script = ExtResource("2_35q7l")
 
 [node name="Map" parent="." unique_id=1829847488 instance=ExtResource("3_47g50")]
 

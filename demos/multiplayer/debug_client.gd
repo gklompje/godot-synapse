@@ -1,3 +1,5 @@
+## Client for [SynapseMultiplayerDebugServer]. Sends log messages to the server to be printed by
+## that process.
 class_name SynapseMultiplayerDebugClient
 extends Node
 
@@ -11,7 +13,7 @@ var _client := StreamPeerTCP.new()
 var _message_buffer: Array[Dictionary] = []
 
 func _ready() -> void:
-	var error := _client.connect_to_host(SynapseMultiplayerDemo.DEBUG_SERVER_IP, SynapseMultiplayerDemo.DEBUG_SERVER_PORT)
+	var error := _client.connect_to_host(SynapseMultiplayerDebugServer.SERVER_IP, SynapseMultiplayerDebugServer.SERVER_PORT)
 	if error != OK:
 		push_error("Failed to initialize debug client: ", error_string(error))
 
