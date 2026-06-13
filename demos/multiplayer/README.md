@@ -4,10 +4,10 @@
 This demo showcases Synapse's multiplayer synchronization capabilities.
 
 ### 🕹️ What It Does
-The main demo scene ([multiplayer_demo.tscn]) contains a simple UI with a color picker and a "spawn
-client" button. When pressed, the server spawns a new Godot process for each new client. The client
-will connect to the server and request that the server spawns a character for it with the specified
-color.
+The main demo scene ([multiplayer_demo.tscn](multiplayer_demo.tscn)) contains a simple UI with a
+color picker and a "spawn client" button. When pressed, the server spawns a new Godot process for
+each new client. The client will connect to the server and request that the server spawns a
+character for it with the specified color.
 
 Each client's character is controllable only from that client. You can see this by focusing a given
 client's window and pressing the arrow keys to move the character around (the
@@ -20,8 +20,8 @@ can only control its own character.
 ### 🎓 What It Teaches
 All the character movement synchronization is controlled by a Synapse state machine. The state
 machine itself is configured to enforce the "rules" around which multiplayer peer can do what. If
-you open up the character scene ([character.tscn]) and inspect the state machine, the following
-settings are of particular note:
+you open up the character scene ([character.tscn](character.tscn)) and inspect the state machine,
+the following settings are of particular note:
  - The state machine itself has its "Multiplayer (High Level API)" setting enabled (this is usually
 on by default, but does nothing if there isn't a multiplayer peer connected).
  - The `position` and `vector` (direction) parameters are set to replicate to other peers from their
@@ -41,58 +41,49 @@ This is what actually moves the sprite on the owning client, but this behavior i
 peers even though it doesn't have to so that the position updates are a bit smoother (this is also
 why the `vector` parameter is replicated to peers).
 
-Try changing some of the parameter replication and behavior execution modes to see how it affects
-the demo!
-
-The main lesson from this demo is that Synapse offers easy-to-use settings for you to set up a
-multiplayer-enhanced state machine. Using them amounts to three things:
-1. Deciding which **behaviors** are *executed* on which multiplayer peers, and setting their
-***execution modes*** accordingly.
-1. Deciding which **parameters** are *replicated* from which multiplayer peer(s), and setting their
-***replication modes*** accordingly.
+The main lesson from this demo is to outline how to synchronize a Synapse state machine across
+multiplayer peers, which amounts to:
+1. Deciding which **behaviors** are *executed on* which multiplayer peers by setting their
+***execution mode***s.
+1. Deciding which **parameters** are *replicated from* which multiplayer peer(s) using their
+***replication mode***s.
+1. Setting each peer state machine's multiplayer authority to match your desired setup.
 1. Making sure the state machine is configured to synchronize across peers using Godot's high-level
-API (or not, if you want to handle this using your own multiplayer synchronization code).
+API.
+
+Try changing some of the parameter replication and behavior execution modes to see how it affects
+the demo! You can learn more about Synapse multiplayer support, including custom (e.g. low-level
+API) replication, in the [Multiplayer](../../docs/manual/multiplayer.md) documentation.
 
 ---
 
 ## 💡 Additional Notes
 
-### Multiplayer Structure
-The demo itself contains a number of additional scripts to handle all the multiplayer setup, which
-isn't the main focus of the demo but is commented quite heavily anyway so you can pick them apart if
-you want to see how it's all put together.
+### 🌐 Connection Flow
+The demo uses a structured setup to manage networking outside of the state machine:
+- **Server Initialization:** [multiplayer_demo.gd](multiplayer_demo.gd) starts the host server.
+- **Client Arguments**: The server launches [client.tscn](client.tscn) instances and passes the
+chosen color via command-line arguments.
+- **RPC Spawning**: [client.gd](client.gd) automatically connects and uses an RPC method via
+[rpc_bridge.gd](rpc_bridge.gd) to request a character spawn.
+- **Authority Assignment**: The server instantiates the character and syncs it using a
+`MultiplayerSpawner`, assigning network authority to the connecting client's ID.
 
-The structure of the multiplayer setup is as follows:
- - The main demo scene ([multiplayer_demo.tscn]) has a script ([multiplayer_demo.gd]) that starts
-the multiplayer server.
- - When the "spawn client" button is pressed, the server script starts a new Godot process using the
-client scene ([client.tscn]) as a starting point, and passes it a command line argument containing
-the selected color.
- - The client script ([client.gd]) then connects to the server automatically, and sends an RPC
-method to the server (see [rpc_bridge.gd]) to spawn its character.
- - The character scene is instantiated *by the server* and replicated to all peers using a
-`MultiplayerSpawner`, but the character scene's multiplayer authority is set to that of the newly
-connected client so that the state machine in the character scene knows when to replicate its
-parameters and execute its behaviors.
-
-### Asymmetric Scenes
-Normally in multiplayer games the client and server are running the exact same scenes, which makes
-multiplayer synchronization using Godot's high-level multiplayer API easy. However, since we have
-different scenes and the RPC methods multiplayer spawner rely on having identical scene paths by
-default, the RPC script sets itself (the `MultiplayerRoot` node) as its multiplayer peer "root
-path". That way, the RPC methods and the multiplayer spawner can find their counterparts across both
-the server and client setups.
+### 🎭 Asymmetric Scenes
+Clients and servers in this demo use separate scenes rather than identical ones. Because Godot's
+`MultiplayerSpawner` and RPC systems expect matching node paths by default, the RPC script sets the
+`MultiplayerRoot` node as its root path. This ensures all network actions resolve correctly across
+differing structures.
 
 (In hindsight, this really wasn't necessary and we could have just added the UI elements from a
 single script using the client/server differentiation to pick its setup, but it does have the
-advantage of making the whole scene more modular and understandable compared to a single
-scene/script that you have to reason about being in in either client or server mode.)
+advantage of making the whole scene more understandable compared to a single scene/script.)
 
-### Debugging
-The demo also contains a separate TCP server ([debug_server.gd]) and client ([debug_client.gd]) that
-are responsible for printing those pretty colored messages you see in the console output. They don't
-really add much value to the demo, but they came in pretty handy when debugging multiplayer issues
-during the development of the demo so feel free to use and adapt them in your own projects.
+### 🐛 Console Debugging
+The demo includes a separate TCP server ([debug_server.gd]) and client ([debug_client.gd]) that are
+responsible for printing those pretty colored messages you see in the console when running the demo.
+While they're not required for the demo or Synapse, they came in pretty handy when debugging
+multiplayer issues during the development of the demo!
 
 ---
 
