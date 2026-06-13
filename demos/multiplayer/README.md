@@ -10,18 +10,19 @@ each new client. The client will connect to the server and request that the serv
 character for it with the specified color.
 
 Each client's character is controllable only from that client. You can see this by focusing a given
-client's window and pressing the arrow keys to move the character around (the
-`ui_[up,down,left,right]` actions, in case you re-mapped them in your project).
+client's window and pressing the arrow keys to move the character around (the `ui_up`, `ui_down`,
+`ui_left`, and `ui_right` actions, in case you re-mapped them in your project).
 
 Notice that the server cannot control any characters, but it shows the location of all the client
-characters. Similarly, all other clients can see the movement of all other clients, but each client
-can only control its own character.
+characters. Similarly, clients can see the movement of all other clients, but each client can only
+control its own character.
 
 ### 🎓 What It Teaches
 All the character movement synchronization is controlled by a Synapse state machine. The state
-machine itself is configured to enforce the "rules" around which multiplayer peer can do what. If
-you open up the character scene ([character.tscn](character.tscn)) and inspect the state machine,
-the following settings are of particular note:
+machine itself is configured to enforce the rules outlined above so that a client controls its own
+character, and other peers can see but not control it. If you open up the character scene
+([character.tscn](character.tscn)) in the editor and inspect the state machine, the following
+settings are what makes that work:
  - The state machine itself has its "Multiplayer (High Level API)" setting enabled (this is usually
 on by default, but does nothing if there isn't a multiplayer peer connected).
  - The `position` and `vector` (direction) parameters are set to replicate to other peers from their
@@ -29,7 +30,8 @@ owning client (parameters will **not** replicate to other peers by default).
  - The `DemoUpdateVectorOnActionInput`, which sets the `vector` parameter to the movement direction
 when the arrow keys are pressed, is configured to only run on the state machine's multiplayer
 authority, which is set to the client's ID when it connects to the server. This is what limits
-movement to only the owning client, because the behavior is never unsuspended elsewhere.
+movement to only the owning client, because the behavior is never unsuspended elsewhere. By default,
+all behaviors execute on all peers.
 - Similarly, `DemoPositionRecorder2D` just copies the character sprite node's global position to the
 `position` parameter, but it also just runs on the owning client.
 - On the other hand, the `DemoPositionReceiver2D` behavior is set to run on only the
@@ -43,13 +45,13 @@ why the `vector` parameter is replicated to peers).
 
 The main lesson from this demo is to outline how to synchronize a Synapse state machine across
 multiplayer peers, which amounts to:
-1. Deciding which **behaviors** are *executed on* which multiplayer peers by setting their
-***execution mode***s.
-1. Deciding which **parameters** are *replicated from* which multiplayer peer(s) using their
-***replication mode***s.
-1. Setting each peer state machine's multiplayer authority to match your desired setup.
-1. Making sure the state machine is configured to synchronize across peers using Godot's high-level
-API.
+1. Deciding which **behaviors** are executed on which multiplayer peers by setting their
+**execution mode**.
+1. Deciding which **parameters** are replicated from which multiplayer peer(s) by setting their
+**replication mode**.
+1. Setting each peer state machine's *multiplayer authority* to match your desired setup.
+1. Making sure the state machine itself is configured to synchronize across peers using Godot's
+high-level API.
 
 Try changing some of the parameter replication and behavior execution modes to see how it affects
 the demo! You can learn more about Synapse multiplayer support, including custom (e.g. low-level
