@@ -131,7 +131,7 @@ graph_pos = Vector2(0, 520)
 
 [sub_resource type="Resource" id="Resource_oe2oe"]
 script = ExtResource("6_0k510")
-replication_mode = 2
+replication_mode = 3
 
 [sub_resource type="Resource" id="Resource_6qi7s"]
 script = ExtResource("4_o6xlq")
@@ -170,8 +170,8 @@ script = ExtResource("5_at60r")
 godot_version = "4.6.3-stable (official)"
 plugin_version = "0.1.1-alpha"
 root_state = &"State"
-editor_scroll_offset = Vector2(-12, -8)
-editor_zoom = 0.72678363
+editor_scroll_offset = Vector2(-174.79504, -482.7821)
+editor_zoom = 0.60064757
 states = Dictionary[StringName, ExtResource("7_0k510")]({
 &"State": SubResource("Resource_82pkc")
 })
@@ -204,8 +204,6 @@ script = ExtResource("1_0k510")
 script = ExtResource("1_kch84")
 data = SubResource("Resource_8gngt")
 multiplayer_sync_enabled = true
-multiplayer_differential_sync_rpc_channel = 55
-multiplayer_full_sync_rpc_channel = 78
 metadata/_custom_type_script = "uid://ceetsmex74c8w"
 
 [node name="DemoSmoothMotion2D" type="Node" parent="SynapseStateMachine" unique_id=777174843 node_paths=PackedStringArray("character")]
@@ -228,6 +226,7 @@ multiplayer_execution_mode = 3
 process_mode = 4
 script = ExtResource("15_3nf45")
 node2d = NodePath("../..")
+multiplayer_execution_mode = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1363195864]
 unique_name_in_owner = true
