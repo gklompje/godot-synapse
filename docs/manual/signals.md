@@ -118,5 +118,5 @@ example supplying a constant parameter.
 1. Expose signals and callables from nested state machines to connect them to entities in the parent
 state machine.
 
-| [← Previous: Working with States](states.md) | [Manual](README.md) |
-| :--- | ---: |
+| [← Previous: Working with States](states.md) | [Manual](README.md) | [Next: Multiplayer State Machines →](multiplayer.md)
+| :--- | :---: | ---: |

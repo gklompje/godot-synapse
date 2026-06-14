@@ -16,6 +16,7 @@ Deep dives into how the core systems function.
 * [Working With Behaviors](./manual/behaviors.md)
 * [Working With States](./manual/states.md)
 * [Working With Signals](./manual/signals.md)
+* [Multiplayer State Machines](./manual/multiplayer.md)
 
 ### 🎓 [Tutorials](./tutorials/README.md)
 Extend Synapse with your own logic.

@@ -4,6 +4,7 @@
 * [Working With Behaviors](./behaviors.md)
 * [Working With States](./states.md)
 * [Working With Signals](./signals.md)
+* [Multiplayer State Machines](./multiplayer.md)
 
 | [Back to Documentation](../README.md) | [Next: Working with Parameters →](parameters.md) |
 | :--- | ---: |

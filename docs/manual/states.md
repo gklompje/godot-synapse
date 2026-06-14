@@ -65,5 +65,5 @@ A state machine node can only be assigned to one parent state machine in a given
 add many identical state machines (for example, one for each enemy) to the same state machine if
 they are contained in different child scene instances.
 
-| [← Previous: Working with Behaviors](behaviors.md) | [Tutorials](README.md) | [Next: Working with Signals →](signals.md)
+| [← Previous: Working with Behaviors](behaviors.md) | [Manual](README.md) | [Next: Working with Signals →](signals.md)
 | :--- | :---: | ---: |
