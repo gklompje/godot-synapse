@@ -62,11 +62,13 @@ enum MultiplayerExecutionMode {
 	## Executes only on the peer that is the multiplayer authority for the owning state machine.
 	AUTHORITY_ONLY,
 	## Executes only on the server.
+	NON_AUTH_ONLY,
+	## Executes only on clients (non-server peers).
 	SERVER_ONLY,
-	## Executes only on the client that is the multiplayer authority for the owning state machine.
-	CLIENT_OWNER_ONLY,
-	## Executes only clients that are *not* the multiplayer authority for the owning state machine.
-	PROXIES_ONLY
+	## Executes only on peers that are *not* the multiplayer authority for the owning state machine.
+	CLIENTS_ONLY,
+	## Executes only on clients (non-server peers) that are *not* the multiplayer authority for the owning state machine.
+	PROXIES_ONLY,
 }
 
 ## Determines if/how this behavior is enabled across network peers (default [code]EVERYONE[/code]).
@@ -182,6 +184,11 @@ class SignalRelayConnector extends SignalRelay:
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_DISABLED
+
+func _validate_property(property: Dictionary) -> void:
+	if not state_machine or state_machine.multiplayer_mode == SynapseStateMachine.MultiplayerMode.DISABLED:
+		if property["name"] == "multiplayer_execution_mode":
+			property["usage"] = PROPERTY_USAGE_NO_EDITOR
 
 ## Called by [SynapseBehaviorData] during state machine validation to inject configuration warnings.
 func set_data_configuration_warnings(warnings: PackedStringArray) -> void:
@@ -372,11 +379,14 @@ func unsuspend() -> void:
 			MultiplayerExecutionMode.AUTHORITY_ONLY:
 				if not is_auth:
 					return
+			MultiplayerExecutionMode.NON_AUTH_ONLY:
+				if is_auth:
+					return
 			MultiplayerExecutionMode.SERVER_ONLY:
 				if not is_server:
 					return
-			MultiplayerExecutionMode.CLIENT_OWNER_ONLY:
-				if is_server or not is_auth:
+			MultiplayerExecutionMode.CLIENTS_ONLY:
+				if is_server:
 					return
 			MultiplayerExecutionMode.PROXIES_ONLY:
 				if is_server or is_auth:

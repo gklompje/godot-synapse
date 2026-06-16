@@ -39,16 +39,28 @@ signal data_set
 ## state machine controls activation in that case.
 @export var activate_on_create := true
 
-@export_group("Multiplayer (High Level API)")
+## The state machine's multiplayer API integration mode.
+enum MultiplayerMode {
+	## No multiplayer integration.
+	DISABLED,
+	## Multiplayer integration is enabled with automatic synchronization using Godot's high-level
+	## multiplayer API when connected to peers.
+	HIGH_LEVEL,
+	## Multiplayer integration is enabled, but without automatic synchronization. Use this setting
+	## if you are using a custom multiplayer synchronization method.
+	LOW_LEVEL
+}
 
 ## If [code]true[/code] (the default), this state machine will automatically participate in
-## multiplayer synchronization using Godot's high-level multiplayer API when connected to peers.
+## multiplayer synchronization using Godot's high-level multiplayer API.
 ## Disable this if you don't want to synchronize this state machine, or if you are using a custom
 ## multiplayer synchronization method.
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var multiplayer_sync_enabled := false:
+@export var multiplayer_mode := MultiplayerMode.DISABLED:
 	set(value):
-		multiplayer_sync_enabled = value
+		multiplayer_mode = value
 		notify_property_list_changed()
+
+@export_group("High-Level multiplayer")
 
 ## The channel to send differential multiplayer sync RPC updates on.
 @export var multiplayer_differential_sync_rpc_channel := 5
@@ -96,6 +108,16 @@ func _get_property_list() -> Array[Dictionary]:
 			"usage": PROPERTY_USAGE_EDITOR # prevents Godot from pruning the category for being empty (the plugin will hide this parameter)
 		}
 	]
+
+func _validate_property(property: Dictionary) -> void:
+	if multiplayer_mode != MultiplayerMode.HIGH_LEVEL:
+		if property["name"] in [
+				"High-Level multiplayer",
+				"multiplayer_differential_sync_rpc_channel",
+				"multiplayer_full_sync_rpc_channel",
+				"multiplayer_differential_sync_tps",
+				"multiplayer_full_sync_tps"]:
+			property["usage"] = PROPERTY_USAGE_NO_EDITOR
 
 func _ready() -> void:
 	if data == null:
@@ -379,7 +401,7 @@ func _deferred_ready() -> void:
 	if activate_on_create:
 		activate()
 
-	if multiplayer_sync_enabled:
+	if multiplayer_mode != MultiplayerMode.DISABLED:
 		multiplayer.peer_connected.connect(_on_multiplayer_peer_connected)
 		multiplayer.server_disconnected.connect(_on_multiplayer_server_disconnected)
 
@@ -536,7 +558,7 @@ func _send_sync_data(sync_data: Dictionary, differential: bool, peer_id: int = 1
 	multiplayer.multiplayer_peer.transfer_channel = orig_channel
 
 func _multiplayer_tick(delta: float) -> void:
-	if not multiplayer_sync_enabled or multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
+	if multiplayer_mode != MultiplayerMode.HIGH_LEVEL or multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.ConnectionStatus.CONNECTION_CONNECTED:
 		return
 
 	_time_since_last_differential_sync += delta
@@ -568,15 +590,16 @@ func _handle_multiplayer_peer_connected(id: int, is_server: bool, is_owner: bool
 			if not state.exited.is_connected(_on_state_changed_for_sync):
 				state.exited.connect(_on_state_changed_for_sync.bind(state_name, false))
 
-	var full_sync_data := get_multiplayer_sync_data(false, false)
-	if is_server:
-		# send server data to new peer
-		_send_sync_data(full_sync_data, false, id)
-	else:
-		# send client data to server (to forward to all peers, including the new peer)
-		_send_sync_data(full_sync_data, false, 1)
-		_time_since_last_differential_sync = 0.0
-		_time_since_last_full_sync = 0.0
+	if multiplayer_mode == MultiplayerMode.HIGH_LEVEL:
+		var full_sync_data := get_multiplayer_sync_data(false, false)
+		if is_server:
+			# send server data to new peer
+			_send_sync_data(full_sync_data, false, id)
+		else:
+			# send client data to server (to forward to all peers, including the new peer)
+			_send_sync_data(full_sync_data, false, 1)
+			_time_since_last_differential_sync = 0.0
+			_time_since_last_full_sync = 0.0
 
 ## ---------------- SIGNAL HANDLERS ----------------
 

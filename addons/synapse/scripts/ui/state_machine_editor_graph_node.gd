@@ -48,7 +48,7 @@ func clear_slots() -> void:
 	_runtime_property_infos.clear()
 	slots_updated.emit()
 
-func link_scene(scene: PackedScene) -> void:
+func link_scene(scene: PackedScene) -> Button:
 	var script := SynapseClassUtil.get_root_script(scene)
 	var edit_script_button := Button.new()
 	edit_script_button.icon = get_theme_icon(&"PackedScene", &"EditorIcons")
@@ -60,8 +60,9 @@ func link_scene(scene: PackedScene) -> void:
 	)
 	get_titlebar_hbox().add_child(edit_script_button)
 	set_icon(SynapseClassUtil.get_script_icon(script))
+	return edit_script_button
 
-func link_script(script: Script) -> void:
+func link_script(script: Script) -> Button:
 	var edit_script_button := Button.new()
 	edit_script_button.icon = get_theme_icon(&"Script", &"EditorIcons")
 	edit_script_button.tooltip_text = "Open Script: " + script.resource_path
@@ -73,6 +74,7 @@ func link_script(script: Script) -> void:
 	)
 	get_titlebar_hbox().add_child(edit_script_button)
 	set_icon(SynapseClassUtil.get_script_icon(script))
+	return edit_script_button
 
 func link_node(node: Node, tooltip: String) -> void:
 	if _node_link_button:
@@ -93,8 +95,15 @@ func set_icon(icon_texture: Texture2D) -> void:
 		get_titlebar_hbox().add_child(_icon)
 		get_titlebar_hbox().move_child(_icon, 0)
 
-func add_title_button(button: Button) -> void:
-	get_titlebar_hbox().add_child(button)
+func add_title_button(button: Button, after: Node = null) -> void:
+	if after:
+		after.add_sibling(button)
+	else:
+		get_titlebar_hbox().add_child(button)
+
+func remove_title_button(button: Button) -> void:
+	get_titlebar_hbox().remove_child(button)
+	shrink_to_fit_contents()
 
 func has_named_slot(slot_name: StringName) -> bool:
 	return _slot_controls.has(slot_name)

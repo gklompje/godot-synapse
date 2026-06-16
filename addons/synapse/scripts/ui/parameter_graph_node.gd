@@ -37,6 +37,8 @@ class ParameterValueProxy:
 var value_editor: EditorProperty
 
 var _proxy: ParameterValueProxy
+var _script_button: Button
+var _replication_mode_button: OptionButton
 var _export_button: Button
 
 func get_entity_type() -> SynapseStateMachineData.EntityType:
@@ -44,23 +46,10 @@ func get_entity_type() -> SynapseStateMachineData.EntityType:
 
 func setup_for(parameter_data: SynapseParameterData, undo_redo: EditorUndoRedoManager, state_machine: SynapseStateMachine) -> void:
 	@warning_ignore("unsafe_cast")
-	link_script(parameter_data.parameter.get_script() as Script)
+	_script_button = link_script(parameter_data.parameter.get_script() as Script)
 
-	if state_machine.multiplayer_sync_enabled: # TODO: trigger when changed in the inspector (just show/hide)
-		var _replication_mode_button := OptionButton.new()
-		_replication_mode_button.text = "Replication mode"
-		_replication_mode_button.tooltip_text = "Defines how this parameter is synchronized between multiplayer peers."
-		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_LOCAL), "", SynapseParameter.ReplicationMode.LOCAL)
-		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.LOCAL), "Not replicated. Only updated by the local state machine.")
-		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_SERVER), "", SynapseParameter.ReplicationMode.SERVER_AUTH)
-		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.SERVER_AUTH), "Only replicated by the server.")
-		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_CLIENT_PREDICTED), "", SynapseParameter.ReplicationMode.CLIENT_PREDICTED)
-		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.CLIENT_PREDICTED), "Replicated by the owning client, but the value may be rejected by server-side validation.")
-		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_CLIENT_AUTH), "", SynapseParameter.ReplicationMode.CLIENT_AUTH)
-		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.CLIENT_AUTH), "Replicated by the owning client.")
-		add_title_button(_replication_mode_button)
-		_replication_mode_button.selected = _replication_mode_button.get_item_index(parameter_data.parameter.replication_mode)
-		_replication_mode_button.item_selected.connect(_on_replication_mode_selected)
+	state_machine.property_list_changed.connect(_sync_replication_mode_button.bind(state_machine, parameter_data))
+	_sync_replication_mode_button(state_machine, parameter_data)
 
 	_export_button = Button.new()
 	_export_button.tooltip_text = "Toggle visibility in inspector and other state machines"
@@ -137,3 +126,25 @@ func _on_replication_mode_selected(mode: SynapseParameter.ReplicationMode) -> vo
 	# TODO: undo/redo
 	_proxy.parameter_data.parameter.replication_mode = mode
 	_proxy.parameter_data.parameter.emit_changed()
+
+func _sync_replication_mode_button(state_machine: SynapseStateMachine, parameter_data: SynapseParameterData) -> void:
+	if state_machine.multiplayer_mode == SynapseStateMachine.MultiplayerMode.DISABLED:
+		if _replication_mode_button:
+			remove_title_button(_replication_mode_button)
+			_replication_mode_button.queue_free()
+			_replication_mode_button = null
+	elif not _replication_mode_button:
+		_replication_mode_button = OptionButton.new()
+		_replication_mode_button.text = "Replication mode"
+		_replication_mode_button.tooltip_text = "Defines how this parameter is synchronized between multiplayer peers."
+		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_LOCAL), "", SynapseParameter.ReplicationMode.LOCAL)
+		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.LOCAL), "Not replicated. Only updated by the local state machine.")
+		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_SERVER), "", SynapseParameter.ReplicationMode.SERVER_AUTH)
+		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.SERVER_AUTH), "Only replicated by the server.")
+		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_CLIENT_PREDICTED), "", SynapseParameter.ReplicationMode.CLIENT_PREDICTED)
+		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.CLIENT_PREDICTED), "Replicated by the owning client, but the value may be rejected by server-side validation.")
+		_replication_mode_button.add_icon_item(SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.PARAMETER_REPLICATION_CLIENT_AUTH), "", SynapseParameter.ReplicationMode.CLIENT_AUTH)
+		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.CLIENT_AUTH), "Replicated by the owning client.")
+		add_title_button(_replication_mode_button, _script_button)
+		_replication_mode_button.selected = _replication_mode_button.get_item_index(parameter_data.parameter.replication_mode)
+		_replication_mode_button.item_selected.connect(_on_replication_mode_selected)
