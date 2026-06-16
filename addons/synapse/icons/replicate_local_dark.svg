@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
-   sodipodi:docname="replicate_local.svg"
+   sodipodi:docname="replicate_local_dark.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -55,14 +55,14 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ffffff;fill-opacity:0;stroke:#ffffff;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round"
+       style="fill:#ffffff;fill-opacity:0;stroke:#414141;stroke-width:0.529167;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round"
        id="rect1"
        width="1.5875"
        height="1.5874999"
        x="1.3229166"
        y="0.79374999" />
     <path
-       style="fill:#ffffff;fill-opacity:0;stroke:#ffffff;stroke-width:0.264583;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round"
+       style="fill:#ffffff;fill-opacity:0;stroke:#414141;stroke-width:0.264583;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:round"
        d="M 0.79374996,3.1749997 H 3.4395833 L 3.7041666,3.439583 H 0.52916666 Z"
        id="path1"
        sodipodi:nodetypes="ccccc" />

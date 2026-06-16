@@ -20,22 +20,21 @@ built around each state machine being able to identify:
 2. Whether it is running on the peer that is authoritative for the state machine node ([`Node.is_multiplayer_authority()`](https://docs.godotengine.org/en/stable/classes/class_node.html#class-node-method-is-multiplayer-authority))
 
 The above applies irrespective of which multiplayer API you use. When using a custom low-level API,
-you must still ensure that `MultiplayerAPI.is_server()` and `Node.is_multiplayer_authority()`
-return appropriate values for use by the state machine.
-
-🚧 Coming soon! 🚧
-
-TODO: allow execution/replication modes to be set separately from high-level API enablement!
+you must still ensure that the state machine's `multiplayer.is_server()` and
+`is_multiplayer_authority()` methods return the appropriate values (clients also assume that the
+peer with ID=1 is the server when receiving RPC messages from peers).
 
 Synapse multiplayer support is configured *at the state machine level*. This means that each
 individual state machine is responsible for synchronizing all of its contained entities with its
-equivalent state machine across multiplayer peers.
+equivalent state machine across multiplayer peers. You do this by setting the **Multiplayer Mode**
+property of the state machine to one of the two API modes, i.e. not **Disabled** (more on the modes
+in [High-level vs. Low-level](#high-level-vs-low-level)).
 
 ## What Synapse Provides
 There are two key aspects that drive how a state machine behaves in a multiplayer environment:
-1. [Behavior execution](#-behavior-execution-modes): You will want Certain behaviors to only execute
+1. [Behavior execution](#behavior-execution-modes): You will want Certain behaviors to only execute
 on some peers, for example an input handling behavior for controlling a specific player's character.
-2. [Parameter replication](#-parameter-replication-modes): In many cases you want to share things
+2. [Parameter replication](#parameter-replication-modes): In many cases you want to share things
 like a character's position with other peers, which requires replicating the parameter's value
 across the network.
 
@@ -46,16 +45,111 @@ Behaviors will execute on all multiplayer peers by default, but you can choose t
 of any given behavior based on which multiplayer peer it is running in.
 
 Each behavior has a **multiplayer execution** parameter that you can set via the inspector or
-directly on the behavior node in the Synapse editor (if you don't see the widget, make sure you
-enable multiplayer support on your state machine per the [Prerequisites](#-prerequisites)):
+directly on the behavior node in the Synapse editor (if you don't see the widget, make sure you set
+a multiplayer mode on your state machine per the [Prerequisites](#prerequisites)):
 
 <p align="center">
   <img src="./media/behavior_execution_mode.png" alt="The behavior multiplayer execution mode option" />
 </p>
 
 The options are as follows:
-
-🚧 Coming soon! 🚧 TODO: List (with light/dark icons)
+<table>
+	<thead>
+		<tr>
+	  <th colspan="2">Mode</th>
+			<th>Peer type</th>
+			<th>Authority?</th>
+			<th>Executes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<img alt="Everyone icon" src="../../addons/synapse/icons/execute_all.svg#gh-dark-mode-only"/>
+				<img alt="Everyone icon" src="../../addons/synapse/icons/execute_all_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td><code>EVERYONE</code></td>
+			<td align="center" align="center">n/a</td>
+			<td align="center" align="center">n/a</td>
+			<td align="center">✅</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<img alt="Authority only icon" src="../../addons/synapse/icons/execute_auth.svg#gh-dark-mode-only"/>
+				<img alt="Authority only icon" src="../../addons/synapse/icons/execute_auth_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="2"><code>AUTHORITY_ONLY</code></td>
+			<td rowspan="2" align="center">n/a</td>
+			<td align="center">✅</td>
+			<td align="center">✅</td>
+		</tr>
+		<tr>
+			<td align="center">❌</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<img alt="Non-authority only icon" src="../../addons/synapse/icons/execute_non_auth.svg#gh-dark-mode-only"/>
+				<img alt="Non-authority only icon" src="../../addons/synapse/icons/execute_non_auth_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="2"><code>NON_AUTH_ONLY</code></td>
+			<td rowspan="2" align="center">n/a</td>
+			<td align="center">✅</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td align="center">❌</td>
+			<td align="center">✅</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<img alt="Server only icon" src="../../addons/synapse/icons/execute_server.svg#gh-dark-mode-only"/>
+				<img alt="Server only icon" src="../../addons/synapse/icons/execute_server_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="2"><code>SERVER_ONLY</code></td>
+			<td align="center">server</td>
+			<td rowspan="2" align="center">n/a</td>
+			<td align="center">✅</td>
+		</tr>
+		<tr>
+			<td align="center">client</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<img alt="Clients only icon" src="../../addons/synapse/icons/execute_client.svg#gh-dark-mode-only"/>
+				<img alt="Clients only icon" src="../../addons/synapse/icons/execute_client_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="2"><code>CLIENTS_ONLY</code></td>
+			<td align="center">server</td>
+			<td rowspan="2" align="center">n/a</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td align="center">client</td>
+			<td align="center">✅</td>
+		</tr>
+		<tr>
+			<td rowspan="3">
+				<img alt="Proxies only icon" src="../../addons/synapse/icons/execute_proxy.svg#gh-dark-mode-only"/>
+				<img alt="Proxies only icon" src="../../addons/synapse/icons/execute_proxy_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="3"><code>PROXIES_ONLY</code></td>
+			<td align="center">server</td>
+			<td align="center">n/a</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td rowspan="2" align="center">client</td>
+			<td align="center">✅</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td align="center">❌</td>
+			<td align="center">✅</td>
+		</tr>
+	</tbody>
+</table>
 
 ### Parameter Replication Modes
 Parameters are **not** shared across multiplayer peers by default, meaning each peer has its own
@@ -63,17 +157,81 @@ value for the parameter that is independent of other peers.
 
 In a multiplayer environment you want some peers to be responsible for updating a parameter and have
 those updates reflected on other peers. For example, when the server updates player scores or when a
-player updates their character's position. You can do this from the Synapse editor:
+player updates their character's position. You can do this from the Synapse editor (if you don't see
+the widget, make sure you set a multiplayer mode on your state machine per the
+[Prerequisites](#prerequisites)):
 
 <p align="center">
   <img src="./media/parameter_replication_mode.png" alt="The parameter multiplayer replication mode option" />
 </p>
 
 The options are as follows:
+<table>
+	<thead>
+		<tr>
+	  <th colspan="2">Mode</th>
+			<th>Peer type</th>
+			<th>Authority?</th>
+			<th>Replicated</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<img alt="Local icon" src="../../addons/synapse/icons/replicate_local.svg#gh-dark-mode-only"/>
+				<img alt="Local icon" src="../../addons/synapse/icons/replicate_local_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td><code>LOCAL</code></td>
+			<td align="center" align="center">n/a</td>
+			<td align="center" align="center">n/a</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<img alt="Server icon" src="../../addons/synapse/icons/replicate_server_auth.svg#gh-dark-mode-only"/>
+				<img alt="Server icon" src="../../addons/synapse/icons/replicate_server_auth_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="2"><code>SERVER_AUTH</code></td>
+			<td align="center">server</td>
+			<td rowspan="2" align="center">n/a</td>
+			<td align="center">✅</td>
+		</tr>
+		<tr>
+			<td align="center">client</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<img alt="Server icon" src="../../addons/synapse/icons/replicate_client_auth.svg#gh-dark-mode-only"/>
+				<img alt="Server icon" src="../../addons/synapse/icons/replicate_client_auth_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="2"><code>CLIENT_AUTH</code></td>
+			<td align="center">server</td>
+			<td rowspan="2" align="center">n/a</td>
+			<td align="center">❌</td>
+		</tr>
+		<tr>
+			<td align="center">client</td>
+			<td align="center">✅</td>
+		</tr>
+		<tr>
+			<td rowspan="2">
+				<img alt="Client predicted icon" src="../../addons/synapse/icons/replicate_client_predicted.svg#gh-dark-mode-only"/>
+				<img alt="Client predicted icon" src="../../addons/synapse/icons/replicate_client_predicted_dark.svg#gh-light-mode-only"/>
+			</td>
+			<td rowspan="2"><code>CLIENT_PREDICTED</code></td>
+			<td align="center">server</td>
+			<td rowspan="2" align="center">n/a</td>
+			<td align="center">❌<sup>*</sup></td>
+		</tr>
+		<tr>
+			<td align="center">client</td>
+			<td align="center">✅<sup>*</sup></td>
+		</tr>
+	</tbody>
+</table>
 
-🚧 Coming soon! 🚧 TODO: List (with light/dark icons)
-
-🚧 Coming soon! 🚧 TODO: Validation
+\* 🚧 Coming soon! 🚧 TODO: Validation
 
 ## High-level vs. Low-level
 If you're already familiar with Godot multiplayer support, you'll know which side of this fence your
@@ -85,9 +243,12 @@ opinionated about the implementation.
 
 🚧 Coming soon! 🚧
 
+In this mode, state machines running on non-server peers will send their updates to the server where
+the update is validated before being broadcast to other peers.
+
 ### Using the Low-level API
 
 🚧 Coming soon! 🚧
 
 | [← Previous: Working with Signals](signals.md) | [Manual](README.md) |
--| :--- | ---: |
+| :--- | ---: |

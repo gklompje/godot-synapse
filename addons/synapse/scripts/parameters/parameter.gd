@@ -43,10 +43,10 @@ enum ReplicationMode {
 	LOCAL,
 	## Only replicated by the server.
 	SERVER_AUTH,
-	## Replicated by the owning client, but the value may be rejected by server-side validation.
-	CLIENT_PREDICTED,
 	## Replicated by the owning client.
 	CLIENT_AUTH,
+	## Replicated by the owning client, but the value may be rejected by server-side validation.
+	CLIENT_PREDICTED,
 }
 
 ## The parameters's unique name within its owning state machine.
@@ -94,6 +94,6 @@ func should_replicate(is_server: bool, is_owner: bool) -> bool:
 	match replication_mode:
 		ReplicationMode.SERVER_AUTH:
 			return is_server
-		ReplicationMode.CLIENT_PREDICTED, SynapseParameter.ReplicationMode.CLIENT_AUTH:
+		ReplicationMode.CLIENT_AUTH, ReplicationMode.CLIENT_PREDICTED:
 			return is_owner and not is_server
 	return false

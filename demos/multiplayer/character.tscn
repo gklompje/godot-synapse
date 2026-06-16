@@ -131,7 +131,7 @@ graph_pos = Vector2(0, 520)
 
 [sub_resource type="Resource" id="Resource_oe2oe"]
 script = ExtResource("6_0k510")
-replication_mode = 3
+replication_mode = 2
 
 [sub_resource type="Resource" id="Resource_6qi7s"]
 script = ExtResource("4_o6xlq")
@@ -151,7 +151,7 @@ graph_pos = Vector2(0, 680)
 
 [sub_resource type="Resource" id="Resource_c3xme"]
 script = ExtResource("6_0k510")
-replication_mode = 3
+replication_mode = 2
 
 [sub_resource type="Resource" id="Resource_vnugn"]
 script = ExtResource("4_o6xlq")
@@ -170,8 +170,8 @@ script = ExtResource("5_at60r")
 godot_version = "4.6.3-stable (official)"
 plugin_version = "0.1.1-alpha"
 root_state = &"State"
-editor_scroll_offset = Vector2(118.4787, -352.5288)
-editor_zoom = 0.68301314
+editor_scroll_offset = Vector2(605.0978, -478.39252)
+editor_zoom = 0.9090906
 states = Dictionary[StringName, ExtResource("7_0k510")]({
 &"State": SubResource("Resource_82pkc")
 })
