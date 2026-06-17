@@ -240,11 +240,32 @@ a lot of the complexity of multiplayer synchronization, at the cost of being les
 opinionated about the implementation.
 
 ### Using the High-level API
+*It is highly recommended that you read Godot's
+[High-level multiplayer](https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html)
+documentation as this section assumes familiarity with it.*
+
+When you select "High Level" as the state machine's multiplayer mode in the inspector, the state
+machine will do all the work of synchronizing with peers for you using Godo't built-in RPC
+mechanisms, which are subject to the following:
+1. Your code is reponsible for setting up connections between peers such that the state machine
+node's `multiplayer` property refers to an active connection for the state machine to synchronize
+(the connection doesn't have to be active at the time of the state machine's initialization- it will
+wait to start synchronizing until the connection becomes active).
+1. The state machine's multiplayer peer must be set up to receive RPC methods. This is usually
+accomplished by ensuring the scene tree is identical in all connected peers, but Godot does allow
+for some customization of the "root path" (see the multiplayer demo's
+[Asymmetric Scenes](../../demos/multiplayer/README.md#-asymmetric-scenes) note).
+1. The previous point also applies when dynamically adding state machines (e.g. when spawning
+characters that have state machines in your game). The easiest way to achieve this is to use Godot's
+`MultiplayerSpawner` and remembering to call `set_multiplayer_authority` on the spawned scenes.
+
+While in this mode, state machines running on non-server peers will send their updates to the server
+where the update is validated before being broadcast to other peers. This doesn't necessarily force
+you to use a client/server multiplayer architecture (as opposed to a peer-to-peer mesh), but when
+choosing a different architecture you need to consider how that affects the parameter replication
+and behavior execution modes, as outlined in the tables above.
 
 🚧 Coming soon! 🚧
-
-In this mode, state machines running on non-server peers will send their updates to the server where
-the update is validated before being broadcast to other peers.
 
 ### Using the Low-level API
 

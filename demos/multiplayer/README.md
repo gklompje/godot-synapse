@@ -73,13 +73,13 @@ chosen color via command-line arguments.
 
 ### 🎭 Asymmetric Scenes
 Clients and servers in this demo use separate scenes rather than identical ones. Because Godot's
-`MultiplayerSpawner` and RPC systems expect matching node paths by default, the RPC script sets the
-`MultiplayerRoot` node as its root path. This ensures all network actions resolve correctly across
-differing structures.
+`MultiplayerSpawner` and RPC systems expect matching node paths by default, the
+[RPC script](rpc_bridge.gd)'s `_ready()` function sets the `MultiplayerRoot` node as its root path.
+This ensures all network actions resolve correctly across differing structures.
 
 (In hindsight, this really wasn't necessary and we could have just added the UI elements from a
 single script using the client/server differentiation to pick its setup, but it does have the
-advantage of making the whole scene more understandable compared to a single scene/script.)
+advantage of separating the client and server code which makes the script a bit more readable.)
 
 ### 🐛 Console Debugging
 The demo includes a separate TCP server ([debug_server.gd]) and client ([debug_client.gd]) that are
