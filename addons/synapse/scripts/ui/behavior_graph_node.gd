@@ -8,7 +8,7 @@ var _execution_mode_button: OptionButton
 var _link_button: Button
 var _parameter_value_defs: Dictionary[StringName, Dictionary] = {}
 
-func setup_for(behavior_data: SynapseBehaviorData, state_machine: SynapseStateMachine) -> void:
+func setup_for(behavior_data: SynapseBehaviorData, state_machine: SynapseStateMachine, undo_redo: EditorUndoRedoManager) -> void:
 	var behavior := state_machine.get_node(behavior_data.node_path) as SynapseBehavior
 	if not behavior:
 		push_error("Unable to locate behavior at ", behavior_data.node_path)
@@ -21,8 +21,8 @@ func setup_for(behavior_data: SynapseBehaviorData, state_machine: SynapseStateMa
 	else:
 		_link_button = link_scene(load(behavior.scene_file_path) as PackedScene)
 
-	state_machine.property_list_changed.connect(_sync_execution_mode_button.bind(state_machine, behavior))
-	_sync_execution_mode_button(state_machine, behavior)
+	state_machine.property_list_changed.connect(_sync_execution_mode_button.bind(behavior, state_machine, undo_redo))
+	_sync_execution_mode_button(behavior, state_machine, undo_redo)
 	EditorInterface.get_inspector().property_edited.connect(_on_inspector_property_edited.bind(behavior))
 
 	link_node(behavior, "Go to behavior node")
@@ -66,9 +66,15 @@ func get_parameter_value_info(slot_name: StringName) -> Dictionary:
 func get_entity_type() -> SynapseStateMachineData.EntityType:
 	return SynapseStateMachineData.EntityType.BEHAVIOR
 
-func _on_execution_mode_selected(mode: SynapseBehavior.MultiplayerExecutionMode, behavior: SynapseBehavior) -> void:
-	# TODO: undo/redo
+func _on_execution_mode_selected(mode: SynapseBehavior.MultiplayerExecutionMode, behavior: SynapseBehavior, state_machine: SynapseStateMachine, undo_redo: EditorUndoRedoManager) -> void:
+	undo_redo.create_action("Set " + get_entity_name() + " execution mode", UndoRedo.MERGE_DISABLE, state_machine.data)
+	undo_redo.add_do_method(self, "_set_behavior_multiplayer_execution_mode", behavior, mode)
+	undo_redo.add_undo_method(self, "_set_behavior_multiplayer_execution_mode", behavior, behavior.multiplayer_execution_mode)
+	undo_redo.commit_action()
+
+func _set_behavior_multiplayer_execution_mode(behavior: SynapseBehavior, mode: SynapseBehavior.MultiplayerExecutionMode) -> void:
 	behavior.multiplayer_execution_mode = mode
+	_execution_mode_button.selected = _execution_mode_button.get_item_index(mode)
 	if is_same(EditorInterface.get_inspector().get_edited_object(), behavior):
 		behavior.notify_property_list_changed()
 		EditorInterface.inspect_object(behavior)
@@ -83,7 +89,7 @@ func _on_inspector_property_edited(property_name: String, behavior: SynapseBehav
 	if _execution_mode_button:
 		_execution_mode_button.selected = _execution_mode_button.get_item_index(behavior.multiplayer_execution_mode)
 
-func _sync_execution_mode_button(state_machine: SynapseStateMachine, behavior: SynapseBehavior) -> void:
+func _sync_execution_mode_button(behavior: SynapseBehavior, state_machine: SynapseStateMachine, undo_redo: EditorUndoRedoManager) -> void:
 	if state_machine.multiplayer_mode == SynapseStateMachine.MultiplayerMode.DISABLED:
 		if _execution_mode_button:
 			remove_title_button(_execution_mode_button)
@@ -107,4 +113,4 @@ func _sync_execution_mode_button(state_machine: SynapseStateMachine, behavior: S
 		_execution_mode_button.set_item_tooltip(_execution_mode_button.get_item_index(SynapseBehavior.MultiplayerExecutionMode.PROXIES_ONLY), "Executes only on clients (non-server peers) that are *not* the multiplayer authority for the owning state machine.")
 		add_title_button(_execution_mode_button)
 		_execution_mode_button.selected = _execution_mode_button.get_item_index(behavior.multiplayer_execution_mode)
-		_execution_mode_button.item_selected.connect(_on_execution_mode_selected.bind(behavior))
+		_execution_mode_button.item_selected.connect(_on_execution_mode_selected.bind(behavior, state_machine, undo_redo))

@@ -350,7 +350,7 @@ func create_behavior_graph_node(behavior_data: SynapseBehaviorData) -> SynapseBe
 	behavior_graph_nodes[behavior_data.name] = graph_node
 	graph_node.dragged.connect(_on_behavior_node_moved.bind(graph_node))
 	graph_node.name_update_requested.connect(_on_behavior_name_change_requested.bind(graph_node))
-	graph_node.setup_for(behavior_data, state_machine)
+	graph_node.setup_for(behavior_data, state_machine, undo_redo)
 	graph_node.slots_updated.connect(update_connections)
 	return graph_node
 
@@ -376,7 +376,7 @@ func create_parameter_graph_node(parameter_data: SynapseParameterData) -> Synaps
 	parameter_graph_nodes[parameter_data.name] = graph_node
 	graph_node.dragged.connect(_on_parameter_node_moved.bind(graph_node))
 	graph_node.name_update_requested.connect(_on_parameter_name_change_requested.bind(graph_node))
-	graph_node.setup_for(state_machine.data.parameters[parameter_data.name], undo_redo, state_machine)
+	graph_node.setup_for(state_machine.data.parameters[parameter_data.name], state_machine, undo_redo)
 	graph_node.parameter_value_set.connect(_on_parameter_value_set)
 	graph_node.slots_updated.connect(update_connections)
 	return graph_node

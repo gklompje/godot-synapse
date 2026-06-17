@@ -44,12 +44,12 @@ var _export_button: Button
 func get_entity_type() -> SynapseStateMachineData.EntityType:
 	return SynapseStateMachineData.EntityType.PARAMETER
 
-func setup_for(parameter_data: SynapseParameterData, undo_redo: EditorUndoRedoManager, state_machine: SynapseStateMachine) -> void:
+func setup_for(parameter_data: SynapseParameterData, state_machine: SynapseStateMachine, undo_redo: EditorUndoRedoManager) -> void:
 	@warning_ignore("unsafe_cast")
 	_script_button = link_script(parameter_data.parameter.get_script() as Script)
 
-	state_machine.property_list_changed.connect(_sync_replication_mode_button.bind(state_machine, parameter_data))
-	_sync_replication_mode_button(state_machine, parameter_data)
+	state_machine.property_list_changed.connect(_sync_replication_mode_button.bind(parameter_data, state_machine, undo_redo))
+	_sync_replication_mode_button(parameter_data, state_machine, undo_redo)
 
 	_export_button = Button.new()
 	_export_button.tooltip_text = "Toggle visibility in inspector and other state machines"
@@ -122,12 +122,17 @@ func _update_visibility_icon(exposed: bool) -> void:
 	else:
 		_export_button.icon = SynapseStateMachineEditorResourceManager.Icons.get_icon(SynapseStateMachineEditorResourceManager.Icons.UI_HIDDEN)
 
-func _on_replication_mode_selected(mode: SynapseParameter.ReplicationMode) -> void:
-	# TODO: undo/redo
-	_proxy.parameter_data.parameter.replication_mode = mode
-	_proxy.parameter_data.parameter.emit_changed()
+func _on_replication_mode_selected(mode: SynapseParameter.ReplicationMode, state_machine: SynapseStateMachine, undo_redo: EditorUndoRedoManager) -> void:
+	undo_redo.create_action("Set " + get_entity_name() + " replication mode", UndoRedo.MERGE_DISABLE, state_machine.data)
+	undo_redo.add_do_property(_proxy.parameter_data.parameter, "replication_mode", mode)
+	undo_redo.add_do_method(_proxy.parameter_data.parameter, "emit_changed")
+	undo_redo.add_do_property(_replication_mode_button, "selected", _replication_mode_button.get_item_index(mode))
+	undo_redo.add_undo_property(_proxy.parameter_data.parameter, "replication_mode", _proxy.parameter_data.parameter.replication_mode)
+	undo_redo.add_undo_method(_proxy.parameter_data.parameter, "emit_changed")
+	undo_redo.add_undo_property(_replication_mode_button, "selected", _replication_mode_button.get_item_index(_proxy.parameter_data.parameter.replication_mode))
+	undo_redo.commit_action()
 
-func _sync_replication_mode_button(state_machine: SynapseStateMachine, parameter_data: SynapseParameterData) -> void:
+func _sync_replication_mode_button(parameter_data: SynapseParameterData, state_machine: SynapseStateMachine, undo_redo: EditorUndoRedoManager) -> void:
 	if state_machine.multiplayer_mode == SynapseStateMachine.MultiplayerMode.DISABLED:
 		if _replication_mode_button:
 			remove_title_button(_replication_mode_button)
@@ -147,4 +152,4 @@ func _sync_replication_mode_button(state_machine: SynapseStateMachine, parameter
 		_replication_mode_button.set_item_tooltip(_replication_mode_button.get_item_index(SynapseParameter.ReplicationMode.CLIENT_PREDICTED), "Replicated by the owning client, but the value may be rejected by server-side validation.")
 		add_title_button(_replication_mode_button, _script_button)
 		_replication_mode_button.selected = _replication_mode_button.get_item_index(parameter_data.parameter.replication_mode)
-		_replication_mode_button.item_selected.connect(_on_replication_mode_selected)
+		_replication_mode_button.item_selected.connect(_on_replication_mode_selected.bind(state_machine, undo_redo))
