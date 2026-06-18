@@ -20,8 +20,13 @@ const SYNC_DATA_STATES := &"states"
 const SYNC_DATA_PARAMETERS := &"parameters"
 const SYNC_DATA_PARAMETER_VALUE := &"value"
 
+## For internal use.
 signal pre_created
+
+## Emitted when the state machine is fully initialized.
 signal created
+
+## For internal use.
 signal data_set
 
 @export var data: SynapseStateMachineData:
@@ -90,6 +95,7 @@ var _dirty_parameters_for_differential_sync: Dictionary[StringName, bool] = {}
 var _time_since_last_differential_sync := 0.0
 var _time_since_last_full_sync := 0.0
 var _ignore_parameter_value_set_for_sync := false
+var _parameter_validation_functions: Dictionary[StringName, Callable] = {}
 
 @warning_ignore("shadowed_variable")
 func _init(root: SynapseState = null) -> void:
@@ -137,16 +143,22 @@ func _ready() -> void:
 		state_data.notify_state_machine_pre_created(self)
 
 	if multiplayer_mode == MultiplayerMode.HIGH_LEVEL:
+		rpc_config(&"sync_multiplayer_data_differential", {
+			"rpc_mode": MultiplayerAPI.RPC_MODE_ANY_PEER,
+			"transfer_mode": multiplayer_differential_sync_transfer_mode,
+			"transfer_channel": multiplayer_differential_sync_transfer_channel,
+			"call_local": false
+		})
 		rpc_config(&"sync_multiplayer_data_full", {
 			"rpc_mode": MultiplayerAPI.RPC_MODE_ANY_PEER,
 			"transfer_mode": multiplayer_full_sync_transfer_mode,
 			"transfer_channel": multiplayer_full_sync_transfer_channel,
 			"call_local": false
 		})
-		rpc_config(&"sync_multiplayer_data_differential", {
+		rpc_config(&"sync_validated_parameter", {
 			"rpc_mode": MultiplayerAPI.RPC_MODE_ANY_PEER,
-			"transfer_mode": multiplayer_differential_sync_transfer_mode,
-			"transfer_channel": multiplayer_differential_sync_transfer_channel,
+			"transfer_mode": MultiplayerPeer.TransferMode.TRANSFER_MODE_RELIABLE,
+			"transfer_channel": multiplayer_full_sync_transfer_channel,
 			"call_local": false
 		})
 
@@ -358,6 +370,26 @@ func apply_multiplayer_sync_data(sync_data: Dictionary) -> void:
 		all_parameters[parameter_name].set_from_multiplayer_sync_value(parameter_sync_datas[parameter_name][SYNC_DATA_PARAMETER_VALUE], self)
 	_ignore_parameter_value_set_for_sync = false
 
+## Sets a validation function that the server peer will invoke when receiving values for the
+## specified parameter from other peers.[br][br]
+## By default, no validation is performed on any received parameters. Validation will [b]only[/b] be
+## performed on parameters whose [member SynapseParameter.replication_mode] is
+## [constant SynapseParameter.ReplicationMode.CLIENT_PREDICTED].[br][br]
+## The validation function must be a callable that accepts one argument, which is the value returned
+## by the parameter's [method SynapseParameter.get_value_for_multiplayer_sync] method. The function
+## must return a value of the same type, suitable for passing into the parameter's
+## [method SynapseParameter.set_from_multiplayer_sync_value] method.[br][br]
+## This method should only be called after the state machine is fully initialized (see
+## [signal created]).
+func set_server_validation_function_for_parameter(parameter_name: StringName, validation_function: Callable) -> void:
+	if not all_parameters.has(parameter_name):
+		push_error("Cannot set validation function for unknown parameter: ", parameter_name)
+		return
+	if all_parameters[parameter_name].replication_mode != SynapseParameter.ReplicationMode.CLIENT_PREDICTED:
+		push_error("Cannot set validation function on parameter with replication mode that is not ", SynapseParameter.ReplicationMode.find_key(SynapseParameter.ReplicationMode.CLIENT_PREDICTED), ": ", parameter_name)
+		return
+	_parameter_validation_functions[parameter_name] = validation_function
+
 ## ---------------- RPC METHODS ----------------
 
 func sync_multiplayer_data_full(sync_data: Dictionary) -> void:
@@ -365,6 +397,19 @@ func sync_multiplayer_data_full(sync_data: Dictionary) -> void:
 
 func sync_multiplayer_data_differential(sync_data: Dictionary) -> void:
 	_sync_multiplayer_data(sync_data, multiplayer.get_remote_sender_id(), true)
+
+func sync_validated_parameter(parameter_name: StringName, validated_value: Variant) -> void:
+	if multiplayer.get_remote_sender_id() != MultiplayerPeer.TARGET_PEER_SERVER:
+		push_warning("Rejecting validation update from non-server peer: ", multiplayer.get_remote_sender_id())
+		return
+	var parameter: SynapseParameter = all_parameters.get(parameter_name)
+	if not parameter:
+		push_warning("Ignoring validation update from server for unknown parameter: ", parameter_name)
+		return
+	if parameter.replication_mode != SynapseParameter.ReplicationMode.CLIENT_PREDICTED:
+		push_warning("Ignoring validation update from server for parameter with replcation mode that is not ", SynapseParameter.ReplicationMode.find_key(SynapseParameter.ReplicationMode.CLIENT_PREDICTED), ": ", parameter_name)
+		return
+	parameter.set_from_multiplayer_sync_value(validated_value, self)
 
 ## ---------------- INTERNAL METHODS ----------------
 
@@ -529,16 +574,31 @@ func _handle_multiplayer_sync_data(sync_data: Dictionary, sender_id: int, differ
 		# trust the server
 		valid_data = sync_data
 	else:
-		# only include parameter values we know the peer is supposed to send
+		# only include parameter values we know the peer is supposed to send, and apply validation (if defined)
 		var sender_is_owner := sender_id == get_multiplayer_authority()
 		if sync_data.has(SYNC_DATA_PARAMETERS) and sync_data[SYNC_DATA_PARAMETERS] is Dictionary:
 			var valid_param_data := {}
 			var param_sync_data: Dictionary = sync_data[SYNC_DATA_PARAMETERS]
 			for parameter_name: StringName in param_sync_data:
-				# TODO: parameter validation
 				var parameter: SynapseParameter = all_parameters.get(parameter_name)
-				if parameter and parameter.should_replicate(false, sender_is_owner):
-					valid_param_data[parameter_name] = param_sync_data[parameter_name]
+				if parameter and parameter.should_replicate(false, sender_is_owner) and param_sync_data[parameter_name] is Dictionary:
+					var pd: Dictionary = param_sync_data[parameter_name]
+					if not pd.has(SYNC_DATA_PARAMETER_VALUE):
+						continue
+					var source_value: Variant = pd[SYNC_DATA_PARAMETER_VALUE]
+					pd.clear()
+					var validator: Callable
+					if parameter.replication_mode == SynapseParameter.ReplicationMode.CLIENT_PREDICTED:
+						validator = _parameter_validation_functions.get(parameter_name, Callable())
+					if validator:
+						var valid_value: Variant = (validator as Callable).call(source_value)
+						pd[SYNC_DATA_PARAMETER_VALUE] = valid_value
+						if valid_value != source_value:
+							# push the validated value back to the sender
+							_sync_validated_parameter.call_deferred(parameter_name, valid_value, sender_id)
+					else:
+						pd[SYNC_DATA_PARAMETER_VALUE] = source_value
+					valid_param_data[parameter_name] = pd
 			if not valid_param_data.is_empty():
 				valid_data[SYNC_DATA_PARAMETERS] = valid_param_data
 
@@ -618,6 +678,9 @@ func _handle_multiplayer_peer_connected(id: int, is_server: bool, is_owner: bool
 			_send_sync_data(full_sync_data, false, 1)
 			_time_since_last_differential_sync = 0.0
 			_time_since_last_full_sync = 0.0
+
+func _sync_validated_parameter(parameter_name: StringName, validated_value: Variant, peer_id: int) -> void:
+	sync_validated_parameter.rpc_id(peer_id, parameter_name, validated_value)
 
 ## ---------------- SIGNAL HANDLERS ----------------
 
