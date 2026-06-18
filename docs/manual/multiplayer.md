@@ -265,7 +265,13 @@ you to use a client/server multiplayer architecture (as opposed to a peer-to-pee
 choosing a different architecture you need to consider how that affects the parameter replication
 and behavior execution modes, as outlined in the tables above.
 
-🚧 Coming soon! 🚧
+Synchronization occurs in two distinct phases:
+1. **Differential**: Partial updates that synchronize only the parameters that have changed since
+the last differential update, as well as state data if any state changes occurred.
+2. **Full**: The current values of all parameters as well as all state data.
+
+The default RPC config values should work fine in most cases, but you can configure them if your
+game has different requirements.
 
 ### Using the Low-level API
 
