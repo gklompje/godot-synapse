@@ -231,7 +231,14 @@ The options are as follows:
 	</tbody>
 </table>
 
-\* 🚧 Coming soon! 🚧 TODO: Validation
+`CLIENT_PREDICTED` parameters are sent from the client to the server just like `CLIENT_AUTH`
+parameters, but allow the addition of server validation functions. If the server has a validation
+function for the parameter and the validation function corrects the value, the server will send the
+corrected value back to the sending peer (in addition to broadcasting it to other peers as per
+normal) so that the errant peer can self-correct.
+
+Validation functions can only be added in code (not the graph editor) by calling the state machine's
+`set_server_validation_function_for_parameter()` method.
 
 ## High-level vs. Low-level
 If you're already familiar with Godot multiplayer support, you'll know which side of this fence your
@@ -245,7 +252,7 @@ opinionated about the implementation.
 documentation as this section assumes familiarity with it.*
 
 When you select "High Level" as the state machine's multiplayer mode in the inspector, the state
-machine will do all the work of synchronizing with peers for you using Godo't built-in RPC
+machine will do all the work of synchronizing with peers for you using Godot's built-in RPC
 mechanisms, which are subject to the following:
 1. Your code is reponsible for setting up connections between peers such that the state machine
 node's `multiplayer` property refers to an active connection for the state machine to synchronize
