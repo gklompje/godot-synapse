@@ -372,7 +372,7 @@ func _state_machine_created() -> void:
 	pass
 
 ## Returns a resource containing this behavior's save data.[br][br]
-## To add custom save data, see [method _get_save_data].
+## To add custom save data, see [method _get_custom_save_data].
 func get_save_data() -> Dictionary:
 	var custom_data := _get_custom_save_data()
 	if custom_data.is_empty():
