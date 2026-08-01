@@ -47,8 +47,9 @@ func create_bridge(state_machine: SynapseStateMachine) -> void:
 		var arg_name := method_args[i]["name"] as String
 		if property_references.has(arg_name):
 			var ref := property_references[arg_name]
-			var prop: Variant = state_machine.get_runtime_object_from(ref.entity_reference).get(ref.property_name)
-			arg_getters.append(func(_args: Array) -> Variant: return prop)
+			var obj := state_machine.get_runtime_object_from(ref.entity_reference)
+			var prop_name := ref.property_name
+			arg_getters.append(func(_args: Array) -> Variant: return obj.get(prop_name))
 		elif wired_parameters.has(arg_name):
 			var arg_index := signal_arg_indexes[wired_parameters[arg_name]]
 			arg_getters.append(func(args: Array) -> Variant: return args[arg_index])
